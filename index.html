@@ -223,16 +223,15 @@ nav{padding:16px 20px}
 
 <!-- NAV -->
 <nav>
-  <a href="#home" class="logo">
+  <a href="#home" class="logo" title="Home">
     <span class="logo-icon">📸</span>
-    <span class="logo-text">Cousins <span>Gallery</span></span>
   </a>
   <ul class="nav-links">
     <li><a href="#cousins">The Crew</a></li>
     <li><a href="#gallery">Gallery</a></li>
   </ul>
   <div class="nav-actions">
-    <button class="btn-nav" id="openUpload">↑ Upload Photos</button>
+    <button class="btn-nav" id="openUpload" style="display:none">↑ Upload Photos</button>
     <div id="adminNavLoggedOut">
       <button class="btn-nav btn-admin" id="openAdminLoginBtn">🔐 Admin</button>
     </div>
@@ -691,7 +690,15 @@ document.addEventListener("keydown",function(e){
   if(e.key==="Escape") document.getElementById("lbClose").click();
 });
 
-function openUpload(){ document.getElementById("uploadOverlay").classList.add("open"); document.body.style.overflow="hidden"; }
+function openUpload(){
+  if(!isAdmin){
+    toast("Admin login required to upload photos 🔐", "info");
+    openAdminLogin();
+    return;
+  }
+  document.getElementById("uploadOverlay").classList.add("open");
+  document.body.style.overflow="hidden";
+}
 function closeUpload(){ document.getElementById("uploadOverlay").classList.remove("open"); document.body.style.overflow=""; }
 document.getElementById("openUpload").onclick=openUpload;
 document.getElementById("emptyUploadBtn").onclick=openUpload;
@@ -739,6 +746,11 @@ function checkUploadReady(){
 }
 
 document.getElementById("confirmUpload").onclick=function(){
+  if(!isAdmin){
+    toast("Admin login required to upload photos 🔐", "info");
+    openAdminLogin();
+    return;
+  }
   var trip=document.getElementById("tripInput").value.trim()||"Trip";
   var btn=document.getElementById("confirmUpload");
   btn.disabled=true; btn.textContent="Uploading...";
@@ -771,14 +783,17 @@ function updateAdminUI(){
   var loggedOut = document.getElementById("adminNavLoggedOut");
   var loggedIn = document.getElementById("adminNavLoggedIn");
   var crewBar = document.getElementById("crewAdminBar");
+  var navUpload = document.getElementById("openUpload");
   if(isAdmin){
     if(loggedOut) loggedOut.style.display = "none";
     if(loggedIn) loggedIn.style.display = "flex";
     if(crewBar) crewBar.style.display = "block";
+    if(navUpload) navUpload.style.display = "inline-flex";
   } else {
     if(loggedOut) loggedOut.style.display = "block";
     if(loggedIn) loggedIn.style.display = "none";
     if(crewBar) crewBar.style.display = "none";
+    if(navUpload) navUpload.style.display = "none";
   }
 }
 
