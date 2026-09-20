@@ -224,7 +224,6 @@ nav{padding:16px 20px}
 <!-- NAV -->
 <nav>
   <div class="nav-actions">
-    <button class="btn-nav" id="openUpload" style="display:none">↑ Upload Photos</button>
     <div id="adminNavLoggedOut">
       <button class="btn-nav btn-admin" id="openAdminLoginBtn">🔐 Admin</button>
     </div>
@@ -796,7 +795,7 @@ function openUpload(){
   document.body.style.overflow="hidden";
 }
 function closeUpload(){ document.getElementById("uploadOverlay").classList.remove("open"); document.body.style.overflow=""; }
-document.getElementById("openUpload").onclick=openUpload;
+var openUp=document.getElementById("openUpload");if(openUp)openUp.onclick=openUpload;
 var emptyBtn=document.getElementById("emptyUploadBtn");if(emptyBtn)emptyBtn.onclick=openUpload;
 var heroUp=document.getElementById("heroUpload");if(heroUp)heroUp.onclick=openUpload;
 var crewUp=document.getElementById("crewUploadBtn");if(crewUp)crewUp.onclick=openUpload;
@@ -910,17 +909,14 @@ function updateAdminUI(){
   var loggedOut = document.getElementById("adminNavLoggedOut");
   var loggedIn = document.getElementById("adminNavLoggedIn");
   var crewBar = document.getElementById("crewAdminBar");
-  var navUpload = document.getElementById("openUpload");
   if(isAdmin){
     if(loggedOut) loggedOut.style.display = "none";
     if(loggedIn) loggedIn.style.display = "flex";
     if(crewBar) crewBar.style.display = "block";
-    if(navUpload) navUpload.style.display = "inline-flex";
   } else {
     if(loggedOut) loggedOut.style.display = "block";
     if(loggedIn) loggedIn.style.display = "none";
     if(crewBar) crewBar.style.display = "none";
-    if(navUpload) navUpload.style.display = "none";
   }
 }
 
