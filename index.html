@@ -529,55 +529,64 @@ function saveCousins(){
     }).catch(function(err){ console.log("Cloud crew sync err:", err); });
   }
 }
-saveCousins();
 
-// Real-time Cloud Synchronization
-if(db){
-  // 1. Sync crew profile names & DPs across all devices
-  db.collection("settings").doc("crew").onSnapshot(function(doc){
-    if(doc.exists){
-      var data = doc.data();
-      if(data && Array.isArray(data.cousins) && data.cousins.length){
-        data.cousins.forEach(function(cloudC){
-          var localC = COUSINS.find(function(x){ return x.id === cloudC.id; });
-          if(localC){
-            localC.name = cloudC.name || localC.name;
-            if(cloudC.dp !== undefined) localC.dp = cloudC.dp;
+function initCloudSync(){
+  if(!db) return;
+  try {
+    // 1. Sync crew profile names & DPs across all devices
+    db.collection("settings").doc("crew").onSnapshot(function(doc){
+      try {
+        if(doc.exists){
+          var data = doc.data();
+          if(data && Array.isArray(data.cousins) && data.cousins.length){
+            data.cousins.forEach(function(cloudC){
+              var localC = COUSINS.find(function(x){ return x.id === cloudC.id; });
+              if(localC){
+                localC.name = cloudC.name || localC.name;
+                if(cloudC.dp !== undefined) localC.dp = cloudC.dp;
+              }
+            });
+            localStorage.setItem("cg_cousins", JSON.stringify(COUSINS.map(function(c){ return { id: c.id, name: c.name, dp: c.dp }; })));
+            renderCousins();
+            buildChips();
+            buildFilters();
+            renderGallery();
           }
-        });
-        localStorage.setItem("cg_cousins", JSON.stringify(COUSINS.map(function(c){ return { id: c.id, name: c.name, dp: c.dp }; })));
-        renderCousins();
-        buildChips();
-        buildFilters();
-        renderGallery();
-      }
-    }
-  }, function(err){
-    console.log("Firestore crew listener:", err.message);
-  });
-
-  // 2. Sync photos across all devices in real-time
-  db.collection("photos").orderBy("date", "desc").onSnapshot(function(snapshot){
-    var cloudPhotos = [];
-    snapshot.forEach(function(doc){
-      var d = doc.data();
-      cloudPhotos.push({
-        id: doc.id,
-        member: d.member,
-        src: d.src,
-        trip: d.trip || "Trip",
-        name: d.name || "Photo",
-        date: d.date || Date.now()
-      });
+        }
+      } catch(e){ console.warn("Crew sync handle err:", e); }
+    }, function(err){
+      console.warn("Firestore crew listener:", err.message);
     });
-    photos = cloudPhotos;
-    localStorage.setItem("cg_photos", JSON.stringify(photos));
-    buildFilters();
-    renderGallery();
-    renderCousins();
-  }, function(err){
-    console.log("Firestore photos listener (activate Firestore in Test mode):", err.message);
-  });
+
+    // 2. Sync photos across all devices in real-time
+    db.collection("photos").orderBy("date", "desc").onSnapshot(function(snapshot){
+      try {
+        var cloudPhotos = [];
+        snapshot.forEach(function(doc){
+          var d = doc.data();
+          cloudPhotos.push({
+            id: doc.id,
+            member: d.member,
+            src: d.src,
+            trip: d.trip || "Trip",
+            name: d.name || "Photo",
+            date: d.date || Date.now()
+          });
+        });
+        if(cloudPhotos.length > 0){
+          photos = cloudPhotos;
+          localStorage.setItem("cg_photos", JSON.stringify(photos));
+          buildFilters();
+          renderGallery();
+          renderCousins();
+        }
+      } catch(e){ console.warn("Photos sync handle err:", e); }
+    }, function(err){
+      console.warn("Firestore photos listener:", err.message);
+    });
+  } catch(err){
+    console.warn("initCloudSync err:", err);
+  }
 }
 
 let isAdmin = localStorage.getItem("cg_admin") === "true";
@@ -1107,6 +1116,7 @@ document.getElementById("resetCrewNamesBtn").onclick = resetCrewNames;
 
 updateAdminUI();
 buildChips(); renderCousins(); buildFilters(); renderGallery();
+initCloudSync();
 
 </script>
 </body>
