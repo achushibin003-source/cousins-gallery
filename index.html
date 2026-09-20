@@ -1,0 +1,993 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cousins Gallery 📸</title>
+<meta name="description" content="Our private family photo gallery — 5 cousins, endless trips, one place.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@800;900&family=Cinzel+Decorative:wght@700&family=Playfair+Display:wght@700;800;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#0d0d0d;--bg2:#141414;--bg3:#1a1a1a;
+  --border:#ffffff12;--border2:#ffffff20;
+  --text:#f0f0f0;--muted:#888;--subtle:#555;
+  --accent:#c8a96e;--accent2:#e8c99e;
+  --radius:16px;--radius-sm:10px;
+  --shadow:0 8px 40px #0009;
+  --transition:0.3s cubic-bezier(0.4,0,0.2,1);
+}
+html{scroll-behavior:smooth;overflow-x:hidden}
+body{background:var(--bg);color:var(--text);font-family:"Inter",sans-serif;min-height:100vh;line-height:1.6}
+
+/* SCROLLBAR */
+::-webkit-scrollbar{width:6px}
+::-webkit-scrollbar-track{background:var(--bg2)}
+::-webkit-scrollbar-thumb{background:var(--subtle);border-radius:3px}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:18px 40px;display:flex;align-items:center;justify-content:space-between;backdrop-filter:blur(20px);background:#0d0d0daa;border-bottom:1px solid var(--border)}
+.logo{display:flex;align-items:center;gap:10px;text-decoration:none}
+.logo-icon{font-size:22px}
+.logo-text{font-family:"Playfair Display",serif;font-size:20px;color:var(--text);letter-spacing:0.02em}
+.logo-text span{color:var(--accent)}
+.nav-links{display:flex;gap:32px;list-style:none}
+.nav-links a{color:var(--muted);text-decoration:none;font-size:14px;font-weight:500;letter-spacing:0.04em;text-transform:uppercase;transition:color var(--transition)}
+.nav-links a:hover{color:var(--text)}
+.btn-nav{background:transparent;border:1px solid var(--border2);color:var(--text);padding:8px 20px;border-radius:50px;font-size:13px;font-family:"Inter",sans-serif;cursor:pointer;transition:all var(--transition)}
+.btn-nav:hover{background:var(--accent);border-color:var(--accent);color:#000}
+
+
+
+/* SECTION BASE */
+.section{padding:100px 40px;max-width:1200px;margin:0 auto}
+.section-header{text-align:center;margin-bottom:64px}
+.section-label{font-size:11px;letter-spacing:0.2em;text-transform:uppercase;color:var(--accent);margin-bottom:14px;display:block}
+.section-title{font-family:"Playfair Display",serif;font-size:clamp(32px,5vw,52px);font-weight:700;color:var(--text);margin-bottom:14px;letter-spacing:-0.01em}
+.section-desc{color:var(--muted);font-size:16px;font-weight:300;max-width:500px;margin:0 auto}
+
+/* DIVIDER */
+.divider{height:1px;background:linear-gradient(90deg,transparent,var(--border2),transparent);margin:0 40px}
+
+/* COUSINS GRID */
+.cousins-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:20px}
+.cousin-card{background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius);padding:28px 20px;text-align:center;cursor:pointer;transition:all var(--transition);position:relative;overflow:hidden}
+.cousin-card::before{content:"";position:absolute;inset:0;background:var(--gradient,linear-gradient(135deg,#c8a96e15,transparent));opacity:0;transition:opacity var(--transition)}
+.cousin-card:hover::before{opacity:1}
+.cousin-card:hover{border-color:var(--accent);transform:translateY(-4px);box-shadow:var(--shadow)}
+.cousin-card.active{border-color:var(--accent);box-shadow:0 0 0 1px var(--accent)}
+.cousin-avatar{width:72px;height:72px;border-radius:50%;margin:0 auto 16px;background:var(--bg3);border:2px solid var(--border2);display:flex;align-items:center;justify-content:center;font-size:28px;transition:all var(--transition);overflow:hidden;position:relative}
+.cousin-avatar img{width:100%;height:100%;object-fit:cover;display:block}
+.cousin-card:hover .cousin-avatar,.cousin-card.active .cousin-avatar{border-color:var(--accent)}
+.cousin-name{font-weight:600;font-size:16px;margin-bottom:4px}
+.cousin-tag{font-size:12px;color:var(--muted);margin-bottom:12px}
+.cousin-count{font-size:12px;color:var(--accent);font-weight:500}
+.cousin-card .upload-hint{font-size:11px;color:var(--subtle);margin-top:6px}
+
+.hero{min-height:85vh;display:flex;align-items:center;justify-content:center;text-align:center;padding:140px 24px 80px;position:relative;overflow:hidden}
+.hero-glow{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:700px;height:500px;background:radial-gradient(ellipse at center,#c8a96e22 0%,#c8a96e05 50%,transparent 75%);pointer-events:none}
+.hero-content{position:relative;max-width:720px;z-index:1}
+.hero-tag{display:inline-flex;align-items:center;gap:8px;font-size:12px;letter-spacing:0.16em;text-transform:uppercase;color:var(--accent);margin-bottom:24px;border:1px solid #c8a96e35;padding:7px 20px;border-radius:50px;background:#c8a96e0c}
+h1.hero-title{display:flex;flex-direction:column;align-items:center;margin-bottom:24px;line-height:1.08}
+.hero-caps{font-family:"Outfit","Inter",sans-serif;font-size:clamp(46px,7.8vw,88px);font-weight:900;text-transform:uppercase;letter-spacing:0.06em;color:#ffffff;display:block}
+.hero-fancy{font-family:"Cinzel Decorative","Playfair Display",serif;font-size:clamp(42px,7vw,76px);font-style:normal;font-weight:700;color:var(--accent);display:block;margin-top:6px;line-height:1.15;letter-spacing:0.03em}
+.hero-tagline{font-size:18px;color:#f0f0f0;margin-bottom:38px;font-weight:700;line-height:1.7;max-width:560px;margin-left:auto;margin-right:auto;letter-spacing:0.02em}
+.hero-ctas{display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
+.btn-primary{background:var(--accent);color:#000;border:none;padding:14px 32px;border-radius:50px;font-size:14px;font-weight:600;font-family:"Inter",sans-serif;cursor:pointer;transition:all var(--transition);letter-spacing:0.04em}
+.btn-primary:hover{background:var(--accent2);transform:translateY(-2px);box-shadow:0 12px 40px #c8a96e40}
+.btn-ghost{background:transparent;color:var(--text);border:1px solid var(--border2);padding:14px 32px;border-radius:50px;font-size:14px;font-weight:500;font-family:"Inter",sans-serif;cursor:pointer;transition:all var(--transition);text-decoration:none;display:inline-flex;align-items:center;gap:8px;letter-spacing:0.04em}
+.btn-ghost:hover{border-color:var(--accent);color:var(--accent)}
+
+/* GALLERY GRID */
+.gallery-section{padding:100px 40px;max-width:1200px;margin:0 auto}
+.filters{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:36px;justify-content:center}
+.filter-btn{background:var(--bg2);border:1px solid var(--border);color:var(--muted);padding:8px 20px;border-radius:50px;font-size:13px;font-family:"Inter",sans-serif;cursor:pointer;transition:all var(--transition)}
+.filter-btn:hover,.filter-btn.active{background:var(--accent);border-color:var(--accent);color:#000;font-weight:600}
+.photo-grid{columns:4 220px;gap:16px}
+.photo-item{break-inside:avoid;margin-bottom:16px;border-radius:var(--radius-sm);overflow:hidden;cursor:pointer;position:relative;background:var(--bg2);transition:transform var(--transition)}
+.photo-item:hover{transform:scale(1.02)}
+.photo-item img{width:100%;display:block;transition:all var(--transition)}
+.photo-item:hover img{filter:brightness(0.85)}
+.photo-overlay{position:absolute;inset:0;background:linear-gradient(to top,#000c 0%,transparent 50%);opacity:0;transition:opacity var(--transition);display:flex;flex-direction:column;justify-content:flex-end;padding:14px}
+.photo-item:hover .photo-overlay{opacity:1}
+.photo-meta-name{font-size:12px;font-weight:600;color:#fff}
+.photo-meta-trip{font-size:11px;color:rgba(255,255,255,0.6)}
+.photo-actions{position:absolute;top:10px;right:10px;display:flex;gap:6px;opacity:0;transition:opacity var(--transition)}
+.photo-item:hover .photo-actions{opacity:1}
+.btn-icon{width:32px;height:32px;border-radius:50%;background:#000a;backdrop-filter:blur(8px);border:1px solid #ffffff20;color:#fff;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all var(--transition);font-size:14px}
+.btn-icon:hover{background:var(--accent);border-color:var(--accent);color:#000}
+.empty-state{text-align:center;padding:80px 20px;color:var(--muted)}
+.empty-icon{font-size:48px;margin-bottom:16px}
+.empty-state h3{font-size:20px;font-weight:600;margin-bottom:8px;color:var(--text)}
+.empty-state p{font-size:14px;margin-bottom:24px}
+
+/* PROFILE MODAL */
+.overlay{position:fixed;inset:0;background:#000c;z-index:200;display:flex;align-items:center;justify-content:center;padding:20px;opacity:0;pointer-events:none;transition:opacity var(--transition)}
+.overlay.open{opacity:1;pointer-events:all}
+.profile-modal{background:var(--bg2);border:1px solid var(--border2);border-radius:20px;width:100%;max-width:900px;max-height:90vh;overflow-y:auto;position:relative}
+.profile-header{padding:40px 40px 24px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:24px}
+.profile-avatar-lg{width:80px;height:80px;border-radius:50%;background:var(--bg3);border:3px solid var(--accent);display:flex;align-items:center;justify-content:center;font-size:36px;flex-shrink:0;overflow:hidden}
+.profile-avatar-lg img{width:100%;height:100%;object-fit:cover;display:block}
+.profile-info h2{font-family:"Playfair Display",serif;font-size:28px;margin-bottom:4px}
+.profile-info p{color:var(--muted);font-size:14px}
+.profile-stats{display:flex;gap:24px;margin-top:12px}
+.pstat{text-align:center}
+.pstat-val{font-size:20px;font-weight:700;color:var(--accent)}
+.pstat-lbl{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:0.1em}
+.profile-body{padding:32px 40px}
+.profile-grid{columns:3 180px;gap:12px}
+.profile-grid .photo-item{margin-bottom:12px}
+.modal-close{position:absolute;top:16px;right:16px;width:36px;height:36px;border-radius:50%;background:var(--bg3);border:1px solid var(--border);color:var(--muted);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:18px;transition:all var(--transition)}
+.modal-close:hover{background:var(--accent);color:#000;border-color:var(--accent)}
+
+/* UPLOAD MODAL */
+.upload-modal-inner{background:var(--bg2);border:1px solid var(--border2);border-radius:20px;width:100%;max-width:560px;padding:40px;position:relative}
+.modal-title{font-family:"Playfair Display",serif;font-size:26px;margin-bottom:6px}
+.modal-sub{color:var(--muted);font-size:14px;margin-bottom:32px}
+.form-group{margin-bottom:20px}
+.form-label{font-size:12px;letter-spacing:0.1em;text-transform:uppercase;color:var(--muted);margin-bottom:8px;display:block}
+.form-select,.form-input{width:100%;background:var(--bg3);border:1px solid var(--border2);color:var(--text);padding:12px 16px;border-radius:var(--radius-sm);font-family:"Inter",sans-serif;font-size:14px;transition:border-color var(--transition);appearance:none}
+.form-select:focus,.form-input:focus{outline:none;border-color:var(--accent)}
+.member-chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{padding:8px 16px;border-radius:50px;border:1px solid var(--border2);font-size:13px;cursor:pointer;transition:all var(--transition);background:var(--bg3);color:var(--muted);display:flex;align-items:center;gap:6px}
+.chip:hover{border-color:var(--accent);color:var(--accent)}
+.chip.selected{background:var(--accent);border-color:var(--accent);color:#000;font-weight:600}
+.dropzone{border:2px dashed var(--border2);border-radius:var(--radius);padding:40px;text-align:center;cursor:pointer;transition:all var(--transition);background:var(--bg3)}
+.dropzone:hover,.dropzone.drag-over{border-color:var(--accent);background:#c8a96e08}
+.dropzone-icon{font-size:36px;margin-bottom:12px}
+.dropzone p{color:var(--muted);font-size:14px}
+.dropzone strong{color:var(--accent)}
+.preview-thumbs{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px}
+.thumb{width:64px;height:64px;border-radius:8px;object-fit:cover;border:2px solid var(--border2)}
+.btn-full{width:100%;margin-top:24px;padding:14px;font-size:15px}
+.btn-upload-trigger{display:flex;align-items:center;gap:8px}
+
+/* LIGHTBOX */
+.lightbox{position:fixed;inset:0;background:#000f;z-index:300;display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity 0.25s}
+.lightbox.open{opacity:1;pointer-events:all}
+.lb-img-wrap{position:relative;max-width:90vw;max-height:85vh}
+.lb-img-wrap img{max-width:90vw;max-height:85vh;object-fit:contain;border-radius:8px;display:block}
+.lb-close{position:fixed;top:20px;right:24px;width:44px;height:44px;border-radius:50%;background:#ffffff12;border:1px solid #ffffff20;color:#fff;font-size:22px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all 0.2s;backdrop-filter:blur(8px)}
+.lb-close:hover{background:var(--accent);color:#000}
+.lb-prev,.lb-next{position:fixed;top:50%;transform:translateY(-50%);width:48px;height:48px;border-radius:50%;background:#ffffff12;border:1px solid #ffffff20;color:#fff;font-size:22px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all 0.2s;backdrop-filter:blur(8px)}
+.lb-prev{left:16px}.lb-next{right:16px}
+.lb-prev:hover,.lb-next:hover{background:var(--accent);color:#000;border-color:var(--accent)}
+.lb-info{position:fixed;bottom:0;left:0;right:0;padding:16px 24px;background:linear-gradient(to top,#000e,transparent);display:flex;align-items:center;justify-content:space-between}
+.lb-name{font-weight:600;font-size:14px}.lb-trip-name{font-size:13px;color:var(--muted)}
+.btn-download{background:transparent;border:1px solid #ffffff30;color:#fff;padding:8px 18px;border-radius:50px;font-size:12px;cursor:pointer;font-family:"Inter",sans-serif;transition:all 0.2s}
+.btn-download:hover{background:var(--accent);border-color:var(--accent);color:#000}
+
+/* TOAST */
+.toast-area{position:fixed;bottom:28px;right:28px;z-index:999;display:flex;flex-direction:column;gap:10px}
+.toast{background:#1e1e1e;border:1px solid var(--border2);color:var(--text);padding:12px 20px;border-radius:12px;font-size:14px;box-shadow:var(--shadow);animation:slideToast 0.3s ease;display:flex;align-items:center;gap:10px}
+@keyframes slideToast{from{opacity:0;transform:translateX(40px)}to{opacity:1;transform:translateX(0)}}
+.toast.success{border-color:#22c55e40;}.toast.success::before{content:"✓";color:#22c55e;font-weight:700}
+.toast.info::before{content:"ℹ";color:var(--accent)}
+
+/* FOOTER */
+footer{border-top:1px solid var(--border);padding:40px;text-align:center;color:var(--subtle);font-size:13px}
+footer .footer-logo{font-family:"Playfair Display",serif;font-size:18px;color:var(--text);margin-bottom:8px}
+footer .footer-logo span{color:var(--accent)}
+
+/* ADMIN STYLES */
+.nav-actions{display:flex;align-items:center;gap:10px}
+.admin-pill{display:inline-flex;align-items:center;gap:6px;background:#c8a96e18;border:1px solid #c8a96e45;color:var(--accent);padding:6px 14px;border-radius:50px;font-size:12px;font-weight:600;letter-spacing:0.04em}
+.admin-badge-indicator{display:inline-block;width:7px;height:7px;border-radius:50%;background:#22c55e;box-shadow:0 0 8px #22c55e}
+.btn-admin{border-color:#c8a96e55;color:var(--accent)}
+.btn-admin:hover{background:var(--accent);color:#000;border-color:var(--accent)}
+.btn-admin-action{background:#c8a96e18;border:1px solid #c8a96e55;color:var(--accent);padding:8px 20px;border-radius:50px;font-size:13px;font-weight:500;font-family:"Inter",sans-serif;cursor:pointer;transition:all var(--transition);display:inline-flex;align-items:center;gap:6px}
+.btn-admin-action:hover{background:var(--accent);color:#000;border-color:var(--accent);transform:translateY(-1px);box-shadow:0 4px 20px #c8a96e30}
+.btn-logout{border-color:#e87e7e40;color:#e87e7e}
+.btn-logout:hover{background:#e87e7e;color:#fff;border-color:#e87e7e}
+.admin-card-edit-btn{position:absolute;top:10px;right:10px;width:30px;height:30px;border-radius:50%;background:#141414e6;border:1px solid #c8a96e60;color:var(--accent);display:flex;align-items:center;justify-content:center;font-size:12px;cursor:pointer;opacity:0;transition:all var(--transition);z-index:2}
+.cousin-card:hover .admin-card-edit-btn{opacity:1}
+.admin-card-edit-btn:hover{background:var(--accent);color:#000;transform:scale(1.1)}
+.admin-card-dp-btn{position:absolute;top:10px;left:10px;width:30px;height:30px;border-radius:50%;background:#141414e6;border:1px solid #c8a96e60;color:var(--accent);display:flex;align-items:center;justify-content:center;font-size:13px;cursor:pointer;opacity:0;transition:all var(--transition);z-index:2}
+.cousin-card:hover .admin-card-dp-btn{opacity:1}
+.admin-card-dp-btn:hover{background:var(--accent);color:#000;transform:scale(1.1)}
+.crew-edit-row{display:flex;align-items:center;gap:14px;margin-bottom:14px;background:var(--bg3);border:1px solid var(--border2);border-radius:var(--radius-sm);padding:12px 14px}
+.crew-edit-avatar-wrap{display:flex;flex-direction:column;align-items:center;gap:6px;flex-shrink:0}
+.crew-edit-emoji{width:46px;height:46px;border-radius:50%;background:var(--bg2);border:2px solid var(--border2);display:flex;align-items:center;justify-content:center;font-size:24px;flex-shrink:0;overflow:hidden;cursor:pointer;position:relative}
+.crew-edit-emoji:hover{border-color:var(--accent);box-shadow:0 0 12px #c8a96e40}
+.crew-edit-emoji img{width:100%;height:100%;object-fit:cover;display:block}
+.btn-change-dp{background:#c8a96e18;border:1px solid #c8a96e50;color:var(--accent);font-size:10px;padding:3px 8px;border-radius:50px;cursor:pointer;transition:all var(--transition);font-family:"Inter",sans-serif;white-space:nowrap}
+.btn-change-dp:hover{background:var(--accent);color:#000;border-color:var(--accent)}
+.btn-remove-dp{background:transparent;border:1px solid #e87e7e30;color:#e87e7e;font-size:9px;padding:2px 6px;border-radius:50px;cursor:pointer;transition:all var(--transition);font-family:"Inter",sans-serif}
+.btn-remove-dp:hover{background:#e87e7e;color:#fff;border-color:#e87e7e}
+.chip-img,.filter-img{width:20px;height:20px;border-radius:50%;object-fit:cover;display:inline-block;vertical-align:middle;margin-right:4px}
+.admin-error{color:#e87e7e;font-size:13px;margin-top:10px;display:none;align-items:center;gap:6px}
+
+/* RESPONSIVE */
+@media(max-width:768px){
+nav{padding:16px 20px}
+.nav-links{display:none}
+.hero-caps{font-size:38px}
+.hero-fancy{font-size:48px}
+.photo-grid{columns:2 140px}
+.profile-grid{columns:2 140px}
+.section{padding:60px 20px}
+.gallery-section{padding:60px 20px}
+.profile-header{flex-direction:column;text-align:center;padding:28px 20px 20px}
+.profile-body{padding:20px}
+}
+@media(max-width:480px){
+  .cousins-grid{grid-template-columns:repeat(2,1fr)}
+  .nav-actions{gap:6px}
+  .btn-nav{padding:6px 12px;font-size:12px}
+  .admin-pill{padding:4px 8px;font-size:10px}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#home" class="logo">
+    <span class="logo-icon">📸</span>
+    <span class="logo-text">Cousins <span>Gallery</span></span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#cousins">The Crew</a></li>
+    <li><a href="#gallery">Gallery</a></li>
+  </ul>
+  <div class="nav-actions">
+    <button class="btn-nav" id="openUpload">↑ Upload Photos</button>
+    <div id="adminNavLoggedOut">
+      <button class="btn-nav btn-admin" id="openAdminLoginBtn">🔐 Admin</button>
+    </div>
+    <div id="adminNavLoggedIn" style="display:none;align-items:center;gap:8px">
+      <span class="admin-pill"><span class="admin-badge-indicator"></span> Admin</span>
+      <button class="btn-nav btn-admin" id="openEditCrewNavBtn">✎ Edit Crew</button>
+      <button class="btn-nav btn-logout" id="logoutAdminBtn" title="Log Out Admin">Logout</button>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="home">
+  <div class="hero-glow"></div>
+  <div class="hero-content">
+    <h1 class="hero-title">
+      <span class="hero-caps">EVERY TRIP</span>
+      <span class="hero-fancy">Every moment</span>
+    </h1>
+    <p class="hero-tagline">Five cousins. Endless adventures. One place to keep it all.</p>
+    <div class="hero-ctas">
+      <button class="btn-primary" id="heroUpload">↑ Upload Photos</button>
+      <a href="#cousins" class="btn-ghost">Meet the Crew</a>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- COUSINS SECTION -->
+<section class="section" id="cousins">
+  <div class="section-header">
+    <h2 class="section-title">The Crew</h2>
+    <div id="crewAdminBar" style="display:none;margin-top:16px">
+      <button class="btn-admin-action" id="crewSectionEditBtn">✎ Edit Crew Names</button>
+    </div>
+  </div>
+  <div class="cousins-grid" id="cousinsGrid"></div>
+</section>
+
+<div class="divider"></div>
+
+<!-- GALLERY SECTION -->
+<section class="gallery-section" id="gallery">
+  <div class="section-header">
+    <h2 class="section-title">All Photos</h2>
+  </div>
+  <div class="filters" id="filtersBar">
+    <button class="filter-btn active" data-filter="all">All Photos</button>
+  </div>
+  <div class="photo-grid" id="photoGrid"></div>
+  <div class="empty-state" id="emptyState">
+    <div class="empty-icon">📷</div>
+    <h3>No photos yet</h3>
+    <p>Be the first to upload a memory!</p>
+    <button class="btn-primary" id="emptyUploadBtn">Upload Photos</button>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-logo">Cousins <span>Gallery</span> 📸</div>
+</footer>
+
+<!-- PROFILE MODAL -->
+<div class="overlay" id="profileOverlay">
+  <div class="profile-modal">
+    <button class="modal-close" id="closeProfile">✕</button>
+    <div class="profile-header">
+      <div class="profile-avatar-lg" id="profileAvatar"></div>
+      <div class="profile-info">
+        <h2 id="profileName"></h2>
+        <p id="profileTag"></p>
+        <div class="profile-stats">
+          <div class="pstat"><div class="pstat-val" id="profileCount">0</div><div class="pstat-lbl">Photos</div></div>
+        </div>
+      </div>
+    </div>
+    <div class="profile-body">
+      <div class="profile-grid" id="profileGrid"></div>
+      <div class="empty-state" id="profileEmpty" style="display:none">
+        <div class="empty-icon">🤳</div>
+        <h3>No photos yet</h3>
+        <p>Click Upload Photos to add your first memory!</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- UPLOAD MODAL -->
+<div class="overlay" id="uploadOverlay">
+  <div class="upload-modal-inner">
+    <button class="modal-close" id="closeUpload">✕</button>
+    <h2 class="modal-title">Upload Photos</h2>
+    <p class="modal-sub">Share your memories with the crew 🎉</p>
+
+    <div class="form-group">
+      <label class="form-label">Who are you?</label>
+      <div class="member-chips" id="memberChips"></div>
+    </div>
+
+    <div class="form-group">
+      <label class="form-label">Trip Name</label>
+      <input class="form-input" id="tripInput" type="text" placeholder="e.g. Goa 2025 🏖️" maxlength="50">
+    </div>
+
+    <div class="form-group">
+      <label class="form-label">Drop your photos here</label>
+      <div class="dropzone" id="dropzone">
+        <div class="dropzone-icon">🖼️</div>
+        <p><strong>Click to browse</strong> or drag &amp; drop</p>
+        <p style="margin-top:6px;font-size:12px">JPG, PNG, HEIC, WebP supported</p>
+        <input type="file" id="fileInput" accept="image/*" multiple style="display:none">
+        <div class="preview-thumbs" id="previewThumbs"></div>
+      </div>
+    </div>
+
+    <button class="btn-primary btn-full" id="confirmUpload" disabled>📤 Upload Photos</button>
+  </div>
+</div>
+
+<!-- ADMIN LOGIN MODAL -->
+<div class="overlay" id="adminLoginOverlay">
+  <div class="upload-modal-inner" style="max-width:400px">
+    <button class="modal-close" id="closeAdminLogin">✕</button>
+    <h2 class="modal-title">Admin Login 🔐</h2>
+    <p class="modal-sub">Enter password to manage crew names</p>
+    <form id="adminLoginForm" onsubmit="event.preventDefault();handleAdminLogin();">
+      <div class="form-group">
+        <label class="form-label">Admin Password</label>
+        <input class="form-input" id="adminPasswordInput" type="password" placeholder="Enter password (1122)" autocomplete="current-password">
+        <div class="admin-error" id="adminLoginError">⚠️ Incorrect password. Try again.</div>
+      </div>
+      <button type="submit" class="btn-primary btn-full" id="adminLoginSubmit">Unlock Admin</button>
+    </form>
+  </div>
+</div>
+
+<!-- EDIT CREW MODAL -->
+<div class="overlay" id="editCrewOverlay">
+  <div class="upload-modal-inner" style="max-width:520px;max-height:90vh;overflow-y:auto">
+    <button class="modal-close" id="closeEditCrew">✕</button>
+    <h2 class="modal-title">Manage Crew &amp; DPs 👑</h2>
+    <p class="modal-sub">Change names and upload profile photos for crew members</p>
+    <input type="file" id="adminDpInput" accept="image/*" style="display:none">
+    <div id="crewEditList"></div>
+    <div style="margin-top:20px;display:flex;flex-direction:column;gap:10px">
+      <button class="btn-primary btn-full" id="saveCrewNamesBtn">Save Changes</button>
+      <button class="btn-ghost btn-full" id="resetCrewNamesBtn" style="font-size:13px;padding:10px">Reset to Default Names</button>
+    </div>
+  </div>
+</div>
+
+<!-- LIGHTBOX -->
+<div class="lightbox" id="lightbox">
+  <button class="lb-close" id="lbClose">✕</button>
+  <button class="lb-prev" id="lbPrev">‹</button>
+  <button class="lb-next" id="lbNext">›</button>
+  <div class="lb-img-wrap"><img id="lbImg" src="" alt=""></div>
+  <div class="lb-info">
+    <div><div class="lb-name" id="lbName"></div><div class="lb-trip-name" id="lbTrip"></div></div>
+    <button class="btn-download" id="lbDownload">⬇ Download</button>
+  </div>
+</div>
+
+<!-- TOAST -->
+<div class="toast-area" id="toastArea"></div>
+
+<script>
+// ── DATA ──────────────────────────────────────────────────────────────────
+const ACHU_DP = "ACHU/achu_dp.jpeg";
+const SWARNU_DP = "SWARNU/swarnu_dp.jpeg";
+
+const DEFAULT_COUSINS = [
+  {id:"achu",        name:"Achu",        emoji:"🧑",  tag:"The Photographer",   color:"#c8a96e", dp:ACHU_DP},
+  {id:"swarnu",      name:"Swarnu",      emoji:"🧑",  tag:"The Adventurer",     color:"#e87e7e", dp:SWARNU_DP},
+  {id:"sreekuttan",  name:"Sreekuttan",  emoji:"🧒",  tag:"The Foodie",         color:"#7eb8e8"},
+  {id:"vichu",       name:"Vichu",       emoji:"👧",  tag:"The Storyteller",    color:"#a8e87e"},
+  {id:"thakkudu",    name:"Thakkudu",    emoji:"👦",  tag:"The Vibe Curator",   color:"#d87ee8"},
+];
+
+let savedCousins = null;
+try { savedCousins = JSON.parse(localStorage.getItem("cg_cousins")); } catch(e){}
+
+if(savedCousins && Array.isArray(savedCousins)){
+  savedCousins.forEach(function(s){
+    if(s.id === "aarav") {
+      s.id = "achu";
+      if(s.name === "Aarav") s.name = "Achu";
+    }
+    if(s.id === "priya") {
+      s.id = "swarnu";
+      if(s.name === "Priya") s.name = "Swarnu";
+    }
+    if(s.id === "rohan" || s.id === "roshan") {
+      s.id = "sreekuttan";
+      if(s.name === "Rohan" || s.name === "Roshan") s.name = "Sreekuttan";
+    }
+    if(s.id === "nisha") {
+      s.id = "vichu";
+      if(s.name === "Nisha") s.name = "Vichu";
+    }
+    if(s.id === "kabir") {
+      s.id = "thakkudu";
+      if(s.name === "Kabir") s.name = "Thakkudu";
+    }
+  });
+}
+
+let photos = JSON.parse(localStorage.getItem("cg_photos") || "[]");
+var photosMigrated = false;
+photos.forEach(function(p){
+  if(p.member === "aarav"){ p.member = "achu"; photosMigrated = true; }
+  if(p.member === "priya"){ p.member = "swarnu"; photosMigrated = true; }
+  if(p.member === "rohan" || p.member === "roshan"){ p.member = "sreekuttan"; photosMigrated = true; }
+  if(p.member === "nisha"){ p.member = "vichu"; photosMigrated = true; }
+  if(p.member === "kabir"){ p.member = "thakkudu"; photosMigrated = true; }
+});
+if(photosMigrated) localStorage.setItem("cg_photos", JSON.stringify(photos));
+
+let COUSINS = DEFAULT_COUSINS.map(function(def){
+  if(savedCousins && Array.isArray(savedCousins)){
+    var match = savedCousins.find(function(s){
+      return s.id === def.id
+        || (def.id === "achu" && s.id === "aarav")
+        || (def.id === "swarnu" && s.id === "priya")
+        || (def.id === "sreekuttan" && (s.id === "rohan" || s.id === "roshan"))
+        || (def.id === "vichu" && s.id === "nisha")
+        || (def.id === "thakkudu" && s.id === "kabir");
+    });
+    if(match && match.name && match.name.trim()){
+      var nameVal = match.name.trim();
+      if(nameVal.toLowerCase() === "rohan" || nameVal.toLowerCase() === "roshan") nameVal = "Sreekuttan";
+      if(nameVal.toLowerCase() === "nisha") nameVal = "Vichu";
+      if(nameVal.toLowerCase() === "kabir") nameVal = "Thakkudu";
+      return Object.assign({}, def, { name: nameVal, dp: match.dp || def.dp });
+    }
+  }
+  return Object.assign({}, def);
+});
+
+// Always ensure Achu and Swarnu have their DPs assigned, and names are up to date
+var foundSwarnu = false;
+COUSINS.forEach(function(c){
+  if(c.id === "achu" || c.name.toLowerCase() === "achu"){
+    c.dp = ACHU_DP;
+    if(c.name === "Aarav") c.name = "Achu";
+  }
+  if(c.id === "swarnu" || c.name.toLowerCase() === "swarnu"){
+    c.dp = SWARNU_DP;
+    foundSwarnu = true;
+    if(c.name === "Priya") c.name = "Swarnu";
+  }
+  if(c.id === "sreekuttan" || c.id === "rohan" || c.id === "roshan"){
+    c.id = "sreekuttan";
+    if(c.name.toLowerCase() === "rohan" || c.name.toLowerCase() === "roshan") c.name = "Sreekuttan";
+  }
+  if(c.id === "vichu" || c.id === "nisha"){
+    c.id = "vichu";
+    if(c.name.toLowerCase() === "nisha") c.name = "Vichu";
+  }
+  if(c.id === "thakkudu" || c.id === "kabir"){
+    c.id = "thakkudu";
+    if(c.name.toLowerCase() === "kabir") c.name = "Thakkudu";
+  }
+});
+if(!foundSwarnu && COUSINS.length > 1){
+  COUSINS[1].id = "swarnu";
+  COUSINS[1].name = "Swarnu";
+  COUSINS[1].dp = SWARNU_DP;
+}
+
+function saveCousins(){
+  localStorage.setItem("cg_cousins", JSON.stringify(COUSINS.map(function(c){ return { id: c.id, name: c.name, dp: c.dp }; })));
+}
+saveCousins();
+
+let isAdmin = localStorage.getItem("cg_admin") === "true";
+
+function escapeHtml(str){
+  if(!str) return "";
+  return String(str).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;").replace(/'/g,"&#039;");
+}
+
+let currentFilter = "all";
+let lightboxPhotos = [];
+let lightboxIdx = 0;
+let selectedMember = null;
+let selectedFiles = [];
+
+function save(){ localStorage.setItem("cg_photos", JSON.stringify(photos)); }
+function uid(){ return Date.now().toString(36)+Math.random().toString(36).slice(2,7); }
+function toast(msg, type){
+  type = type || "success";
+  var t = document.createElement("div");
+  t.className = "toast "+type;
+  t.textContent = msg;
+  document.getElementById("toastArea").appendChild(t);
+  setTimeout(function(){ t.remove(); }, 3200);
+}
+
+function renderCousins(){
+  var grid = document.getElementById("cousinsGrid");
+  grid.innerHTML = COUSINS.map(function(c){
+    var editBtn = isAdmin ? '<button class="admin-card-edit-btn" title="Edit '+escapeHtml(c.name)+'" onclick="event.stopPropagation();openEditCrewModal(\''+c.id+'\')">✎</button>' : '';
+    var dpBtn = isAdmin ? '<button class="admin-card-dp-btn" title="Upload photo for '+escapeHtml(c.name)+'" onclick="event.stopPropagation();triggerDpUpload(\''+c.id+'\')">📷</button>' : '';
+    var avatarContent = c.dp ? '<img src="'+c.dp+'" alt="'+escapeHtml(c.name)+'">' : c.emoji;
+    return '<div class="cousin-card" data-id="'+c.id+'" style="--gradient:linear-gradient(135deg,'+c.color+'18,transparent)" onclick="openProfile(\''+c.id+'\')">'
+      + dpBtn
+      + editBtn
+      +'<div class="cousin-avatar" style="border-color:'+c.color+'50">'+avatarContent+'</div>'
+      +'<div class="cousin-name">'+escapeHtml(c.name)+'</div>'
+      +'</div>';
+  }).join("");
+}
+
+function openProfile(id){
+  var c = COUSINS.find(function(x){ return x.id===id; });
+  var myPhotos = photos.filter(function(p){ return p.member===id; });
+  var avatarEl = document.getElementById("profileAvatar");
+  if(c.dp){
+    avatarEl.innerHTML = '<img src="'+c.dp+'" alt="'+escapeHtml(c.name)+'">';
+  } else {
+    avatarEl.textContent = c.emoji;
+  }
+  avatarEl.style.borderColor = c.color;
+  document.getElementById("profileName").textContent = c.name;
+  document.getElementById("profileTag").textContent = c.tag;
+  document.getElementById("profileCount").textContent = myPhotos.length;
+  var grid = document.getElementById("profileGrid");
+  var empty = document.getElementById("profileEmpty");
+  if(myPhotos.length===0){
+    grid.innerHTML="";
+    empty.style.display="block";
+  } else {
+    empty.style.display="none";
+    grid.innerHTML = myPhotos.map(function(p,i){
+      return '<div class="photo-item" onclick="openLightboxProfile(\''+id+'\','+i+')">'
+        +'<img src="'+p.src+'" alt="'+p.trip+'" loading="lazy">'
+        +'<div class="photo-overlay"><div class="photo-meta-name">'+(p.trip||"Trip")+'</div></div>'
+        +'</div>';
+    }).join("");
+  }
+  document.getElementById("profileOverlay").classList.add("open");
+  document.body.style.overflow="hidden";
+}
+
+function openLightboxProfile(id,idx){
+  var arr = photos.filter(function(p){ return p.member===id; });
+  openLightbox(arr,idx);
+}
+
+document.getElementById("closeProfile").onclick = function(){
+  document.getElementById("profileOverlay").classList.remove("open");
+  document.body.style.overflow="";
+};
+document.getElementById("profileOverlay").onclick = function(e){
+  if(e.target===this){ this.classList.remove("open"); document.body.style.overflow=""; }
+};
+
+function buildFilters(){
+  var bar = document.getElementById("filtersBar");
+  bar.innerHTML = '<button class="filter-btn active" data-filter="all" onclick="setFilter(\'all\')">All Photos</button>';
+  var usedIds = [];
+  photos.forEach(function(p){ if(usedIds.indexOf(p.member)===-1) usedIds.push(p.member); });
+  usedIds.forEach(function(id){
+    var c = COUSINS.find(function(x){ return x.id===id; });
+    if(c){
+      var btn = document.createElement("button");
+      btn.className="filter-btn"; btn.dataset.filter=id;
+      if(c.dp){
+        btn.innerHTML = '<img src="'+c.dp+'" class="filter-img"> '+escapeHtml(c.name);
+      } else {
+        btn.textContent = c.emoji+" "+c.name;
+      }
+      btn.onclick=function(){ setFilter(id); };
+      bar.appendChild(btn);
+    }
+  });
+}
+
+function setFilter(f){
+  currentFilter=f;
+  document.querySelectorAll(".filter-btn").forEach(function(b){ b.classList.toggle("active",b.dataset.filter===f); });
+  renderGallery();
+}
+
+function renderGallery(){
+  var filtered = currentFilter==="all" ? photos : photos.filter(function(p){ return p.member===currentFilter; });
+  var grid = document.getElementById("photoGrid");
+  var empty = document.getElementById("emptyState");
+  if(filtered.length===0){
+    grid.innerHTML="";
+    empty.style.display="block";
+  } else {
+    empty.style.display="none";
+    grid.innerHTML = filtered.map(function(p,i){
+      var c = COUSINS.find(function(x){ return x.id===p.member; });
+      var metaName = "";
+      if(c){
+        metaName = c.dp ? '<img src="'+c.dp+'" class="chip-img" style="width:16px;height:16px;margin-right:4px">'+escapeHtml(c.name) : c.emoji+" "+escapeHtml(c.name);
+      }
+      return '<div class="photo-item" onclick="openLightbox(getFilteredPhotos(),'+i+')">'
+        +'<img src="'+p.src+'" alt="'+p.trip+'" loading="lazy">'
+        +'<div class="photo-overlay">'
+        +'<div class="photo-meta-name" style="display:flex;align-items:center">'+metaName+'</div>'
+        +'<div class="photo-meta-trip">'+(p.trip||"")+'</div>'
+        +'</div>'
+        +'<div class="photo-actions">'
+        +'<button class="btn-icon" title="Download" onclick="event.stopPropagation();dlPhoto(\''+p.id+'\')">⬇</button>'
+        +'<button class="btn-icon" title="Delete" onclick="event.stopPropagation();delPhoto(\''+p.id+'\')">🗑</button>'
+        +'</div></div>';
+    }).join("");
+  }
+}
+
+function getFilteredPhotos(){ return currentFilter==="all" ? photos : photos.filter(function(p){ return p.member===currentFilter; }); }
+
+function delPhoto(id){
+  if(!confirm("Delete this photo?")) return;
+  photos = photos.filter(function(p){ return p.id!==id; });
+  save(); buildFilters(); renderGallery(); renderCousins();
+  toast("Photo deleted","info");
+}
+
+function dlPhoto(id){
+  var p = photos.find(function(x){ return x.id===id; }); if(!p) return;
+  var a = document.createElement("a"); a.href=p.src; a.download=p.name||"photo.jpg"; a.click();
+}
+
+function openLightbox(arr,idx){
+  lightboxPhotos=arr; lightboxIdx=idx;
+  document.getElementById("lightbox").classList.add("open");
+  document.body.style.overflow="hidden";
+  showLbPhoto();
+}
+
+function showLbPhoto(){
+  var p = lightboxPhotos[lightboxIdx];
+  var c = COUSINS.find(function(x){ return x.id===p.member; });
+  document.getElementById("lbImg").src=p.src;
+  document.getElementById("lbName").textContent=c?c.emoji+" "+c.name:"";
+  document.getElementById("lbTrip").textContent=p.trip||"";
+  document.getElementById("lbDownload").onclick=function(){
+    var a=document.createElement("a"); a.href=p.src; a.download=p.name||"photo.jpg"; a.click();
+  };
+}
+
+document.getElementById("lbClose").onclick=function(){ document.getElementById("lightbox").classList.remove("open"); document.body.style.overflow=""; };
+document.getElementById("lbPrev").onclick=function(){ lightboxIdx=(lightboxIdx-1+lightboxPhotos.length)%lightboxPhotos.length; showLbPhoto(); };
+document.getElementById("lbNext").onclick=function(){ lightboxIdx=(lightboxIdx+1)%lightboxPhotos.length; showLbPhoto(); };
+
+document.addEventListener("keydown",function(e){
+  if(!document.getElementById("lightbox").classList.contains("open")) return;
+  if(e.key==="ArrowLeft") document.getElementById("lbPrev").click();
+  if(e.key==="ArrowRight") document.getElementById("lbNext").click();
+  if(e.key==="Escape") document.getElementById("lbClose").click();
+});
+
+function openUpload(){ document.getElementById("uploadOverlay").classList.add("open"); document.body.style.overflow="hidden"; }
+function closeUpload(){ document.getElementById("uploadOverlay").classList.remove("open"); document.body.style.overflow=""; }
+document.getElementById("openUpload").onclick=openUpload;
+document.getElementById("emptyUploadBtn").onclick=openUpload;
+var heroUp=document.getElementById("heroUpload");if(heroUp)heroUp.onclick=openUpload;
+document.getElementById("closeUpload").onclick=closeUpload;
+document.getElementById("uploadOverlay").onclick=function(e){ if(e.target===this) closeUpload(); };
+
+function buildChips(){
+  document.getElementById("memberChips").innerHTML = COUSINS.map(function(c){
+    var icon = c.dp ? '<img src="'+c.dp+'" class="chip-img">' : c.emoji+' ';
+    return '<div class="chip" data-id="'+c.id+'" onclick="selectChip(\''+c.id+'\')">'+icon+escapeHtml(c.name)+'</div>';
+  }).join("");
+}
+
+function selectChip(id){
+  selectedMember=id;
+  document.querySelectorAll(".chip").forEach(function(c){ c.classList.toggle("selected",c.dataset.id===id); });
+  checkUploadReady();
+}
+
+var dz = document.getElementById("dropzone");
+var fi = document.getElementById("fileInput");
+dz.onclick=function(e){ if(e.target!==fi) fi.click(); };
+fi.onchange=function(){ handleFiles(fi.files); };
+dz.ondragover=function(e){ e.preventDefault(); dz.classList.add("drag-over"); };
+dz.ondragleave=function(){ dz.classList.remove("drag-over"); };
+dz.ondrop=function(e){ e.preventDefault(); dz.classList.remove("drag-over"); handleFiles(e.dataTransfer.files); };
+
+function handleFiles(files){
+  selectedFiles = Array.from(files).filter(function(f){ return f.type.startsWith("image/"); });
+  var prev = document.getElementById("previewThumbs");
+  prev.innerHTML="";
+  selectedFiles.forEach(function(f){
+    var img=document.createElement("img"); img.className="thumb";
+    var r=new FileReader();
+    r.onload=function(e){ img.src=e.target.result; };
+    r.readAsDataURL(f);
+    prev.appendChild(img);
+  });
+  checkUploadReady();
+}
+
+function checkUploadReady(){
+  document.getElementById("confirmUpload").disabled=!(selectedMember && selectedFiles.length>0);
+}
+
+document.getElementById("confirmUpload").onclick=function(){
+  var trip=document.getElementById("tripInput").value.trim()||"Trip";
+  var btn=document.getElementById("confirmUpload");
+  btn.disabled=true; btn.textContent="Uploading...";
+  var count=0;
+  function next(){
+    if(count>=selectedFiles.length){
+      save(); buildFilters(); renderGallery(); renderCousins();
+      toast(selectedFiles.length+" photo"+(selectedFiles.length>1?"s":"")+" uploaded!");
+      selectedFiles=[]; selectedMember=null;
+      document.getElementById("previewThumbs").innerHTML="";
+      document.getElementById("tripInput").value="";
+      document.querySelectorAll(".chip").forEach(function(c){ c.classList.remove("selected"); });
+      btn.textContent="Upload Photos"; btn.disabled=true;
+      closeUpload();
+      return;
+    }
+    var f=selectedFiles[count]; count++;
+    var r=new FileReader();
+    r.onload=function(e){
+      photos.push({id:uid(),member:selectedMember,src:e.target.result,trip:trip,name:f.name,date:Date.now()});
+      next();
+    };
+    r.readAsDataURL(f);
+  }
+  next();
+};
+
+// ── ADMIN CONTROLS ────────────────────────────────────────────────────────
+function updateAdminUI(){
+  var loggedOut = document.getElementById("adminNavLoggedOut");
+  var loggedIn = document.getElementById("adminNavLoggedIn");
+  var crewBar = document.getElementById("crewAdminBar");
+  if(isAdmin){
+    if(loggedOut) loggedOut.style.display = "none";
+    if(loggedIn) loggedIn.style.display = "flex";
+    if(crewBar) crewBar.style.display = "block";
+  } else {
+    if(loggedOut) loggedOut.style.display = "block";
+    if(loggedIn) loggedIn.style.display = "none";
+    if(crewBar) crewBar.style.display = "none";
+  }
+}
+
+function openAdminLogin(){
+  document.getElementById("adminPasswordInput").value = "";
+  document.getElementById("adminLoginError").style.display = "none";
+  document.getElementById("adminLoginOverlay").classList.add("open");
+  document.body.style.overflow = "hidden";
+  setTimeout(function(){ document.getElementById("adminPasswordInput").focus(); }, 150);
+}
+
+function closeAdminLogin(){
+  document.getElementById("adminLoginOverlay").classList.remove("open");
+  document.body.style.overflow = "";
+}
+
+function handleAdminLogin(){
+  var pwd = document.getElementById("adminPasswordInput").value;
+  if(pwd === "1122"){
+    isAdmin = true;
+    localStorage.setItem("cg_admin", "true");
+    updateAdminUI();
+    renderCousins();
+    closeAdminLogin();
+    toast("Welcome back, Admin! 👑");
+  } else {
+    var err = document.getElementById("adminLoginError");
+    err.style.display = "flex";
+    document.getElementById("adminPasswordInput").focus();
+  }
+}
+
+function logoutAdmin(){
+  isAdmin = false;
+  localStorage.removeItem("cg_admin");
+  updateAdminUI();
+  renderCousins();
+  toast("Logged out from Admin mode");
+}
+
+let targetDpMemberId = null;
+
+function triggerDpUpload(memberId){
+  if(!isAdmin){
+    toast("Admin login required to change DP", "info");
+    return;
+  }
+  targetDpMemberId = memberId;
+  var input = document.getElementById("adminDpInput");
+  input.value = "";
+  input.click();
+}
+
+function removeDp(memberId){
+  if(!isAdmin) return;
+  var c = COUSINS.find(function(x){ return x.id === memberId; });
+  if(!c) return;
+  if(confirm("Remove profile photo for " + c.name + " and use emoji instead?")){
+    delete c.dp;
+    saveCousins();
+    renderCousins();
+    buildChips();
+    buildFilters();
+    renderGallery();
+    if(document.getElementById("editCrewOverlay").classList.contains("open")){
+      openEditCrewModal(memberId);
+    }
+    toast("Photo removed for " + c.name, "info");
+  }
+}
+
+function resizeImageToDataUrl(file, maxDimension, quality, callback){
+  var reader = new FileReader();
+  reader.onload = function(e){
+    var img = new Image();
+    img.onload = function(){
+      var w = img.width;
+      var h = img.height;
+      if(w > maxDimension || h > maxDimension){
+        if(w > h){
+          h = Math.round((h * maxDimension) / w);
+          w = maxDimension;
+        } else {
+          w = Math.round((w * maxDimension) / h);
+          h = maxDimension;
+        }
+      }
+      var canvas = document.createElement("canvas");
+      canvas.width = w;
+      canvas.height = h;
+      var ctx = canvas.getContext("2d");
+      ctx.drawImage(img, 0, 0, w, h);
+      callback(canvas.toDataURL("image/jpeg", quality));
+    };
+    img.onerror = function(){
+      callback(e.target.result);
+    };
+    img.src = e.target.result;
+  };
+  reader.readAsDataURL(file);
+}
+
+document.getElementById("adminDpInput").onchange = function(){
+  var files = this.files;
+  if(!files || !files.length || !targetDpMemberId) return;
+  var file = files[0];
+  if(!file.type.startsWith("image/")){
+    toast("Please select an image file", "info");
+    return;
+  }
+  var member = COUSINS.find(function(x){ return x.id === targetDpMemberId; });
+  if(!member) return;
+
+  resizeImageToDataUrl(file, 480, 0.88, function(dataUrl){
+    member.dp = dataUrl;
+    saveCousins();
+    renderCousins();
+    buildChips();
+    buildFilters();
+    renderGallery();
+    if(document.getElementById("editCrewOverlay").classList.contains("open")){
+      openEditCrewModal(targetDpMemberId);
+    }
+    toast("Photo DP updated for " + member.name + "! 📸");
+  });
+};
+
+function openEditCrewModal(highlightId){
+  var list = document.getElementById("crewEditList");
+  list.innerHTML = COUSINS.map(function(c){
+    var avatar = c.dp ? '<img src="'+c.dp+'" alt="'+escapeHtml(c.name)+'">' : c.emoji;
+    var removeBtn = c.dp ? '<button type="button" class="btn-remove-dp" onclick="removeDp(\''+c.id+'\')">✕ Remove</button>' : '';
+    return '<div class="crew-edit-row" id="row-'+c.id+'">'
+      +'<div class="crew-edit-avatar-wrap">'
+      +'  <div class="crew-edit-emoji" style="border-color:'+c.color+'" onclick="triggerDpUpload(\''+c.id+'\')" title="Click to upload photo">'
+      +     avatar
+      +'  </div>'
+      +'  <button type="button" class="btn-change-dp" onclick="triggerDpUpload(\''+c.id+'\')">📷 Upload DP</button>'
+      +   removeBtn
+      +'</div>'
+      +'<div style="flex:1">'
+      +'  <div style="display:flex;justify-content:space-between;margin-bottom:6px">'
+      +'    <label style="font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:0.06em">'+c.tag+'</label>'
+      +'  </div>'
+      +'  <input type="text" class="form-input crew-name-input" data-id="'+c.id+'" value="'+escapeHtml(c.name)+'" placeholder="Enter name" maxlength="25">'
+      +'</div>'
+      +'</div>';
+  }).join("");
+  document.getElementById("editCrewOverlay").classList.add("open");
+  document.body.style.overflow = "hidden";
+  if(highlightId){
+    setTimeout(function(){
+      var inp = document.querySelector('.crew-name-input[data-id="'+highlightId+'"]');
+      if(inp){ inp.focus(); inp.select(); }
+    }, 150);
+  }
+}
+
+function closeEditCrewModal(){
+  document.getElementById("editCrewOverlay").classList.remove("open");
+  document.body.style.overflow = "";
+}
+
+function saveCrewNames(){
+  var inputs = document.querySelectorAll(".crew-name-input");
+  inputs.forEach(function(inp){
+    var id = inp.dataset.id;
+    var val = inp.value.trim();
+    if(val){
+      var c = COUSINS.find(function(x){ return x.id === id; });
+      if(c) c.name = val;
+    }
+  });
+  saveCousins();
+  renderCousins();
+  buildChips();
+  buildFilters();
+  renderGallery();
+  closeEditCrewModal();
+  toast("Crew updated successfully! ✓");
+}
+
+function resetCrewNames(){
+  if(confirm("Reset all 5 crew names back to original defaults?")){
+    COUSINS = DEFAULT_COUSINS.map(function(d){ return Object.assign({}, d); });
+    saveCousins();
+    renderCousins();
+    buildChips();
+    buildFilters();
+    renderGallery();
+    closeEditCrewModal();
+    toast("Crew names reset to defaults");
+  }
+}
+
+document.getElementById("openAdminLoginBtn").onclick = openAdminLogin;
+document.getElementById("closeAdminLogin").onclick = closeAdminLogin;
+document.getElementById("adminLoginOverlay").onclick = function(e){ if(e.target===this) closeAdminLogin(); };
+document.getElementById("logoutAdminBtn").onclick = logoutAdmin;
+document.getElementById("openEditCrewNavBtn").onclick = function(){ openEditCrewModal(); };
+document.getElementById("crewSectionEditBtn").onclick = function(){ openEditCrewModal(); };
+document.getElementById("closeEditCrew").onclick = closeEditCrewModal;
+document.getElementById("editCrewOverlay").onclick = function(e){ if(e.target===this) closeEditCrewModal(); };
+document.getElementById("saveCrewNamesBtn").onclick = saveCrewNames;
+document.getElementById("resetCrewNamesBtn").onclick = resetCrewNames;
+
+updateAdminUI();
+buildChips(); renderCousins(); buildFilters(); renderGallery();
+
+</script>
+</body>
+</html>
