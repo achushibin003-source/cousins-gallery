@@ -27,7 +27,7 @@ body{background:var(--bg);color:var(--text);font-family:"Inter",sans-serif;min-h
 ::-webkit-scrollbar-thumb{background:var(--subtle);border-radius:3px}
 
 /* NAV */
-nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:18px 40px;display:flex;align-items:center;justify-content:space-between;backdrop-filter:blur(20px);background:#0d0d0daa;border-bottom:1px solid var(--border)}
+nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:18px 40px;display:flex;align-items:center;justify-content:flex-end;backdrop-filter:blur(20px);background:#0d0d0daa;border-bottom:1px solid var(--border)}
 .logo{display:flex;align-items:center;gap:10px;text-decoration:none}
 .logo-icon{font-size:22px}
 .logo-text{font-family:"Playfair Display",serif;font-size:20px;color:var(--text);letter-spacing:0.02em}
@@ -223,13 +223,6 @@ nav{padding:16px 20px}
 
 <!-- NAV -->
 <nav>
-  <a href="#home" class="logo" title="Home">
-    <span class="logo-icon">📸</span>
-  </a>
-  <ul class="nav-links">
-    <li><a href="#cousins">The Crew</a></li>
-    <li><a href="#gallery">Gallery</a></li>
-  </ul>
   <div class="nav-actions">
     <button class="btn-nav" id="openUpload" style="display:none">↑ Upload Photos</button>
     <div id="adminNavLoggedOut">
@@ -252,10 +245,6 @@ nav{padding:16px 20px}
       <span class="hero-fancy">Every moment</span>
     </h1>
     <p class="hero-tagline">Five cousins. Endless adventures. One place to keep it all.</p>
-    <div class="hero-ctas">
-      <button class="btn-primary" id="heroUpload">↑ Upload Photos</button>
-      <a href="#cousins" class="btn-ghost">Meet the Crew</a>
-    </div>
   </div>
 </section>
 
