@@ -254,8 +254,11 @@ nav{padding:16px 20px}
 <section class="section" id="cousins">
   <div class="section-header">
     <h2 class="section-title">The Crew</h2>
-    <div id="crewAdminBar" style="display:none;margin-top:16px">
-      <button class="btn-admin-action" id="crewSectionEditBtn">✎ Edit Crew Names</button>
+    <div style="margin-top:20px;display:flex;justify-content:center;align-items:center;gap:12px;flex-wrap:wrap">
+      <button class="btn-primary" id="crewUploadBtn" style="padding:10px 26px;font-size:13px">↑ Upload Photos</button>
+      <div id="crewAdminBar" style="display:none">
+        <button class="btn-admin-action" id="crewSectionEditBtn">✎ Edit Crew Names</button>
+      </div>
     </div>
   </div>
   <div class="cousins-grid" id="cousinsGrid"></div>
@@ -692,6 +695,7 @@ function closeUpload(){ document.getElementById("uploadOverlay").classList.remov
 document.getElementById("openUpload").onclick=openUpload;
 document.getElementById("emptyUploadBtn").onclick=openUpload;
 var heroUp=document.getElementById("heroUpload");if(heroUp)heroUp.onclick=openUpload;
+var crewUp=document.getElementById("crewUploadBtn");if(crewUp)crewUp.onclick=openUpload;
 document.getElementById("closeUpload").onclick=closeUpload;
 document.getElementById("uploadOverlay").onclick=function(e){ if(e.target===this) closeUpload(); };
 
