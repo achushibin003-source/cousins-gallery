@@ -229,7 +229,6 @@ nav{padding:16px 20px}
     </div>
     <div id="adminNavLoggedIn" style="display:none;align-items:center;gap:8px">
       <span class="admin-pill"><span class="admin-badge-indicator"></span> Admin</span>
-      <button class="btn-nav btn-admin" id="openEditCrewNavBtn">✎ Edit Crew</button>
       <button class="btn-nav btn-logout" id="logoutAdminBtn" title="Log Out Admin">Logout</button>
     </div>
   </div>
@@ -1160,7 +1159,7 @@ document.getElementById("openAdminLoginBtn").onclick = openAdminLogin;
 document.getElementById("closeAdminLogin").onclick = closeAdminLogin;
 document.getElementById("adminLoginOverlay").onclick = function(e){ if(e.target===this) closeAdminLogin(); };
 document.getElementById("logoutAdminBtn").onclick = logoutAdmin;
-document.getElementById("openEditCrewNavBtn").onclick = function(){ openEditCrewModal(); };
+var navEditCrew = document.getElementById("openEditCrewNavBtn"); if(navEditCrew) navEditCrew.onclick = function(){ openEditCrewModal(); };
 document.getElementById("crewSectionEditBtn").onclick = function(){ openEditCrewModal(); };
 document.getElementById("closeEditCrew").onclick = closeEditCrewModal;
 document.getElementById("editCrewOverlay").onclick = function(e){ if(e.target===this) closeEditCrewModal(); };
