@@ -574,7 +574,13 @@ function initCloudSync(){
           });
         });
         if(cloudPhotos.length > 0){
-          photos = cloudPhotos;
+          var merged = cloudPhotos.slice();
+          photos.forEach(function(localP){
+            if(!merged.find(function(m){ return m.id === localP.id; })){
+              merged.push(localP);
+            }
+          });
+          photos = merged;
           localStorage.setItem("cg_photos", JSON.stringify(photos));
           buildFilters();
           renderGallery();
@@ -861,12 +867,16 @@ document.getElementById("confirmUpload").onclick=function(){
     var f=selectedFiles[count]; count++;
     resizeImageToDataUrl(f, 1280, 0.82, function(dataUrl){
       var item = { id: uid(), member: selectedMember, src: dataUrl, trip: trip, name: f.name, date: Date.now() };
+      // Always store locally immediately so photo persists permanently on refresh
+      photos.unshift(item);
+      save();
+
       if(db){
         var timeoutPromise = new Promise(function(_, reject){
           setTimeout(function(){ reject(new Error("Cloud response timeout")); }, 4000);
         });
         Promise.race([
-          db.collection("photos").add({
+          db.collection("photos").doc(item.id).set({
             member: item.member,
             src: item.src,
             trip: item.trip,
@@ -874,17 +884,14 @@ document.getElementById("confirmUpload").onclick=function(){
             date: item.date
           }),
           timeoutPromise
-        ]).then(function(docRef){
+        ]).then(function(){
           hadCloudSuccess = true;
-          item.id = docRef.id;
           next();
         }).catch(function(err){
-          console.warn("Cloud save delayed/failed, saving locally:", err.message);
-          photos.unshift(item);
+          console.warn("Cloud save delayed/failed (saved locally):", err.message);
           next();
         });
       } else {
-        photos.unshift(item);
         next();
       }
     });
