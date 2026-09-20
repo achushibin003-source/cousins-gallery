@@ -278,8 +278,7 @@ nav{padding:16px 20px}
   <div class="empty-state" id="emptyState">
     <div class="empty-icon">📷</div>
     <h3>No photos yet</h3>
-    <p>Be the first to upload a memory!</p>
-    <button class="btn-primary" id="emptyUploadBtn">Upload Photos</button>
+    <p>Memories will appear here once added!</p>
   </div>
 </section>
 
@@ -693,7 +692,7 @@ function openUpload(){
 }
 function closeUpload(){ document.getElementById("uploadOverlay").classList.remove("open"); document.body.style.overflow=""; }
 document.getElementById("openUpload").onclick=openUpload;
-document.getElementById("emptyUploadBtn").onclick=openUpload;
+var emptyBtn=document.getElementById("emptyUploadBtn");if(emptyBtn)emptyBtn.onclick=openUpload;
 var heroUp=document.getElementById("heroUpload");if(heroUp)heroUp.onclick=openUpload;
 var crewUp=document.getElementById("crewUploadBtn");if(crewUp)crewUp.onclick=openUpload;
 document.getElementById("closeUpload").onclick=closeUpload;
