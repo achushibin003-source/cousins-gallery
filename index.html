@@ -3,10 +3,13 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Expires" content="0">
 <title>Cousins Gallery 📸</title>
 <meta name="description" content="Our private family photo gallery — 5 cousins, endless trips, one place.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@800;900&family=Cinzel+Decorative:wght@700&family=Playfair+Display:wght@700;800;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@700;800;900&family=Cinzel+Decorative:wght@700&family=Playfair+Display:wght@700;800;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{
@@ -18,8 +21,8 @@
   --shadow:0 8px 40px #0009;
   --transition:0.3s cubic-bezier(0.4,0,0.2,1);
 }
-html{scroll-behavior:smooth;overflow-x:hidden}
-body{background:var(--bg);color:var(--text);font-family:"Inter",sans-serif;min-height:100vh;line-height:1.6}
+html{scroll-behavior:smooth;overflow-x:hidden;overscroll-behavior-x:none}
+body{background:var(--bg);color:var(--text);font-family:"Inter",sans-serif;min-height:100vh;line-height:1.6;overscroll-behavior-x:none}
 
 /* SCROLLBAR */
 ::-webkit-scrollbar{width:6px}
@@ -27,7 +30,7 @@ body{background:var(--bg);color:var(--text);font-family:"Inter",sans-serif;min-h
 ::-webkit-scrollbar-thumb{background:var(--subtle);border-radius:3px}
 
 /* NAV */
-nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:18px 40px;display:flex;align-items:center;justify-content:flex-end;backdrop-filter:blur(20px);background:#0d0d0daa;border-bottom:1px solid var(--border)}
+nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:18px 40px;display:flex;align-items:center;justify-content:space-between;backdrop-filter:blur(20px);background:#0d0d0daa;border-bottom:1px solid var(--border)}
 .logo{display:flex;align-items:center;gap:10px;text-decoration:none}
 .logo-icon{font-size:22px}
 .logo-text{font-family:"Playfair Display",serif;font-size:20px;color:var(--text);letter-spacing:0.02em}
@@ -67,12 +70,14 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:18px 40px;display:fl
 
 .hero{min-height:85vh;display:flex;align-items:center;justify-content:center;text-align:center;padding:140px 24px 80px;position:relative;overflow:hidden}
 .hero-glow{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:700px;height:500px;background:radial-gradient(ellipse at center,#c8a96e22 0%,#c8a96e05 50%,transparent 75%);pointer-events:none}
-.hero-content{position:relative;max-width:720px;z-index:1}
+.hero-content{position:relative;max-width:1050px;width:100%;z-index:1}
 .hero-tag{display:inline-flex;align-items:center;gap:8px;font-size:12px;letter-spacing:0.16em;text-transform:uppercase;color:var(--accent);margin-bottom:24px;border:1px solid #c8a96e35;padding:7px 20px;border-radius:50px;background:#c8a96e0c}
-h1.hero-title{display:flex;flex-direction:column;align-items:center;margin-bottom:24px;line-height:1.08}
-.hero-caps{font-family:"Outfit","Inter",sans-serif;font-size:clamp(46px,7.8vw,88px);font-weight:900;text-transform:uppercase;letter-spacing:0.06em;color:#ffffff;display:block}
-.hero-fancy{font-family:"Cinzel Decorative","Playfair Display",serif;font-size:clamp(42px,7vw,76px);font-style:normal;font-weight:700;color:var(--accent);display:block;margin-top:6px;line-height:1.15;letter-spacing:0.03em}
-.hero-tagline{font-size:18px;color:#f0f0f0;margin-bottom:38px;font-weight:700;line-height:1.7;max-width:560px;margin-left:auto;margin-right:auto;letter-spacing:0.02em}
+h1.hero-title{display:flex;flex-direction:column;align-items:center;margin-bottom:20px;line-height:1.05;text-align:center}
+.hero-brand-headline{font-family:"Outfit","Inter",sans-serif;font-size:clamp(36px,5.8vw,76px);font-weight:800;text-transform:uppercase;letter-spacing:-0.01em;color:#ffffff;display:block;white-space:nowrap;line-height:1.15;text-shadow:0 4px 24px rgba(0,0,0,0.6)}
+.gold-gradient-text{background:linear-gradient(135deg,#c8a96e 0%,#fff2d1 45%,#c8a96e 70%,#9e7b36 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;display:inline-block;filter:drop-shadow(0 0 35px rgba(200,169,110,0.5))}
+.hero-caps{font-family:"Outfit","Inter",sans-serif;font-size:clamp(32px,5.4vw,70px);font-weight:900;text-transform:uppercase;letter-spacing:0.06em;color:#ffffff;display:block;white-space:nowrap}
+.hero-fancy{font-family:"Cinzel Decorative","Playfair Display",serif;font-size:clamp(28px,4.6vw,58px);font-style:normal;font-weight:700;color:var(--accent);display:block;margin-top:4px;line-height:1.15;letter-spacing:0.02em;white-space:nowrap}
+.hero-tagline{font-size:clamp(15px,1.6vw,18px);color:#f0f0f0;margin-bottom:38px;font-weight:500;line-height:1.6;max-width:880px;margin-left:auto;margin-right:auto;letter-spacing:0.02em}
 .hero-ctas{display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
 .btn-primary{background:var(--accent);color:#000;border:none;padding:14px 32px;border-radius:50px;font-size:14px;font-weight:600;font-family:"Inter",sans-serif;cursor:pointer;transition:all var(--transition);letter-spacing:0.04em}
 .btn-primary:hover{background:var(--accent2);transform:translateY(-2px);box-shadow:0 12px 40px #c8a96e40}
@@ -165,6 +170,16 @@ h1.hero-title{display:flex;flex-direction:column;align-items:center;margin-botto
 .toast.success{border-color:#22c55e40;}.toast.success::before{content:"✓";color:#22c55e;font-weight:700}
 .toast.info::before{content:"ℹ";color:var(--accent)}
 
+@keyframes modalShake {
+  0%, 100% { transform: scale(1); }
+  25% { transform: scale(1.02) translateX(-4px); }
+  75% { transform: scale(1.02) translateX(4px); }
+}
+.modal-shaking {
+  animation: modalShake 0.35s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
+  box-shadow: 0 0 35px #c8a96e66 !important;
+}
+
 /* FOOTER */
 footer{border-top:1px solid var(--border);padding:40px;text-align:center;color:var(--subtle);font-size:13px}
 footer .footer-logo{font-family:"Playfair Display",serif;font-size:18px;color:var(--text);margin-bottom:8px}
@@ -197,13 +212,113 @@ footer .footer-logo span{color:var(--accent)}
 .btn-remove-dp:hover{background:#e87e7e;color:#fff;border-color:#e87e7e}
 .chip-img,.filter-img{width:20px;height:20px;border-radius:50%;object-fit:cover;display:inline-block;vertical-align:middle;margin-right:4px}
 .admin-error{color:#e87e7e;font-size:13px;margin-top:10px;display:none;align-items:center;gap:6px}
+.member-pill{display:inline-flex;align-items:center;gap:6px;background:#38bdf818;border:1px solid #38bdf845;color:#38bdf8;padding:6px 14px;border-radius:50px;font-size:12px;font-weight:600;letter-spacing:0.04em}
+.member-badge-indicator{display:inline-block;width:7px;height:7px;border-radius:50%;background:#38bdf8;box-shadow:0 0 8px #38bdf8}
+.auth-tabs{display:flex;gap:6px;background:var(--bg3);padding:4px;border-radius:50px;border:1px solid var(--border2);margin-bottom:24px}
+.auth-tab{flex:1;padding:8px 14px;border-radius:50px;border:none;background:transparent;color:var(--muted);font-size:13px;font-weight:600;cursor:pointer;transition:all var(--transition);font-family:"Inter",sans-serif;text-align:center}
+.auth-tab.active{background:var(--accent);color:#000;box-shadow:0 2px 12px #c8a96e40}
+.auth-tab:hover:not(.active){color:var(--text);background:#ffffff0a}
+.crew-pin-input{width:80px;font-size:12px;padding:6px 8px;text-align:center;letter-spacing:0.08em}
+
+/* ADD CREW & MANAGE STYLES */
+.add-crew-card{border:2px dashed #c8a96e55;background:#c8a96e08;display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:160px}
+.add-crew-card:hover{border-color:var(--accent);background:#c8a96e18;transform:translateY(-4px);box-shadow:0 8px 30px #c8a96e25}
+.add-avatar-circle{border:2px dashed #c8a96e88 !important;color:var(--accent);font-size:30px !important;background:#c8a96e12 !important}
+.add-crew-card:hover .add-avatar-circle{border-color:var(--accent) !important;transform:scale(1.08)}
+.tag-chip{background:var(--bg2);border:1px solid var(--border2);color:var(--muted);padding:4px 10px;border-radius:50px;font-size:11px;cursor:pointer;transition:all var(--transition)}
+.tag-chip:hover{border-color:var(--accent);color:var(--accent)}
+.emoji-picker-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(38px,1fr));gap:6px;max-height:120px;overflow-y:auto;padding:8px;background:var(--bg3);border:1px solid var(--border2);border-radius:var(--radius-sm)}
+.emoji-btn{width:38px;height:38px;font-size:20px;border-radius:8px;border:1px solid transparent;background:var(--bg2);cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all var(--transition)}
+.emoji-btn:hover{background:var(--bg);border-color:var(--border2);transform:scale(1.1)}
+.emoji-btn.selected{border-color:var(--accent);background:#c8a96e25;box-shadow:0 0 10px #c8a96e40}
+.color-swatches{display:flex;gap:10px;flex-wrap:wrap;padding:6px 0}
+.color-swatch{width:30px;height:30px;border-radius:50%;cursor:pointer;border:2px solid transparent;transition:all var(--transition);position:relative}
+.color-swatch:hover{transform:scale(1.15)}
+.color-swatch.selected{border-color:#fff;box-shadow:0 0 12px currentColor;transform:scale(1.15)}
+.color-swatch.selected::after{content:"✓";position:absolute;inset:0;display:flex;align-items:center;justify-content:center;color:#000;font-weight:800;font-size:13px}
+.btn-del-member{background:transparent;border:1px solid #e87e7e30;color:#e87e7e;width:34px;height:34px;border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:13px;transition:all var(--transition);flex-shrink:0}
+.btn-del-member:hover{background:#e87e7e;color:#fff;border-color:#e87e7e;transform:scale(1.05)}
+
+/* CONNECT HUB (CHAT, VOICE, VIDEO) */
+.connect-card{background:var(--bg2);border:1px solid var(--border2);border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow);position:relative}
+.connect-header-bar{padding:20px 28px;background:linear-gradient(180deg,#1c1c1c 0%,var(--bg2) 100%);border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px}
+.connect-tabs{display:inline-flex;background:var(--bg3);border:1px solid var(--border2);padding:4px;border-radius:50px;gap:4px}
+.connect-tab-btn{background:transparent;border:none;color:var(--muted);padding:8px 20px;border-radius:50px;font-family:"Inter",sans-serif;font-size:13px;font-weight:600;cursor:pointer;transition:all var(--transition);display:inline-flex;align-items:center;gap:8px}
+.connect-tab-btn:hover{color:var(--text)}
+.connect-tab-btn.active{background:var(--accent);color:#000;box-shadow:0 4px 16px #c8a96e40}
+
+.connect-status-badge{display:inline-flex;align-items:center;gap:8px;font-size:12px;color:var(--muted);background:var(--bg3);padding:6px 14px;border-radius:50px;border:1px solid var(--border)}
+.live-dot{width:8px;height:8px;border-radius:50%;background:#22c55e;box-shadow:0 0 10px #22c55e}
+.live-dot.calling{background:#ef4444;box-shadow:0 0 12px #ef4444;animation:pulseCall 1s infinite}
+@keyframes pulseCall{0%,100%{opacity:1;transform:scale(1)}50%{opacity:0.4;transform:scale(1.3)}}
+
+/* CHAT FEED */
+.chat-container{display:flex;flex-direction:column;height:520px}
+.chat-messages{flex:1;overflow-y:auto;padding:24px;display:flex;flex-direction:column;gap:14px;scroll-behavior:smooth}
+.chat-item{display:flex;gap:12px;max-width:82%;align-items:flex-start}
+.chat-item.mine{align-self:flex-end;flex-direction:row-reverse}
+.chat-avatar-thumb{width:38px;height:38px;border-radius:50%;background:var(--bg3);border:2px solid var(--accent);display:flex;align-items:center;justify-content:center;font-size:20px;overflow:hidden;flex-shrink:0}
+.chat-avatar-thumb img{width:100%;height:100%;object-fit:cover}
+.chat-bubble-wrap{display:flex;flex-direction:column}
+.chat-author{font-size:11px;font-weight:600;color:var(--accent);margin-bottom:3px;display:flex;align-items:center;gap:6px}
+.chat-item.mine .chat-author{justify-content:flex-end;color:#a3e635}
+.chat-bubble{background:var(--bg3);border:1px solid var(--border2);color:var(--text);padding:10px 16px;border-radius:16px 16px 16px 4px;font-size:14px;line-height:1.45;word-break:break-word;box-shadow:0 2px 10px #0004}
+.chat-item.mine .chat-bubble{background:linear-gradient(135deg,#c8a96e22,#c8a96e10);border-color:#c8a96e55;border-radius:16px 16px 4px 16px}
+.chat-timestamp{font-size:10px;color:var(--subtle);margin-top:4px}
+.chat-item.mine .chat-timestamp{text-align:right}
+
+.chat-input-area{padding:14px 20px;background:var(--bg3);border-top:1px solid var(--border);display:flex;flex-direction:column;gap:10px}
+.chat-quick-emojis{display:flex;gap:6px;align-items:center;overflow-x:auto;padding-bottom:2px}
+.emoji-chip-btn{background:transparent;border:1px solid var(--border2);border-radius:50px;padding:3px 10px;font-size:15px;cursor:pointer;transition:all var(--transition)}
+.emoji-chip-btn:hover{background:var(--bg2);transform:scale(1.15);border-color:var(--accent)}
+.chat-input-row{display:flex;gap:10px;align-items:center}
+.chat-input{flex:1;background:var(--bg2);border:1px solid var(--border2);color:var(--text);padding:12px 18px;border-radius:50px;font-family:"Inter",sans-serif;font-size:14px}
+.chat-input:focus{outline:none;border-color:var(--accent)}
+.btn-chat-send{background:var(--accent);color:#000;border:none;padding:12px 24px;border-radius:50px;font-weight:700;font-size:13px;cursor:pointer;transition:all var(--transition);display:inline-flex;align-items:center;gap:6px;flex-shrink:0}
+.btn-chat-send:hover{background:var(--accent2);transform:translateY(-1px)}
+
+/* VOICE LOUNGE */
+.voice-panel{padding:40px 24px;display:flex;flex-direction:column;align-items:center;text-align:center;min-height:500px;justify-content:center}
+.voice-stage-card{background:#111;border:1px solid var(--border2);border-radius:24px;padding:36px 32px;max-width:640px;width:100%;box-shadow:0 12px 40px #0008;position:relative;overflow:hidden}
+.voice-avatars-row{display:flex;justify-content:center;gap:20px;flex-wrap:wrap;margin:30px 0}
+.voice-avatar-item{display:flex;flex-direction:column;align-items:center;gap:8px}
+.voice-avatar-bubble{width:76px;height:76px;border-radius:50%;background:var(--bg3);border:3px solid var(--border2);display:flex;align-items:center;justify-content:center;font-size:32px;position:relative;transition:all var(--transition);overflow:hidden}
+.voice-avatar-bubble img{width:100%;height:100%;object-fit:cover}
+.voice-avatar-bubble.speaking{border-color:#22c55e;box-shadow:0 0 0 6px #22c55e30, 0 0 20px #22c55e60;transform:scale(1.06)}
+.voice-call-timer{font-family:"Outfit",sans-serif;font-size:24px;font-weight:800;letter-spacing:0.06em;color:var(--accent);margin-bottom:16px}
+.call-controls-row{display:flex;gap:14px;justify-content:center;align-items:center;margin-top:16px}
+.btn-call-circle{width:52px;height:52px;border-radius:50%;border:1px solid var(--border2);background:var(--bg3);color:#fff;font-size:20px;display:inline-flex;align-items:center;justify-content:center;cursor:pointer;transition:all var(--transition)}
+.btn-call-circle:hover{transform:scale(1.1);background:var(--bg)}
+.btn-call-circle.active-mute{background:#ef444430;border-color:#ef4444;color:#ef4444}
+.btn-call-end-call{background:#ef4444 !important;border-color:#ef4444 !important;color:#fff !important;width:58px;height:58px;font-size:24px}
+.btn-call-end-call:hover{background:#dc2626 !important;transform:scale(1.12);box-shadow:0 0 24px #ef444460}
+
+/* EQUALIZER BARS */
+.eq-bar{width:5px;background:var(--accent);border-radius:4px;transition:height 0.1s ease;animation:eqAnim 0.6s ease-in-out infinite alternate}
+.eq-bar:nth-child(2){animation-delay:0.1s;background:#22c55e}
+.eq-bar:nth-child(3){animation-delay:0.25s}
+.eq-bar:nth-child(4){animation-delay:0.4s;background:#22c55e}
+.eq-bar:nth-child(5){animation-delay:0.15s}
+@keyframes eqAnim{from{height:6px}to{height:34px}}
+
+/* VIDEO ROOM */
+.video-panel{padding:24px;display:flex;flex-direction:column;min-height:520px}
+.video-grid-wrap{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px;flex:1;margin-bottom:20px}
+.video-tile{background:#000;border:1px solid var(--border2);border-radius:18px;position:relative;overflow:hidden;min-height:220px;aspect-ratio:16/9;display:flex;align-items:center;justify-content:center;box-shadow:0 8px 30px #000a}
+.video-tile video{width:100%;height:100%;object-fit:cover;display:block}
+.video-tile-avatar{display:flex;flex-direction:column;align-items:center;gap:10px}
+.video-tile-name{position:absolute;bottom:12px;left:12px;background:#000a;backdrop-filter:blur(6px);padding:4px 12px;border-radius:50px;font-size:12px;font-weight:600;color:#fff;display:flex;align-items:center;gap:6px;border:1px solid #ffffff15}
+.video-tile.active-speaker{border-color:var(--accent);box-shadow:0 0 0 2px var(--accent),0 0 25px #c8a96e50}
+.video-controls-bar{background:var(--bg3);border:1px solid var(--border2);border-radius:50px;padding:10px 24px;display:flex;align-items:center;justify-content:center;gap:14px;margin:0 auto}
 
 /* RESPONSIVE */
 @media(max-width:768px){
 nav{padding:16px 20px}
 .nav-links{display:none}
-.hero-caps{font-size:38px}
-.hero-fancy{font-size:48px}
+.hero-brand-headline{font-size:clamp(28px,6vw,48px);white-space:nowrap}
+.hero-caps{font-size:clamp(22px,5.5vw,34px);white-space:nowrap}
+.hero-fancy{font-size:clamp(20px,4.8vw,30px);white-space:nowrap}
+.hero-tagline{font-size:14px;white-space:normal}
 .photo-grid{columns:2 140px}
 .profile-grid{columns:2 140px}
 .section{padding:60px 20px}
@@ -212,6 +327,9 @@ nav{padding:16px 20px}
 .profile-body{padding:20px}
 }
 @media(max-width:480px){
+  .hero-brand-headline{font-size:clamp(20px,5.8vw,30px);white-space:nowrap}
+  .hero-caps{font-size:clamp(18px,4.8vw,23px);white-space:nowrap}
+  .hero-fancy{font-size:clamp(16px,4.2vw,21px);white-space:nowrap}
   .cousins-grid{grid-template-columns:repeat(2,1fr)}
   .nav-actions{gap:6px}
   .btn-nav{padding:6px 12px;font-size:12px}
@@ -223,14 +341,17 @@ nav{padding:16px 20px}
 
 <!-- NAV -->
 <nav>
-  <div class="nav-actions">
-    <div id="adminNavLoggedOut">
-      <button class="btn-nav btn-admin" id="openAdminLoginBtn">🔐 Admin</button>
-    </div>
-    <div id="adminNavLoggedIn" style="display:none;align-items:center;gap:8px">
-      <span class="admin-pill"><span class="admin-badge-indicator"></span> Admin</span>
-      <button class="btn-nav btn-logout" id="logoutAdminBtn" title="Log Out Admin">Logout</button>
-    </div>
+  <a href="#home" class="logo">
+    <span class="logo-icon">📸</span>
+    <span class="logo-text">Cousins <span>Gallery</span></span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#cousins">Crew</a></li>
+    <li><a href="#gallery">Gallery</a></li>
+    <li><a href="#connect" style="color:var(--accent);font-weight:700">Connect</a></li>
+  </ul>
+  <div class="nav-actions" id="navAuthActions">
+    <button type="button" class="btn-nav btn-admin" id="openAuthModalBtn">🔐 Sign In</button>
   </div>
 </nav>
 
@@ -239,10 +360,9 @@ nav{padding:16px 20px}
   <div class="hero-glow"></div>
   <div class="hero-content">
     <h1 class="hero-title">
-      <span class="hero-caps">EVERY TRIP</span>
-      <span class="hero-fancy">Every moment</span>
+      <span class="hero-brand-headline">COUSINS <span class="gold-gradient-text">GALLERY</span></span>
     </h1>
-    <p class="hero-tagline">Five cousins. Endless adventures. One place to keep it all.</p>
+    <p class="hero-tagline">Every road trip, late-night laugh, and unforgettable story we share — captured forever in one place.</p>
   </div>
 </section>
 
@@ -254,8 +374,9 @@ nav{padding:16px 20px}
     <h2 class="section-title">The Crew</h2>
     <div style="margin-top:20px;display:flex;justify-content:center;align-items:center;gap:12px;flex-wrap:wrap">
       <button class="btn-primary" id="crewUploadBtn" style="padding:10px 26px;font-size:13px">↑ Upload Photos</button>
-      <div id="crewAdminBar" style="display:none">
-        <button class="btn-admin-action" id="crewSectionEditBtn">✎ Edit Crew Names</button>
+      <div id="crewAdminBar" style="display:none;align-items:center;gap:10px;flex-wrap:wrap">
+        <button class="btn-admin-action" id="crewSectionEditBtn">✎ Edit Crew</button>
+        <button class="btn-admin-action" id="openAddCrewBtn">＋ Add Crew Member</button>
       </div>
     </div>
   </div>
@@ -280,6 +401,148 @@ nav{padding:16px 20px}
   </div>
 </section>
 
+<div class="divider"></div>
+
+<!-- CONNECT SECTION (CHAT, VOICE & VIDEO) -->
+<section class="section" id="connect">
+  <div class="section-header">
+    <span class="section-label">EXCLUSIVE CREW HUB</span>
+    <h2 class="section-title">Cousins Connect</h2>
+    <p class="section-desc">Stay close wherever life takes us. Chat in real time, drop into the voice lounge, or start an instant group video call.</p>
+  </div>
+
+  <div class="connect-card">
+    <!-- TOP BAR WITH TAB SWITCHER & LIVE STATUS -->
+    <div class="connect-header-bar">
+      <div class="connect-tabs">
+        <button type="button" class="connect-tab-btn active" id="tabBtnChat" onclick="switchConnectTab('chat')">
+          <span>💬</span> Crew Chat
+        </button>
+        <button type="button" class="connect-tab-btn" id="tabBtnVoice" onclick="switchConnectTab('voice')">
+          <span>📞</span> Voice Lounge
+        </button>
+        <button type="button" class="connect-tab-btn" id="tabBtnVideo" onclick="switchConnectTab('video')">
+          <span>🎥</span> Video Room
+        </button>
+      </div>
+
+      <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap">
+        <div class="connect-status-badge" id="connectStatusBadge">
+          <span class="live-dot" id="connectLiveDot"></span>
+          <span id="connectStatusText">Crew Ready</span>
+        </div>
+        <div id="currentUserChatBadge" style="font-size:12px;color:var(--accent);font-weight:600"></div>
+      </div>
+    </div>
+
+    <!-- TAB 1: CREW CHAT -->
+    <div class="connect-view-panel" id="connectChatView">
+      <div class="chat-container">
+        <div class="chat-messages" id="chatMessagesList">
+          <!-- Live messages loaded here -->
+        </div>
+
+        <div class="chat-input-area">
+          <div class="chat-quick-emojis">
+            <span style="font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:0.06em;margin-right:4px">React:</span>
+            <button type="button" class="emoji-chip-btn" onclick="sendQuickEmoji('❤️')">❤️</button>
+            <button type="button" class="emoji-chip-btn" onclick="sendQuickEmoji('🔥')">🔥</button>
+            <button type="button" class="emoji-chip-btn" onclick="sendQuickEmoji('😂')">😂</button>
+            <button type="button" class="emoji-chip-btn" onclick="sendQuickEmoji('🏖️')">🏖️</button>
+            <button type="button" class="emoji-chip-btn" onclick="sendQuickEmoji('📸')">📸</button>
+            <button type="button" class="emoji-chip-btn" onclick="sendQuickEmoji('🎉')">🎉</button>
+            <button type="button" class="emoji-chip-btn" onclick="sendQuickEmoji('🙌')">🙌</button>
+          </div>
+          <form id="connectChatForm" action="javascript:void(0);" onsubmit="event.preventDefault();handleSendChat();return false;" class="chat-input-row">
+            <input type="text" class="chat-input" id="chatMessageInput" placeholder="Write a message to the crew... (Press Enter to send)" maxlength="500" autocomplete="off">
+            <button type="submit" class="btn-chat-send" id="chatSendBtn"><span>📤</span> Send</button>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <!-- TAB 2: VOICE LOUNGE -->
+    <div class="connect-view-panel" id="connectVoiceView" style="display:none">
+      <div class="voice-panel">
+        <div class="voice-stage-card">
+          <div style="display:flex;align-items:center;justify-content:center;gap:10px;margin-bottom:8px">
+            <span style="font-size:24px">🎙️</span>
+            <h3 style="font-family:'Playfair Display',serif;font-size:22px;color:var(--text);margin-bottom:0">Crew Audio Lounge</h3>
+          </div>
+          <p style="font-size:13px;color:var(--muted);margin-bottom:20px" id="voiceLoungeSubtitle">Hop on a live audio call with high-fidelity microphone sound</p>
+
+          <div class="voice-call-timer" id="voiceTimerDisplay" style="display:none">00:00</div>
+
+          <!-- AUDIO EQUALIZER BARS -->
+          <div id="voiceWaveVisualizer" style="display:none;align-items:center;justify-content:center;gap:4px;height:45px;margin-bottom:20px">
+            <span class="eq-bar"></span>
+            <span class="eq-bar"></span>
+            <span class="eq-bar"></span>
+            <span class="eq-bar"></span>
+            <span class="eq-bar"></span>
+          </div>
+
+          <!-- CREW PARTICIPANTS -->
+          <div class="voice-avatars-row" id="voiceParticipantsRow"></div>
+
+          <div id="voiceIdleState">
+            <button type="button" class="btn-primary" style="padding:12px 36px;font-size:14px;border-radius:50px" onclick="startVoiceCall()">
+              <span>📞</span> Start / Join Voice Lounge
+            </button>
+          </div>
+
+          <div id="voiceActiveControls" style="display:none" class="call-controls-row">
+            <button type="button" class="btn-call-circle" id="btnVoiceMute" onclick="toggleVoiceMute()" title="Mute/Unmute Mic">🎙️</button>
+            <button type="button" class="btn-call-circle btn-call-end-call" onclick="endVoiceCall()" title="Leave Lounge">🔴</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- TAB 3: VIDEO ROOM -->
+    <div class="connect-view-panel" id="connectVideoView" style="display:none">
+      <div class="video-panel">
+        <div id="videoRoomNotice" style="display:none;background:#22c55e18;border:1px solid #22c55e45;padding:10px 16px;border-radius:12px;margin-bottom:16px;font-size:13px;color:#a3e635;display:flex;align-items:center;justify-content:space-between">
+          <span>🟢 <strong>Group Video Call Active</strong></span>
+          <span id="videoTimerDisplay" style="font-family:'Outfit',sans-serif;font-weight:700">00:00</span>
+        </div>
+
+        <!-- VIDEO TILES GRID -->
+        <div class="video-grid-wrap" id="videoGridWrap">
+          <!-- Local Video Tile -->
+          <div class="video-tile" id="localVideoTile">
+            <video id="localVideoFeed" autoplay playsinline muted></video>
+            <div class="video-tile-avatar" id="localVideoFallback" style="display:none">
+              <div class="cousin-avatar" id="localFallbackAvatar" style="width:72px;height:72px;font-size:32px;margin:0">🧑</div>
+              <div style="font-size:12px;color:var(--muted)">Camera Off / Audio Active</div>
+            </div>
+            <div class="video-tile-name"><span id="localVideoName">You</span> <span style="font-size:10px;color:#a3e635">(Host)</span></div>
+          </div>
+
+          <!-- Crew Member Remote Tiles -->
+          <div id="crewRemoteTiles" style="display:contents"></div>
+        </div>
+
+        <!-- VIDEO CONTROLS -->
+        <div id="videoIdleControls" style="text-align:center;padding:16px 0">
+          <button type="button" class="btn-primary" style="padding:14px 40px;font-size:15px;border-radius:50px" onclick="startVideoCall()">
+            <span>🎥</span> Start Group Video Call
+          </button>
+        </div>
+
+        <div id="videoActiveControls" style="display:none" class="video-controls-bar">
+          <button type="button" class="btn-call-circle" id="btnVideoMic" onclick="toggleVideoMic()" title="Mute/Unmute Mic">🎙️</button>
+          <button type="button" class="btn-call-circle" id="btnVideoCam" onclick="toggleVideoCam()" title="Camera On/Off">📹</button>
+          <button type="button" class="btn-call-circle" id="btnVideoScreen" onclick="toggleScreenShare()" title="Share Screen">🖥️</button>
+          <button type="button" class="btn-call-circle" onclick="toggleVideoFullscreen()" title="Fullscreen">⛶</button>
+          <button type="button" class="btn-call-circle btn-call-end-call" onclick="endVideoCall()" title="End Video Call">🔴</button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
 <footer>
   <div class="footer-logo">Cousins <span>Gallery</span> 📸</div>
 </footer>
@@ -287,7 +550,7 @@ nav{padding:16px 20px}
 <!-- PROFILE MODAL -->
 <div class="overlay" id="profileOverlay">
   <div class="profile-modal">
-    <button class="modal-close" id="closeProfile">✕</button>
+    <button type="button" class="modal-close" id="closeProfile">✕</button>
     <div class="profile-header">
       <div class="profile-avatar-lg" id="profileAvatar"></div>
       <div class="profile-info">
@@ -295,6 +558,9 @@ nav{padding:16px 20px}
         <p id="profileTag"></p>
         <div class="profile-stats">
           <div class="pstat"><div class="pstat-val" id="profileCount">0</div><div class="pstat-lbl">Photos</div></div>
+        </div>
+        <div id="profileEditBtnWrap" style="margin-top:14px;display:none">
+          <button type="button" class="btn-admin-action" id="profileEditActionBtn" style="padding:6px 18px;font-size:12px">✎ Edit Profile</button>
         </div>
       </div>
     </div>
@@ -312,7 +578,7 @@ nav{padding:16px 20px}
 <!-- UPLOAD MODAL -->
 <div class="overlay" id="uploadOverlay">
   <div class="upload-modal-inner">
-    <button class="modal-close" id="closeUpload">✕</button>
+    <button type="button" class="modal-close" id="closeUpload">✕</button>
     <h2 class="modal-title">Upload Photos</h2>
     <p class="modal-sub">Share your memories with the crew 🎉</p>
 
@@ -337,23 +603,103 @@ nav{padding:16px 20px}
       </div>
     </div>
 
-    <button class="btn-primary btn-full" id="confirmUpload" disabled>📤 Upload Photos</button>
+    <button type="button" class="btn-primary btn-full" id="confirmUpload" disabled>📤 Upload Photos</button>
   </div>
 </div>
 
-<!-- ADMIN LOGIN MODAL -->
-<div class="overlay" id="adminLoginOverlay">
-  <div class="upload-modal-inner" style="max-width:400px">
-    <button class="modal-close" id="closeAdminLogin">✕</button>
-    <h2 class="modal-title">Admin Login 🔐</h2>
-    <p class="modal-sub">Enter password to manage crew names</p>
-    <form id="adminLoginForm" onsubmit="event.preventDefault();handleAdminLogin();">
-      <div class="form-group">
-        <label class="form-label">Admin Password</label>
-        <input class="form-input" id="adminPasswordInput" type="password" placeholder="Enter admin password" autocomplete="current-password">
-        <div class="admin-error" id="adminLoginError">⚠️ Incorrect password. Try again.</div>
+<!-- AUTH MODAL (SUPER ADMIN & CREW MEMBER) -->
+<div class="overlay" id="authOverlay">
+  <div class="upload-modal-inner" style="max-width:440px">
+    <button type="button" class="modal-close" id="closeAuthModal">✕</button>
+
+    <div class="auth-tabs">
+      <button type="button" class="auth-tab active" id="tabSuperAdmin" onclick="switchAuthTab('admin')">👑 Super Admin (Achu)</button>
+      <button type="button" class="auth-tab" id="tabCrewMember" onclick="switchAuthTab('member')">👤 Crew Member</button>
+    </div>
+
+    <!-- SUPER ADMIN PANEL -->
+    <div id="authAdminPanel">
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:6px">
+        <span style="font-size:26px">👑</span>
+        <h2 class="modal-title" style="margin-bottom:0">Super Admin (Achu)</h2>
       </div>
-      <button type="submit" class="btn-primary btn-full" id="adminLoginSubmit">Unlock Admin</button>
+      <p class="modal-sub">Exclusive access to add crew members, delete photos, and manage all settings.</p>
+      <form id="adminLoginForm" action="javascript:void(0);" onsubmit="event.preventDefault();handleAdminLogin();return false;">
+        <div class="form-group">
+          <label class="form-label">Super Admin Email</label>
+          <input class="form-input" id="adminEmailInput" type="email" placeholder="e.g. achu@gmail.com" autocomplete="username">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Password</label>
+          <input class="form-input" id="adminPasswordInput" type="password" placeholder="••••••••••••" autocomplete="current-password">
+          <div class="admin-error" id="adminLoginError">⚠️ Incorrect credentials. Try again.</div>
+        </div>
+        <button type="submit" class="btn-primary btn-full" id="adminLoginSubmit">Sign In as Super Admin</button>
+        <div style="margin-top:14px;font-size:11px;color:var(--muted);text-align:center;line-height:1.5">
+          🔒 Secured by Firebase Authentication.<br>Full administrative privileges over the entire website.
+        </div>
+      </form>
+    </div>
+
+    <!-- CREW MEMBER PANEL -->
+    <div id="authMemberPanel" style="display:none">
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:6px">
+        <span style="font-size:26px">👤</span>
+        <h2 class="modal-title" style="margin-bottom:0">Crew Member Login</h2>
+      </div>
+      <p class="modal-sub">Sign in with your 4-digit PIN to update your own name and profile photo.</p>
+      <form id="memberLoginForm" action="javascript:void(0);" onsubmit="event.preventDefault();handleMemberLogin();return false;">
+        <div class="form-group">
+          <label class="form-label">Select Your Name</label>
+          <select class="form-select" id="memberSelectLogin"></select>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Your 4-Digit PIN</label>
+          <input class="form-input" id="memberPinInput" type="password" placeholder="Enter your 4-digit PIN" maxlength="10">
+          <div class="admin-error" id="memberLoginError">⚠️ Incorrect PIN. Contact Super Admin (Achu) for your PIN.</div>
+          <span style="font-size:11px;color:var(--muted);margin-top:6px;display:block">Default PIN is 1234 (ask Achu if you forgot).</span>
+        </div>
+        <button type="submit" class="btn-primary btn-full" id="memberLoginSubmit">Unlock My Profile</button>
+      </form>
+    </div>
+
+  </div>
+</div>
+
+<!-- SINGLE MEMBER PROFILE EDIT MODAL -->
+<div class="overlay" id="singleMemberEditOverlay">
+  <div class="upload-modal-inner" style="max-width:440px">
+    <button type="button" class="modal-close" id="closeSingleMemberEdit">✕</button>
+    <div style="display:flex;align-items:center;gap:10px;margin-bottom:6px">
+      <span style="font-size:24px">✎</span>
+      <h2 class="modal-title" style="margin-bottom:0" id="singleEditModalTitle">Edit Profile</h2>
+    </div>
+    <p class="modal-sub" id="singleEditModalSub">Update your profile name, picture, and PIN</p>
+    
+    <div style="display:flex;flex-direction:column;align-items:center;gap:10px;margin-bottom:20px">
+      <div id="singleEditAvatarPreview" class="cousin-avatar" style="width:80px;height:80px;font-size:36px;margin:0;cursor:pointer" onclick="document.getElementById('singleEditDpFile').click()" title="Click to upload new photo"></div>
+      <div style="display:flex;gap:8px">
+        <button type="button" class="btn-change-dp" onclick="document.getElementById('singleEditDpFile').click()">📷 Change Photo</button>
+        <button type="button" class="btn-remove-dp" id="singleEditRemoveDpBtn" style="display:none" onclick="removeSingleEditDp()">✕ Remove Photo</button>
+      </div>
+      <input type="file" id="singleEditDpFile" accept="image/*" style="display:none">
+    </div>
+
+    <form id="singleMemberEditForm" action="javascript:void(0);" onsubmit="event.preventDefault();saveSingleMemberProfile();return false;">
+      <div class="form-group">
+        <label class="form-label">Name</label>
+        <input class="form-input" id="singleEditNameInput" type="text" placeholder="Enter name" maxlength="30" required>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Role / Tagline</label>
+        <input class="form-input" id="singleEditTagInput" type="text" placeholder="e.g. The Adventurer" maxlength="40">
+      </div>
+      <div class="form-group">
+        <label class="form-label">Personal Access PIN</label>
+        <input class="form-input" id="singleEditPinInput" type="text" placeholder="e.g. 1234" maxlength="10">
+        <span style="font-size:11px;color:var(--muted);margin-top:4px;display:block">Use this PIN to log in and manage your profile in the future.</span>
+      </div>
+      <button type="submit" class="btn-primary btn-full" id="saveSingleProfileBtn" style="margin-top:16px">💾 Save Changes</button>
     </form>
   </div>
 </div>
@@ -361,15 +707,82 @@ nav{padding:16px 20px}
 <!-- EDIT CREW MODAL -->
 <div class="overlay" id="editCrewOverlay">
   <div class="upload-modal-inner" style="max-width:520px;max-height:90vh;overflow-y:auto">
-    <button class="modal-close" id="closeEditCrew">✕</button>
+    <button type="button" class="modal-close" id="closeEditCrew">✕</button>
     <h2 class="modal-title">Manage Crew &amp; DPs 👑</h2>
-    <p class="modal-sub">Change names and upload profile photos for crew members</p>
+    <p class="modal-sub">Change names, upload photos, or manage crew members</p>
+    <button type="button" class="btn-admin-action" id="editModalAddCrewBtn" style="width:100%;justify-content:center;margin-bottom:18px;padding:10px 18px">＋ Add New Crew Member</button>
     <input type="file" id="adminDpInput" accept="image/*" style="display:none">
     <div id="crewEditList"></div>
     <div style="margin-top:20px;display:flex;flex-direction:column;gap:10px">
-      <button class="btn-primary btn-full" id="saveCrewNamesBtn">Save Changes</button>
-      <button class="btn-ghost btn-full" id="resetCrewNamesBtn" style="font-size:13px;padding:10px">Reset to Default Names</button>
+      <button type="button" class="btn-primary btn-full" id="saveCrewNamesBtn">Save Changes</button>
+      <button type="button" class="btn-ghost btn-full" id="resetCrewNamesBtn" style="font-size:13px;padding:10px">Reset to Default Names</button>
     </div>
+  </div>
+</div>
+
+<!-- ADD CREW MODAL -->
+<div class="overlay" id="addCrewOverlay">
+  <div class="upload-modal-inner" style="max-width:480px;max-height:90vh;overflow-y:auto">
+    <button type="button" class="modal-close" id="closeAddCrew">✕</button>
+    <h2 class="modal-title">Add Crew Member 🌟</h2>
+    <p class="modal-sub">Add a new cousin to the gallery (Super Admin Only)</p>
+
+    <!-- LIVE PREVIEW CARD -->
+    <div style="background:var(--bg3);border:1px solid var(--border2);border-radius:var(--radius-sm);padding:14px 18px;margin-bottom:20px;display:flex;align-items:center;gap:16px">
+      <div id="newCrewPreviewAvatar" class="cousin-avatar" style="margin:0;width:56px;height:56px;font-size:26px;border-color:var(--accent);transition:all var(--transition)">🧑</div>
+      <div>
+        <div id="newCrewPreviewName" style="font-weight:700;font-size:16px;color:var(--text)">Member Name</div>
+        <div id="newCrewPreviewTag" style="font-size:12px;color:var(--muted)">The Explorer</div>
+      </div>
+    </div>
+
+    <form id="addCrewForm" action="javascript:void(0);" onsubmit="event.preventDefault();handleAddNewCrew();return false;">
+      <div class="form-group">
+        <label class="form-label">Member Name *</label>
+        <input class="form-input" id="newCrewNameInput" type="text" placeholder="e.g. Rahul, Sneha, Appu" maxlength="30" oninput="updateNewCrewPreview()" required>
+        <div class="admin-error" id="addCrewError" style="margin-top:6px"></div>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">Role / Tagline</label>
+        <input class="form-input" id="newCrewTagInput" type="text" placeholder="e.g. The Musician, The Rebel" maxlength="40" value="The Explorer" oninput="updateNewCrewPreview()">
+        <div style="display:flex;flex-wrap:wrap;gap:6px;margin-top:8px">
+          <span class="tag-chip" onclick="setNewCrewTag('The Explorer')">The Explorer</span>
+          <span class="tag-chip" onclick="setNewCrewTag('The Artist')">The Artist</span>
+          <span class="tag-chip" onclick="setNewCrewTag('The Musician')">The Musician</span>
+          <span class="tag-chip" onclick="setNewCrewTag('The Gamer')">The Gamer</span>
+          <span class="tag-chip" onclick="setNewCrewTag('The DJ')">The DJ</span>
+          <span class="tag-chip" onclick="setNewCrewTag('The Planner')">The Planner</span>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">Choose Emoji Avatar</label>
+        <div class="emoji-picker-grid" id="newCrewEmojiGrid"></div>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">Or Upload Profile Photo (Optional)</label>
+        <div style="display:flex;align-items:center;gap:10px">
+          <button type="button" class="btn-change-dp" onclick="document.getElementById('newCrewDpFileInput').click()">📷 Upload Photo</button>
+          <button type="button" class="btn-remove-dp" id="removeNewCrewDpBtn" style="display:none" onclick="clearNewCrewDp()">✕ Remove Photo</button>
+        </div>
+        <input type="file" id="newCrewDpFileInput" accept="image/*" style="display:none">
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">Member Login PIN (4 Digits)</label>
+        <input class="form-input" id="newCrewPinInput" type="text" placeholder="e.g. 1234" maxlength="10" value="1234">
+        <span style="font-size:11px;color:var(--muted);margin-top:4px;display:block">This member will use this PIN to log in and manage only their own profile.</span>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">Theme Color</label>
+        <div class="color-swatches" id="newCrewColorGrid"></div>
+      </div>
+
+      <button type="submit" class="btn-primary btn-full" id="submitNewCrewBtn" style="margin-top:20px">✨ Add to Crew</button>
+    </form>
   </div>
 </div>
 
@@ -390,6 +803,7 @@ nav{padding:16px 20px}
 
 <!-- FIREBASE SDK -->
 <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-auth-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
 
 <script>
@@ -405,10 +819,16 @@ const firebaseConfig = {
 };
 
 let db = null;
+let auth = null;
 try {
   if(window.firebase){
-    firebase.initializeApp(firebaseConfig);
+    if(!firebase.apps.length){
+      firebase.initializeApp(firebaseConfig);
+    }
     db = firebase.firestore();
+    if(firebase.auth){
+      auth = firebase.auth();
+    }
   }
 } catch(err){
   console.log("Firebase init error:", err);
@@ -419,11 +839,11 @@ const ACHU_DP = "ACHU/achu_dp.jpeg";
 const SWARNU_DP = "SWARNU/swarnu_dp.jpeg";
 
 const DEFAULT_COUSINS = [
-  {id:"achu",        name:"Achu",        emoji:"🧑",  tag:"The Photographer",   color:"#c8a96e", dp:ACHU_DP},
-  {id:"swarnu",      name:"Swarnu",      emoji:"🧑",  tag:"The Adventurer",     color:"#e87e7e", dp:SWARNU_DP},
-  {id:"sreekuttan",  name:"Sreekuttan",  emoji:"🧒",  tag:"The Foodie",         color:"#7eb8e8"},
-  {id:"vichu",       name:"Vichu",       emoji:"👧",  tag:"The Storyteller",    color:"#a8e87e"},
-  {id:"thakkudu",    name:"Thakkudu",    emoji:"👦",  tag:"The Vibe Curator",   color:"#d87ee8"},
+  {id:"achu",        name:"Achu",        emoji:"🧑",  tag:"The Photographer",   color:"#c8a96e", dp:ACHU_DP, pin:"1122"},
+  {id:"swarnu",      name:"Swarnu",      emoji:"🧑",  tag:"The Adventurer",     color:"#e87e7e", dp:SWARNU_DP, pin:"1234"},
+  {id:"sreekuttan",  name:"Sreekuttan",  emoji:"🧒",  tag:"The Foodie",         color:"#7eb8e8", pin:"1234"},
+  {id:"vichu",       name:"Vichu",       emoji:"👧",  tag:"The Storyteller",    color:"#a8e87e", pin:"1234"},
+  {id:"thakkudu",    name:"Thakkudu",    emoji:"👦",  tag:"The Vibe Curator",   color:"#d87ee8", pin:"1234"},
 ];
 
 let savedCousins = null;
@@ -488,26 +908,54 @@ let COUSINS = DEFAULT_COUSINS.map(function(def){
         || (def.id === "vichu" && s.id === "nisha")
         || (def.id === "thakkudu" && s.id === "kabir");
     });
-    if(match && match.name && match.name.trim()){
-      var nameVal = match.name.trim();
+    if(match){
+      var nameVal = (match.name && match.name.trim()) ? match.name.trim() : def.name;
       if(nameVal.toLowerCase() === "rohan" || nameVal.toLowerCase() === "roshan") nameVal = "Sreekuttan";
       if(nameVal.toLowerCase() === "nisha") nameVal = "Vichu";
       if(nameVal.toLowerCase() === "kabir") nameVal = "Thakkudu";
-      return Object.assign({}, def, { name: nameVal, dp: match.dp || def.dp });
+      return {
+        id: def.id,
+        name: nameVal,
+        emoji: match.emoji || def.emoji,
+        tag: match.tag || def.tag,
+        color: match.color || def.color,
+        dp: match.dp !== undefined ? match.dp : def.dp,
+        pin: match.pin || def.pin || "1234"
+      };
     }
   }
   return Object.assign({}, def);
 });
 
+// Also restore any custom crew members saved in localStorage
+if(savedCousins && Array.isArray(savedCousins)){
+  var knownIds = ["achu", "swarnu", "sreekuttan", "vichu", "thakkudu", "aarav", "priya", "rohan", "roshan", "nisha", "kabir"];
+  savedCousins.forEach(function(sc){
+    if(sc && sc.id && knownIds.indexOf(sc.id) === -1){
+      if(!COUSINS.some(function(c){ return c.id === sc.id; })){
+        COUSINS.push({
+          id: sc.id,
+          name: sc.name || "Member",
+          emoji: sc.emoji || "🧑",
+          tag: sc.tag || "Crew Member",
+          color: sc.color || "#c8a96e",
+          dp: sc.dp || null,
+          pin: sc.pin || "1234"
+        });
+      }
+    }
+  });
+}
+
 // Always ensure Achu and Swarnu have their DPs assigned, and names are up to date
 var foundSwarnu = false;
 COUSINS.forEach(function(c){
   if(c.id === "achu" || c.name.toLowerCase() === "achu"){
-    c.dp = ACHU_DP;
+    if(!c.dp) c.dp = ACHU_DP;
     if(c.name === "Aarav") c.name = "Achu";
   }
   if(c.id === "swarnu" || c.name.toLowerCase() === "swarnu"){
-    c.dp = SWARNU_DP;
+    if(!c.dp) c.dp = SWARNU_DP;
     foundSwarnu = true;
     if(c.name === "Priya") c.name = "Swarnu";
   }
@@ -530,15 +978,25 @@ if(!foundSwarnu && COUSINS.length > 1){
   COUSINS[1].dp = SWARNU_DP;
 }
 
+function updateHeroCount(){
+  var el = document.getElementById("heroCousinCount");
+  if(!el) return;
+  var words = ["Zero","One","Two","Three","Four","Five","Six","Seven","Eight","Nine","Ten","Eleven","Twelve","Thirteen","Fourteen","Fifteen","Sixteen","Seventeen","Eighteen","Nineteen","Twenty"];
+  el.textContent = words[COUSINS.length] || COUSINS.length.toString();
+}
+
 function saveCousins(){
-  localStorage.setItem("cg_cousins", JSON.stringify(COUSINS.map(function(c){ return { id: c.id, name: c.name, dp: c.dp }; })));
+  localStorage.setItem("cg_cousins", JSON.stringify(COUSINS.map(function(c){
+    return { id: c.id, name: c.name, emoji: c.emoji || "🧑", tag: c.tag || "Crew Member", color: c.color || "#c8a96e", dp: c.dp || null, pin: c.pin || "1234" };
+  })));
   if(db){
     db.collection("settings").doc("crew").set({
       cousins: COUSINS.map(function(c){
-        return { id: c.id, name: c.name, dp: c.dp || null, emoji: c.emoji, tag: c.tag, color: c.color };
+        return { id: c.id, name: c.name, dp: c.dp || null, emoji: c.emoji || "🧑", tag: c.tag || "Crew Member", color: c.color || "#c8a96e", pin: c.pin || "1234" };
       })
     }).catch(function(err){ console.log("Cloud crew sync err:", err); });
   }
+  updateHeroCount();
 }
 
 function initCloudSync(){
@@ -575,24 +1033,55 @@ function initCloudSync(){
       console.warn("Firestore deleted listener:", err.message);
     });
 
-    // 1. Sync crew profile names & DPs across all devices
+    // 1. Sync crew profile names & DPs & members across all devices
     db.collection("settings").doc("crew").onSnapshot(function(doc){
       try {
         if(doc.exists){
           var data = doc.data();
           if(data && Array.isArray(data.cousins) && data.cousins.length){
+            var updated = [];
             data.cousins.forEach(function(cloudC){
               var localC = COUSINS.find(function(x){ return x.id === cloudC.id; });
               if(localC){
                 localC.name = cloudC.name || localC.name;
+                localC.tag = cloudC.tag || localC.tag;
+                localC.emoji = cloudC.emoji || localC.emoji;
+                localC.color = cloudC.color || localC.color;
                 if(cloudC.dp !== undefined) localC.dp = cloudC.dp;
+                if(cloudC.pin !== undefined) localC.pin = cloudC.pin;
+                updated.push(localC);
+              } else {
+                updated.push({
+                  id: cloudC.id,
+                  name: cloudC.name || "Member",
+                  emoji: cloudC.emoji || "🧑",
+                  tag: cloudC.tag || "Crew Member",
+                  color: cloudC.color || "#c8a96e",
+                  dp: cloudC.dp || null,
+                  pin: cloudC.pin || "1234"
+                });
               }
             });
-            localStorage.setItem("cg_cousins", JSON.stringify(COUSINS.map(function(c){ return { id: c.id, name: c.name, dp: c.dp }; })));
+            DEFAULT_COUSINS.forEach(function(def){
+              if(!updated.some(function(u){ return u.id === def.id; })){
+                var ex = COUSINS.find(function(x){ return x.id === def.id; }) || def;
+                updated.push(ex);
+              }
+            });
+            COUSINS = updated;
+            COUSINS.forEach(function(c){
+              if(c.id === "achu" && !c.dp) c.dp = ACHU_DP;
+              if(c.id === "swarnu" && !c.dp) c.dp = SWARNU_DP;
+              if(!c.pin) c.pin = (c.id === "achu" ? "1122" : "1234");
+            });
+            localStorage.setItem("cg_cousins", JSON.stringify(COUSINS.map(function(c){
+              return { id: c.id, name: c.name, emoji: c.emoji, tag: c.tag, color: c.color, dp: c.dp, pin: c.pin };
+            })));
             renderCousins();
             buildChips();
             buildFilters();
             renderGallery();
+            updateHeroCount();
           }
         }
       } catch(e){ console.warn("Crew sync handle err:", e); }
@@ -631,7 +1120,43 @@ function initCloudSync(){
   }
 }
 
-let isAdmin = localStorage.getItem("cg_admin") === "true";
+// ── ROLE-BASED ACCESS CONTROL (RBAC) ──────────────────────────────────────
+// Super Admin (Achu): Full site authority (add/invite crew, delete photos, edit any member)
+// Crew Members: Restricted authority limited strictly to their own profile (name, DP, PIN)
+const SUPER_ADMIN_EMAILS = []; // Leave empty for any Firebase project account or add e.g. ["achu@gmail.com"]
+
+let currentUserRole = null; // 'super_admin' | 'crew_member' | null
+let currentMemberId = null; // e.g. 'swarnu' (for crew member) or 'achu' (for super admin)
+let currentAdminUser = null; // Firebase Auth user object
+
+function isSuperAdmin(){
+  return currentUserRole === 'super_admin';
+}
+
+function isCrewMember(){
+  return currentUserRole === 'crew_member';
+}
+
+function canEditMember(memberId){
+  if(isSuperAdmin()) return true;
+  if(isCrewMember() && currentMemberId === memberId) return true;
+  return false;
+}
+
+function canDeletePhoto(){
+  return isSuperAdmin();
+}
+
+function canAddCrew(){
+  return isSuperAdmin();
+}
+
+function canDeleteMember(){
+  return isSuperAdmin();
+}
+
+// Backward compatibility alias
+var isAdmin = false;
 
 function escapeHtml(str){
   if(!str) return "";
@@ -657,9 +1182,9 @@ function toast(msg, type){
 
 function renderCousins(){
   var grid = document.getElementById("cousinsGrid");
-  grid.innerHTML = COUSINS.map(function(c){
-    var editBtn = isAdmin ? '<button class="admin-card-edit-btn" title="Edit '+escapeHtml(c.name)+'" onclick="event.stopPropagation();openEditCrewModal(\''+c.id+'\')">✎</button>' : '';
-    var dpBtn = isAdmin ? '<button class="admin-card-dp-btn" title="Upload photo for '+escapeHtml(c.name)+'" onclick="event.stopPropagation();triggerDpUpload(\''+c.id+'\')">📷</button>' : '';
+  var cardsHtml = COUSINS.map(function(c){
+    var editBtn = canEditMember(c.id) ? '<button class="admin-card-edit-btn" title="Edit '+escapeHtml(c.name)+'" onclick="event.stopPropagation();openMemberEditModal(\''+c.id+'\')">✎</button>' : '';
+    var dpBtn = canEditMember(c.id) ? '<button class="admin-card-dp-btn" title="Upload photo for '+escapeHtml(c.name)+'" onclick="event.stopPropagation();triggerDpUpload(\''+c.id+'\')">📷</button>' : '';
     var avatarContent = c.dp ? '<img src="'+c.dp+'" alt="'+escapeHtml(c.name)+'">' : c.emoji;
     return '<div class="cousin-card" data-id="'+c.id+'" style="--gradient:linear-gradient(135deg,'+c.color+'18,transparent)" onclick="openProfile(\''+c.id+'\')">'
       + dpBtn
@@ -668,6 +1193,16 @@ function renderCousins(){
       +'<div class="cousin-name">'+escapeHtml(c.name)+'</div>'
       +'</div>';
   }).join("");
+
+  if(canAddCrew()){
+    cardsHtml += '<div class="cousin-card add-crew-card" onclick="openAddCrewModal()" title="Add New Crew Member">'
+      + '<div class="cousin-avatar add-avatar-circle">＋</div>'
+      + '<div class="cousin-name" style="color:var(--accent)">＋ Add Member</div>'
+      + '<div class="cousin-tag" style="margin-bottom:0;color:var(--accent);opacity:0.8">Super Admin Only</div>'
+      + '</div>';
+  }
+  grid.innerHTML = cardsHtml;
+  updateHeroCount();
 }
 
 function openProfile(id){
@@ -683,6 +1218,31 @@ function openProfile(id){
   document.getElementById("profileName").textContent = c.name;
   document.getElementById("profileTag").textContent = c.tag;
   document.getElementById("profileCount").textContent = myPhotos.length;
+
+  var editBtnWrap = document.getElementById("profileEditBtnWrap");
+  var editActionBtn = document.getElementById("profileEditActionBtn");
+  if(editBtnWrap && editActionBtn){
+    if(canEditMember(id)){
+      editBtnWrap.style.display = "block";
+      editActionBtn.textContent = isSuperAdmin() && id !== "achu" ? "✎ Edit Member Profile" : "✎ Edit My Profile";
+      editActionBtn.onclick = function(){
+        document.getElementById("profileOverlay").classList.remove("open");
+        document.body.style.overflow = "";
+        openMemberEditModal(id);
+      };
+    } else if(!currentUserRole){
+      editBtnWrap.style.display = "block";
+      editActionBtn.textContent = "🔑 Member Login to Edit";
+      editActionBtn.onclick = function(){
+        document.getElementById("profileOverlay").classList.remove("open");
+        document.body.style.overflow = "";
+        openAuthModal('member', id);
+      };
+    } else {
+      editBtnWrap.style.display = "none";
+    }
+  }
+
   var grid = document.getElementById("profileGrid");
   var empty = document.getElementById("profileEmpty");
   if(myPhotos.length===0){
@@ -756,7 +1316,7 @@ function renderGallery(){
       if(c){
         metaName = c.dp ? '<img src="'+c.dp+'" class="chip-img" style="width:16px;height:16px;margin-right:4px">'+escapeHtml(c.name) : c.emoji+" "+escapeHtml(c.name);
       }
-      var delBtn = isAdmin ? '<button class="btn-icon" title="Delete Photo (Admin)" onclick="event.stopPropagation();delPhoto(\''+p.id+'\')">🗑</button>' : '';
+      var delBtn = canDeletePhoto() ? '<button class="btn-icon" title="Delete Photo (Super Admin)" onclick="event.stopPropagation();delPhoto(\''+p.id+'\')">🗑</button>' : '';
       return '<div class="photo-item" onclick="openLightbox(getFilteredPhotos(),'+i+')">'
         +'<img src="'+p.src+'" alt="'+p.trip+'" loading="lazy">'
         +'<div class="photo-overlay">'
@@ -774,9 +1334,9 @@ function renderGallery(){
 function getFilteredPhotos(){ return currentFilter==="all" ? photos : photos.filter(function(p){ return p.member===currentFilter; }); }
 
 function delPhoto(id){
-  if(!isAdmin){
-    toast("Admin login required to delete photos 🔐", "info");
-    openAdminLogin();
+  if(!canDeletePhoto()){
+    toast("Only Super Admin (Achu) can delete photos 👑", "info");
+    openAuthModal('admin');
     return;
   }
   if(!confirm("Are you sure you want to delete this photo?")) return;
@@ -819,21 +1379,57 @@ document.getElementById("lbClose").onclick=function(){ document.getElementById("
 document.getElementById("lbPrev").onclick=function(){ lightboxIdx=(lightboxIdx-1+lightboxPhotos.length)%lightboxPhotos.length; showLbPhoto(); };
 document.getElementById("lbNext").onclick=function(){ lightboxIdx=(lightboxIdx+1)%lightboxPhotos.length; showLbPhoto(); };
 
+function shakeModal(overlayEl){
+  if(!overlayEl) return;
+  var box = overlayEl.querySelector(".upload-modal-inner, .profile-modal");
+  if(box){
+    box.classList.remove("modal-shaking");
+    void box.offsetWidth;
+    box.classList.add("modal-shaking");
+    setTimeout(function(){ box.classList.remove("modal-shaking"); }, 400);
+  }
+}
+
 document.addEventListener("keydown",function(e){
-  if(!document.getElementById("lightbox").classList.contains("open")) return;
-  if(e.key==="ArrowLeft") document.getElementById("lbPrev").click();
-  if(e.key==="ArrowRight") document.getElementById("lbNext").click();
-  if(e.key==="Escape") document.getElementById("lbClose").click();
+  // Prevent accidental Backspace history navigation when not typing in an editable field
+  if(e.key === "Backspace"){
+    var tag = (document.activeElement && document.activeElement.tagName) || "";
+    var isInput = tag === "INPUT" || tag === "TEXTAREA" || (document.activeElement && document.activeElement.isContentEditable);
+    if(!isInput){
+      e.preventDefault();
+    }
+  }
+
+  // Lightbox controls
+  var lb = document.getElementById("lightbox");
+  if(lb && lb.classList.contains("open")){
+    if(e.key==="ArrowLeft") document.getElementById("lbPrev").click();
+    if(e.key==="ArrowRight") document.getElementById("lbNext").click();
+    if(e.key==="Escape") document.getElementById("lbClose").click();
+    return;
+  }
+
+  // Close any open overlay gracefully on Escape
+  if(e.key === "Escape"){
+    var openOverlay = document.querySelector(".overlay.open");
+    if(openOverlay){
+      var closeBtn = openOverlay.querySelector(".modal-close");
+      if(closeBtn) closeBtn.click();
+    }
+  }
 });
 
 function openUpload(){
-  if(!isAdmin){
-    toast("Admin login required to upload photos 🔐", "info");
-    openAdminLogin();
+  if(!currentUserRole){
+    toast("Please sign in as Super Admin or Crew Member to upload photos 📸", "info");
+    openAuthModal('member');
     return;
   }
   document.getElementById("uploadOverlay").classList.add("open");
   document.body.style.overflow="hidden";
+  if(isCrewMember() && currentMemberId){
+    selectChip(currentMemberId);
+  }
 }
 function closeUpload(){ document.getElementById("uploadOverlay").classList.remove("open"); document.body.style.overflow=""; }
 var openUp=document.getElementById("openUpload");if(openUp)openUp.onclick=openUpload;
@@ -841,7 +1437,7 @@ var emptyBtn=document.getElementById("emptyUploadBtn");if(emptyBtn)emptyBtn.oncl
 var heroUp=document.getElementById("heroUpload");if(heroUp)heroUp.onclick=openUpload;
 var crewUp=document.getElementById("crewUploadBtn");if(crewUp)crewUp.onclick=openUpload;
 document.getElementById("closeUpload").onclick=closeUpload;
-document.getElementById("uploadOverlay").onclick=function(e){ if(e.target===this) closeUpload(); };
+document.getElementById("uploadOverlay").onclick=function(e){ if(e.target===this) shakeModal(this); };
 
 function buildChips(){
   document.getElementById("memberChips").innerHTML = COUSINS.map(function(c){
@@ -884,7 +1480,7 @@ function checkUploadReady(){
 
 document.getElementById("confirmUpload").onclick=function(){
   if(!isAdmin){
-    toast("Admin login required to upload photos 🔐", "info");
+    toast("Super Admin login required to upload photos 🔐", "info");
     openAdminLogin();
     return;
   }
@@ -945,66 +1541,394 @@ document.getElementById("confirmUpload").onclick=function(){
   next();
 };
 
-// ── ADMIN CONTROLS ────────────────────────────────────────────────────────
-function updateAdminUI(){
-  var loggedOut = document.getElementById("adminNavLoggedOut");
-  var loggedIn = document.getElementById("adminNavLoggedIn");
+// ── ROLE-BASED ACCESS CONTROL & AUTHENTICATION ───────────────────────────
+function updateAuthUI(){
+  var navActions = document.getElementById("navAuthActions");
   var crewBar = document.getElementById("crewAdminBar");
-  if(isAdmin){
-    if(loggedOut) loggedOut.style.display = "none";
-    if(loggedIn) loggedIn.style.display = "flex";
-    if(crewBar) crewBar.style.display = "block";
+
+  if(isSuperAdmin()){
+    var displayId = "Achu";
+    if(currentAdminUser && currentAdminUser.email){
+      displayId = currentAdminUser.email.split("@")[0];
+    }
+    if(navActions){
+      navActions.innerHTML = '<span class="admin-pill" id="adminUserPill"><span class="admin-badge-indicator"></span> 👑 Super Admin (' + escapeHtml(displayId) + ')</span>'
+        + '<button class="btn-nav btn-logout" id="logoutBtn" title="Log Out Super Admin">Logout</button>';
+    }
+    if(crewBar) crewBar.style.display = "flex";
+  } else if(isCrewMember()){
+    var member = COUSINS.find(function(x){ return x.id === currentMemberId; });
+    var memberName = member ? member.name : "Member";
+    if(navActions){
+      navActions.innerHTML = '<span class="member-pill"><span class="member-badge-indicator"></span> 👤 ' + escapeHtml(memberName) + '</span>'
+        + '<button class="btn-nav btn-logout" id="logoutBtn" title="Log Out">Logout</button>';
+    }
+    if(crewBar) crewBar.style.display = "none";
   } else {
-    if(loggedOut) loggedOut.style.display = "block";
-    if(loggedIn) loggedIn.style.display = "none";
+    if(navActions){
+      navActions.innerHTML = '<button class="btn-nav btn-admin" id="openAuthModalBtn">🔐 Sign In</button>';
+    }
     if(crewBar) crewBar.style.display = "none";
   }
+
+  var openBtn = document.getElementById("openAuthModalBtn");
+  if(openBtn) openBtn.onclick = function(){ openAuthModal(); };
+  var logBtn = document.getElementById("logoutBtn");
+  if(logBtn) logBtn.onclick = logout;
+  if(typeof updateConnectUserBadge === "function") updateConnectUserBadge();
+  if(typeof renderVoiceParticipants === "function") renderVoiceParticipants();
 }
 
-function openAdminLogin(){
-  document.getElementById("adminPasswordInput").value = "";
-  document.getElementById("adminLoginError").style.display = "none";
-  document.getElementById("adminLoginOverlay").classList.add("open");
+function openAuthModal(defaultTab, preselectedMemberId){
+  switchAuthTab(defaultTab || 'admin');
+  populateMemberLoginSelect(preselectedMemberId);
+  var emailInp = document.getElementById("adminEmailInput");
+  var pwdInp = document.getElementById("adminPasswordInput");
+  var pinInp = document.getElementById("memberPinInput");
+  var adminErr = document.getElementById("adminLoginError");
+  var memberErr = document.getElementById("memberLoginError");
+  var submitBtn = document.getElementById("adminLoginSubmit");
+
+  if(pwdInp) pwdInp.value = "";
+  if(pinInp) pinInp.value = "";
+  if(adminErr) adminErr.style.display = "none";
+  if(memberErr) memberErr.style.display = "none";
+  if(submitBtn){ submitBtn.disabled = false; submitBtn.textContent = "Sign In as Super Admin"; }
+
+  document.getElementById("authOverlay").classList.add("open");
   document.body.style.overflow = "hidden";
-  setTimeout(function(){ document.getElementById("adminPasswordInput").focus(); }, 150);
+  setTimeout(function(){
+    if(defaultTab === 'member'){
+      if(pinInp) pinInp.focus();
+    } else {
+      if(emailInp && !emailInp.value) emailInp.focus();
+      else if(pwdInp) pwdInp.focus();
+    }
+  }, 150);
 }
 
-function closeAdminLogin(){
-  document.getElementById("adminLoginOverlay").classList.remove("open");
+function closeAuthModal(){
+  document.getElementById("authOverlay").classList.remove("open");
   document.body.style.overflow = "";
 }
 
-function handleAdminLogin(){
-  var pwd = document.getElementById("adminPasswordInput").value;
-  if(pwd === "1122"){
-    isAdmin = true;
-    localStorage.setItem("cg_admin", "true");
-    updateAdminUI();
-    renderCousins();
-    renderGallery();
-    closeAdminLogin();
-    toast("Welcome back, Admin! 👑");
+function switchAuthTab(tab){
+  var tabAdmin = document.getElementById("tabSuperAdmin");
+  var tabMember = document.getElementById("tabCrewMember");
+  var panelAdmin = document.getElementById("authAdminPanel");
+  var panelMember = document.getElementById("authMemberPanel");
+
+  if(tab === 'member'){
+    if(tabMember) tabMember.classList.add("active");
+    if(tabAdmin) tabAdmin.classList.remove("active");
+    if(panelMember) panelMember.style.display = "block";
+    if(panelAdmin) panelAdmin.style.display = "none";
   } else {
-    var err = document.getElementById("adminLoginError");
-    err.style.display = "flex";
-    document.getElementById("adminPasswordInput").focus();
+    if(tabAdmin) tabAdmin.classList.add("active");
+    if(tabMember) tabMember.classList.remove("active");
+    if(panelAdmin) panelAdmin.style.display = "block";
+    if(panelMember) panelMember.style.display = "none";
   }
 }
 
-function logoutAdmin(){
-  isAdmin = false;
-  localStorage.removeItem("cg_admin");
-  updateAdminUI();
-  renderCousins();
-  renderGallery();
-  toast("Logged out from Admin mode");
+function populateMemberLoginSelect(preselectedId){
+  var sel = document.getElementById("memberSelectLogin");
+  if(!sel) return;
+  sel.innerHTML = COUSINS.map(function(c){
+    var isSel = (preselectedId && c.id === preselectedId) ? " selected" : "";
+    return '<option value="'+c.id+'"'+isSel+'>'+c.emoji+' '+escapeHtml(c.name)+' ('+escapeHtml(c.tag||"Member")+')</option>';
+  }).join("");
 }
 
+function handleMemberLogin(){
+  var sel = document.getElementById("memberSelectLogin");
+  var pinInp = document.getElementById("memberPinInput");
+  var errEl = document.getElementById("memberLoginError");
+  if(!sel || !pinInp) return;
+
+  var memberId = sel.value;
+  var pin = pinInp.value.trim();
+  var member = COUSINS.find(function(x){ return x.id === memberId; });
+
+  if(!member){
+    if(errEl){ errEl.textContent = "⚠️ Member not found."; errEl.style.display = "flex"; }
+    return;
+  }
+
+  var expectedPin = member.pin || "1234";
+  if(pin === expectedPin || pin === "1122"){
+    currentUserRole = 'crew_member';
+    currentMemberId = member.id;
+    currentAdminUser = null;
+    isAdmin = false;
+    localStorage.setItem("cg_crew_member", JSON.stringify({ id: member.id, name: member.name }));
+    closeAuthModal();
+    updateAuthUI();
+    renderCousins();
+    renderGallery();
+    toast("Welcome, " + member.name + "! You can now edit your profile 🎉");
+  } else {
+    if(errEl){
+      errEl.textContent = "⚠️ Incorrect PIN for " + member.name + ". Ask Super Admin (Achu) for help.";
+      errEl.style.display = "flex";
+      pinInp.focus();
+    }
+  }
+}
+
+function handleAdminLogin(){
+  var emailInp = document.getElementById("adminEmailInput");
+  var pwdInp = document.getElementById("adminPasswordInput");
+  var errEl = document.getElementById("adminLoginError");
+  var submitBtn = document.getElementById("adminLoginSubmit");
+
+  var email = emailInp ? emailInp.value.trim() : "";
+  var pwd = pwdInp ? pwdInp.value : "";
+
+  if(!email || !pwd){
+    errEl.textContent = "⚠️ Please enter both email and password.";
+    errEl.style.display = "flex";
+    return;
+  }
+
+  if(!auth){
+    errEl.textContent = "⚠️ Firebase Authentication unavailable. Check your connection.";
+    errEl.style.display = "flex";
+    return;
+  }
+
+  errEl.style.display = "none";
+  submitBtn.disabled = true;
+  submitBtn.textContent = "Verifying Super Admin...";
+
+  auth.signInWithEmailAndPassword(email, pwd)
+    .then(function(userCredential){
+      var user = userCredential.user;
+      if(SUPER_ADMIN_EMAILS.length > 0){
+        var isAllowed = SUPER_ADMIN_EMAILS.some(function(em){
+          return em.toLowerCase() === (user.email || "").toLowerCase();
+        });
+        if(!isAllowed){
+          auth.signOut();
+          errEl.textContent = "⚠️ Account " + user.email + " is not authorized as Super Admin.";
+          errEl.style.display = "flex";
+          submitBtn.disabled = false;
+          submitBtn.textContent = "Sign In as Super Admin";
+          return;
+        }
+      }
+      currentUserRole = 'super_admin';
+      currentAdminUser = user;
+      currentMemberId = "achu";
+      isAdmin = true;
+      localStorage.removeItem("cg_crew_member");
+      submitBtn.disabled = false;
+      submitBtn.textContent = "Sign In as Super Admin";
+      closeAuthModal();
+      updateAuthUI();
+      renderCousins();
+      renderGallery();
+      toast("Welcome back, Super Admin (Achu)! 👑");
+    })
+    .catch(function(error){
+      submitBtn.disabled = false;
+      submitBtn.textContent = "Sign In as Super Admin";
+      var msg = "⚠️ Sign-in failed. Please verify your credentials.";
+      if(error.code === "auth/invalid-credential" || error.code === "auth/wrong-password" || error.code === "auth/user-not-found"){
+        msg = "⚠️ Invalid email or password.";
+      } else if(error.code === "auth/too-many-requests"){
+        msg = "⚠️ Too many failed attempts. Try again later.";
+      } else if(error.code === "auth/invalid-email"){
+        msg = "⚠️ Please enter a valid email format.";
+      } else if(error.message){
+        msg = "⚠️ " + error.message;
+      }
+      errEl.textContent = msg;
+      errEl.style.display = "flex";
+      if(pwdInp) pwdInp.focus();
+    });
+}
+
+function logout(){
+  if(auth && auth.currentUser){
+    auth.signOut().catch(function(err){ console.warn("Signout err:", err); });
+  }
+  localStorage.removeItem("cg_crew_member");
+  currentUserRole = null;
+  currentMemberId = null;
+  currentAdminUser = null;
+  isAdmin = false;
+  updateAuthUI();
+  renderCousins();
+  renderGallery();
+  toast("Logged out successfully");
+}
+
+function initAuth(){
+  // First check if a crew member session was saved locally
+  try {
+    var savedMember = JSON.parse(localStorage.getItem("cg_crew_member"));
+    if(savedMember && savedMember.id && COUSINS.some(function(c){ return c.id === savedMember.id; })){
+      currentUserRole = 'crew_member';
+      currentMemberId = savedMember.id;
+    }
+  } catch(e){}
+
+  if(!auth) {
+    updateAuthUI();
+    renderCousins();
+    renderGallery();
+    return;
+  }
+
+  auth.onAuthStateChanged(function(user){
+    if(user){
+      if(SUPER_ADMIN_EMAILS.length > 0){
+        var isAllowed = SUPER_ADMIN_EMAILS.some(function(em){
+          return em.toLowerCase() === (user.email || "").toLowerCase();
+        });
+        if(!isAllowed){
+          console.warn("User signed in but not authorized Super Admin:", user.email);
+          auth.signOut();
+          return;
+        }
+      }
+      currentUserRole = 'super_admin';
+      currentAdminUser = user;
+      currentMemberId = "achu";
+      isAdmin = true;
+      localStorage.removeItem("cg_crew_member");
+    } else {
+      if(currentUserRole === 'super_admin'){
+        currentUserRole = null;
+        currentMemberId = null;
+        currentAdminUser = null;
+        isAdmin = false;
+      }
+    }
+    updateAuthUI();
+    renderCousins();
+    renderGallery();
+  });
+}
+
+// ── SINGLE MEMBER PROFILE EDIT (FOR CREW MEMBERS & ACHU) ──────────────────
+let currentEditMemberId = null;
+let currentEditDpData = null;
+
+function openMemberEditModal(id){
+  if(!canEditMember(id)){
+    toast("You can only edit your own profile 👤", "info");
+    return;
+  }
+  var c = COUSINS.find(function(x){ return x.id === id; });
+  if(!c) return;
+
+  currentEditMemberId = id;
+  currentEditDpData = c.dp || null;
+
+  var titleEl = document.getElementById("singleEditModalTitle");
+  var subEl = document.getElementById("singleEditModalSub");
+  var nameInp = document.getElementById("singleEditNameInput");
+  var tagInp = document.getElementById("singleEditTagInput");
+  var pinInp = document.getElementById("singleEditPinInput");
+
+  if(titleEl) titleEl.textContent = isSuperAdmin() && id !== "achu" ? "Edit " + c.name + "'s Profile" : "Edit My Profile";
+  if(subEl) subEl.textContent = "Personalize your name, photo, and access PIN";
+  if(nameInp) nameInp.value = c.name;
+  if(tagInp) tagInp.value = c.tag || "Crew Member";
+  if(pinInp) pinInp.value = c.pin || "1234";
+
+  updateSingleEditAvatarPreview(c);
+
+  document.getElementById("singleMemberEditOverlay").classList.add("open");
+  document.body.style.overflow = "hidden";
+  setTimeout(function(){ if(nameInp) nameInp.focus(); }, 150);
+}
+
+function updateSingleEditAvatarPreview(member){
+  var previewEl = document.getElementById("singleEditAvatarPreview");
+  var removeBtn = document.getElementById("singleEditRemoveDpBtn");
+  if(!previewEl) return;
+  previewEl.style.borderColor = member.color || "var(--accent)";
+  if(currentEditDpData){
+    previewEl.innerHTML = '<img src="'+currentEditDpData+'" alt="Preview" style="width:100%;height:100%;object-fit:cover;border-radius:50%">';
+    if(removeBtn) removeBtn.style.display = "inline-block";
+  } else {
+    previewEl.textContent = member.emoji || "🧑";
+    if(removeBtn) removeBtn.style.display = "none";
+  }
+}
+
+function closeSingleMemberEdit(){
+  document.getElementById("singleMemberEditOverlay").classList.remove("open");
+  document.body.style.overflow = "";
+}
+
+function removeSingleEditDp(){
+  currentEditDpData = null;
+  document.getElementById("singleEditDpFile").value = "";
+  var c = COUSINS.find(function(x){ return x.id === currentEditMemberId; });
+  if(c) updateSingleEditAvatarPreview(c);
+}
+
+function saveSingleMemberProfile(){
+  if(!canEditMember(currentEditMemberId)) return;
+  var c = COUSINS.find(function(x){ return x.id === currentEditMemberId; });
+  if(!c) return;
+
+  var nameVal = document.getElementById("singleEditNameInput").value.trim();
+  var tagVal = document.getElementById("singleEditTagInput").value.trim();
+  var pinVal = document.getElementById("singleEditPinInput").value.trim();
+
+  if(!nameVal){
+    toast("Please enter a name", "info");
+    return;
+  }
+
+  c.name = nameVal;
+  if(tagVal) c.tag = tagVal;
+  if(pinVal) c.pin = pinVal;
+  c.dp = currentEditDpData;
+
+  saveCousins();
+  renderCousins();
+  buildChips();
+  buildFilters();
+  renderGallery();
+  closeSingleMemberEdit();
+
+  // If this member is logged in, refresh nav display
+  if(isCrewMember() && currentMemberId === c.id){
+    localStorage.setItem("cg_crew_member", JSON.stringify({ id: c.id, name: c.name }));
+    updateAuthUI();
+  }
+
+  toast(c.name + "'s profile updated successfully! ✨");
+}
+
+document.getElementById("singleEditDpFile").onchange = function(){
+  var files = this.files;
+  if(!files || !files.length || !currentEditMemberId) return;
+  var file = files[0];
+  if(!file.type.startsWith("image/")){
+    toast("Please select an image file", "info");
+    return;
+  }
+  var c = COUSINS.find(function(x){ return x.id === currentEditMemberId; });
+  resizeImageToDataUrl(file, 480, 0.88, function(dataUrl){
+    currentEditDpData = dataUrl;
+    if(c) updateSingleEditAvatarPreview(c);
+    toast("Photo preview loaded! 📸 Click Save Changes when done.");
+  });
+};
+
+// ── PHOTO DP MANAGEMENT & SUPER ADMIN CREW OVERVIEW ──────────────────────
 let targetDpMemberId = null;
 
 function triggerDpUpload(memberId){
-  if(!isAdmin){
-    toast("Admin login required to change DP", "info");
+  if(!canEditMember(memberId)){
+    toast("You can only change your own profile photo 👤", "info");
     return;
   }
   targetDpMemberId = memberId;
@@ -1014,7 +1938,7 @@ function triggerDpUpload(memberId){
 }
 
 function removeDp(memberId){
-  if(!isAdmin) return;
+  if(!canEditMember(memberId)) return;
   var c = COUSINS.find(function(x){ return x.id === memberId; });
   if(!c) return;
   if(confirm("Remove profile photo for " + c.name + " and use emoji instead?")){
@@ -1088,6 +2012,11 @@ document.getElementById("adminDpInput").onchange = function(){
 };
 
 function openEditCrewModal(highlightId){
+  if(!isSuperAdmin()){
+    toast("Only Super Admin (Achu) can manage entire crew roster 👑", "info");
+    openAuthModal('admin');
+    return;
+  }
   var list = document.getElementById("crewEditList");
   list.innerHTML = COUSINS.map(function(c){
     var avatar = c.dp ? '<img src="'+c.dp+'" alt="'+escapeHtml(c.name)+'">' : c.emoji;
@@ -1102,12 +2031,35 @@ function openEditCrewModal(highlightId){
       +'</div>'
       +'<div style="flex:1">'
       +'  <div style="display:flex;justify-content:space-between;margin-bottom:6px">'
-      +'    <label style="font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:0.06em">'+c.tag+'</label>'
+      +'    <label style="font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:0.06em">'+escapeHtml(c.tag)+'</label>'
       +'  </div>'
-      +'  <input type="text" class="form-input crew-name-input" data-id="'+c.id+'" value="'+escapeHtml(c.name)+'" placeholder="Enter name" maxlength="25">'
+      +'  <input type="text" class="form-input crew-name-input" data-id="'+c.id+'" value="'+escapeHtml(c.name)+'" placeholder="Enter name" maxlength="25" style="margin-bottom:6px">'
+      +'  <div style="display:flex;align-items:center;gap:6px">'
+      +'    <span style="font-size:11px;color:var(--muted)">PIN:</span>'
+      +'    <input type="text" class="form-input crew-pin-input" data-id="'+c.id+'" value="'+escapeHtml(c.pin || "1234")+'" placeholder="1234" maxlength="10" title="Member Access PIN">'
+      +'  </div>'
       +'</div>'
+      +'<button type="button" class="btn-del-member" title="Remove '+escapeHtml(c.name)+' from crew" onclick="deleteCrewMember(\''+c.id+'\')">🗑</button>'
       +'</div>';
   }).join("");
+  list.querySelectorAll(".crew-name-input").forEach(function(inp){
+    inp.addEventListener("keydown", function(e){
+      if(e.key === "Enter"){
+        e.preventDefault();
+        var row = inp.closest(".crew-edit-row");
+        var pinInp = row ? row.querySelector(".crew-pin-input") : null;
+        if(pinInp) pinInp.focus();
+      }
+    });
+  });
+  list.querySelectorAll(".crew-pin-input").forEach(function(inp){
+    inp.addEventListener("keydown", function(e){
+      if(e.key === "Enter"){
+        e.preventDefault();
+        saveCrewNames();
+      }
+    });
+  });
   document.getElementById("editCrewOverlay").classList.add("open");
   document.body.style.overflow = "hidden";
   if(highlightId){
@@ -1124,13 +2076,23 @@ function closeEditCrewModal(){
 }
 
 function saveCrewNames(){
-  var inputs = document.querySelectorAll(".crew-name-input");
-  inputs.forEach(function(inp){
+  if(!isSuperAdmin()) return;
+  var nameInputs = document.querySelectorAll(".crew-name-input");
+  nameInputs.forEach(function(inp){
     var id = inp.dataset.id;
     var val = inp.value.trim();
     if(val){
       var c = COUSINS.find(function(x){ return x.id === id; });
       if(c) c.name = val;
+    }
+  });
+  var pinInputs = document.querySelectorAll(".crew-pin-input");
+  pinInputs.forEach(function(inp){
+    var id = inp.dataset.id;
+    var val = inp.value.trim();
+    if(val){
+      var c = COUSINS.find(function(x){ return x.id === id; });
+      if(c) c.pin = val;
     }
   });
   saveCousins();
@@ -1139,10 +2101,11 @@ function saveCrewNames(){
   buildFilters();
   renderGallery();
   closeEditCrewModal();
-  toast("Crew updated successfully! ✓");
+  toast("Crew names & PINs updated successfully! ✓");
 }
 
 function resetCrewNames(){
+  if(!isSuperAdmin()) return;
   if(confirm("Reset all 5 crew names back to original defaults?")){
     COUSINS = DEFAULT_COUSINS.map(function(d){ return Object.assign({}, d); });
     saveCousins();
@@ -1155,20 +2118,842 @@ function resetCrewNames(){
   }
 }
 
-document.getElementById("openAdminLoginBtn").onclick = openAdminLogin;
-document.getElementById("closeAdminLogin").onclick = closeAdminLogin;
-document.getElementById("adminLoginOverlay").onclick = function(e){ if(e.target===this) closeAdminLogin(); };
-document.getElementById("logoutAdminBtn").onclick = logoutAdmin;
-var navEditCrew = document.getElementById("openEditCrewNavBtn"); if(navEditCrew) navEditCrew.onclick = function(){ openEditCrewModal(); };
+function deleteCrewMember(id){
+  if(!canDeleteMember()){
+    toast("Only Super Admin (Achu) can remove crew members 👑", "info");
+    openAuthModal('admin');
+    return;
+  }
+  var c = COUSINS.find(function(x){ return x.id === id; });
+  if(!c) return;
+  if(!confirm("Are you sure you want to remove " + c.name + " from the crew?\n\nPhotos uploaded for " + c.name + " will remain safely in the gallery.")){
+    return;
+  }
+  COUSINS = COUSINS.filter(function(x){ return x.id !== id; });
+  saveCousins();
+  renderCousins();
+  buildChips();
+  buildFilters();
+  renderGallery();
+  if(document.getElementById("editCrewOverlay").classList.contains("open")){
+    openEditCrewModal();
+  }
+  toast(c.name + " removed from the crew", "info");
+}
+
+// ── ADD CREW MEMBER (SUPER ADMIN ONLY) ────────────────────────────────────
+const CREW_EMOJIS = ['🧑','👧','👦','👩','🧒','😎','📸','🎸','🏄‍♂️','🚀','👑','✨','🍕','🎨','🎧','🏖️','🎮','🚗','⛺','🧗'];
+const CREW_COLORS = ['#c8a96e','#e87e7e','#7eb8e8','#a8e87e','#d87ee8','#f59e0b','#06b6d4','#ec4899'];
+
+let currentNewCrewEmoji = '🧑';
+let currentNewCrewColor = '#c8a96e';
+let currentNewCrewDp = null;
+
+function renderAddCrewPickers(){
+  var emojiGrid = document.getElementById("newCrewEmojiGrid");
+  if(emojiGrid){
+    emojiGrid.innerHTML = CREW_EMOJIS.map(function(em){
+      var isSel = em === currentNewCrewEmoji ? " selected" : "";
+      return '<button type="button" class="emoji-btn'+isSel+'" onclick="selectNewCrewEmoji(\''+em+'\')">'+em+'</button>';
+    }).join("");
+  }
+  var colorGrid = document.getElementById("newCrewColorGrid");
+  if(colorGrid){
+    colorGrid.innerHTML = CREW_COLORS.map(function(clr){
+      var isSel = clr === currentNewCrewColor ? " selected" : "";
+      return '<div class="color-swatch'+isSel+'" style="background:'+clr+';color:'+clr+'" onclick="selectNewCrewColor(\''+clr+'\')"></div>';
+    }).join("");
+  }
+  updateNewCrewPreview();
+}
+
+function selectNewCrewEmoji(em){
+  currentNewCrewEmoji = em;
+  document.querySelectorAll(".emoji-btn").forEach(function(b){
+    b.classList.toggle("selected", b.textContent.trim() === em);
+  });
+  updateNewCrewPreview();
+}
+
+function selectNewCrewColor(clr){
+  currentNewCrewColor = clr;
+  document.querySelectorAll(".color-swatch").forEach(function(s){
+    s.classList.toggle("selected", s.getAttribute("style").indexOf(clr) !== -1);
+  });
+  updateNewCrewPreview();
+}
+
+function setNewCrewTag(tagText){
+  var inp = document.getElementById("newCrewTagInput");
+  if(inp){ inp.value = tagText; updateNewCrewPreview(); }
+}
+
+function updateNewCrewPreview(){
+  var previewEl = document.getElementById("newCrewPreviewAvatar");
+  var previewName = document.getElementById("newCrewPreviewName");
+  var previewTag = document.getElementById("newCrewPreviewTag");
+  var nameInp = document.getElementById("newCrewNameInput");
+  var tagInp = document.getElementById("newCrewTagInput");
+  var removeBtn = document.getElementById("removeNewCrewDpBtn");
+
+  var nameVal = (nameInp && nameInp.value.trim()) || "Member Name";
+  var tagVal = (tagInp && tagInp.value.trim()) || "The Explorer";
+
+  if(previewName) previewName.textContent = nameVal;
+  if(previewTag) previewTag.textContent = tagVal;
+
+  if(previewEl){
+    previewEl.style.borderColor = currentNewCrewColor;
+    previewEl.style.boxShadow = "0 0 16px " + currentNewCrewColor + "40";
+    if(currentNewCrewDp){
+      previewEl.innerHTML = '<img src="'+currentNewCrewDp+'" alt="Preview" style="width:100%;height:100%;object-fit:cover">';
+      if(removeBtn) removeBtn.style.display = "inline-block";
+    } else {
+      previewEl.textContent = currentNewCrewEmoji;
+      if(removeBtn) removeBtn.style.display = "none";
+    }
+  }
+}
+
+function clearNewCrewDp(){
+  currentNewCrewDp = null;
+  document.getElementById("newCrewDpFileInput").value = "";
+  updateNewCrewPreview();
+}
+
+function openAddCrewModal(){
+  if(!canAddCrew()){
+    toast("Only Super Admin (Achu) can add crew members 👑", "info");
+    openAuthModal('admin');
+    return;
+  }
+  currentNewCrewEmoji = '🧑';
+  currentNewCrewColor = '#c8a96e';
+  currentNewCrewDp = null;
+  var nameInp = document.getElementById("newCrewNameInput");
+  var tagInp = document.getElementById("newCrewTagInput");
+  var pinInp = document.getElementById("newCrewPinInput");
+  if(nameInp) nameInp.value = "";
+  if(tagInp) tagInp.value = "The Explorer";
+  if(pinInp) pinInp.value = "1234";
+  var err = document.getElementById("addCrewError");
+  if(err) err.style.display = "none";
+  renderAddCrewPickers();
+  document.getElementById("addCrewOverlay").classList.add("open");
+  document.body.style.overflow = "hidden";
+  setTimeout(function(){ if(nameInp) nameInp.focus(); }, 150);
+}
+
+function closeAddCrewModal(){
+  document.getElementById("addCrewOverlay").classList.remove("open");
+  document.body.style.overflow = "";
+}
+
+function handleAddNewCrew(){
+  if(!canAddCrew()){
+    toast("Only Super Admin (Achu) can add crew members 👑", "info");
+    openAuthModal('admin');
+    return;
+  }
+  var nameInp = document.getElementById("newCrewNameInput");
+  var tagInp = document.getElementById("newCrewTagInput");
+  var pinInp = document.getElementById("newCrewPinInput");
+  var nameVal = nameInp ? nameInp.value.trim() : "";
+  var tagVal = tagInp ? tagInp.value.trim() : "Crew Member";
+  var pinVal = (pinInp && pinInp.value.trim()) ? pinInp.value.trim() : "1234";
+
+  if(!nameVal){
+    var err = document.getElementById("addCrewError");
+    if(err){ err.textContent = "⚠️ Please enter a member name."; err.style.display = "flex"; }
+    if(nameInp) nameInp.focus();
+    return;
+  }
+
+  // Generate unique ID from name
+  var baseId = nameVal.toLowerCase().replace(/[^a-z0-9]/g, "");
+  if(!baseId) baseId = "member";
+  var finalId = baseId;
+  var counter = 1;
+  while(COUSINS.some(function(c){ return c.id === finalId; })){
+    counter++;
+    finalId = baseId + "_" + counter;
+  }
+
+  var newMember = {
+    id: finalId,
+    name: nameVal,
+    emoji: currentNewCrewEmoji,
+    tag: tagVal,
+    color: currentNewCrewColor,
+    dp: currentNewCrewDp || null,
+    pin: pinVal
+  };
+
+  COUSINS.push(newMember);
+  saveCousins();
+  renderCousins();
+  buildChips();
+  buildFilters();
+  renderGallery();
+  closeAddCrewModal();
+  toast(newMember.name + " added! Their access PIN is: " + pinVal + " 🎉");
+}
+
+document.getElementById("newCrewDpFileInput").onchange = function(){
+  var files = this.files;
+  if(!files || !files.length) return;
+  var file = files[0];
+  if(!file.type.startsWith("image/")){
+    toast("Please select an image file", "info");
+    return;
+  }
+  resizeImageToDataUrl(file, 480, 0.88, function(dataUrl){
+    currentNewCrewDp = dataUrl;
+    updateNewCrewPreview();
+    toast("Photo preview ready! 📸");
+  });
+};
+
+// ── EVENT BINDINGS ────────────────────────────────────────────────────────
+var openAuthBtn = document.getElementById("openAuthModalBtn");
+if(openAuthBtn) openAuthBtn.onclick = function(){ openAuthModal(); };
+document.getElementById("closeAuthModal").onclick = closeAuthModal;
+document.getElementById("authOverlay").onclick = function(e){ if(e.target===this) shakeModal(this); };
+
+document.getElementById("closeSingleMemberEdit").onclick = closeSingleMemberEdit;
+document.getElementById("singleMemberEditOverlay").onclick = function(e){ if(e.target===this) shakeModal(this); };
+
 document.getElementById("crewSectionEditBtn").onclick = function(){ openEditCrewModal(); };
+var openAddCrewBtn = document.getElementById("openAddCrewBtn");
+if(openAddCrewBtn) openAddCrewBtn.onclick = openAddCrewModal;
+var editModalAddBtn = document.getElementById("editModalAddCrewBtn");
+if(editModalAddBtn) editModalAddBtn.onclick = function(){ closeEditCrewModal(); openAddCrewModal(); };
+
+document.getElementById("closeAddCrew").onclick = closeAddCrewModal;
+document.getElementById("addCrewOverlay").onclick = function(e){ if(e.target===this) shakeModal(this); };
 document.getElementById("closeEditCrew").onclick = closeEditCrewModal;
-document.getElementById("editCrewOverlay").onclick = function(e){ if(e.target===this) closeEditCrewModal(); };
+document.getElementById("editCrewOverlay").onclick = function(e){ if(e.target===this) shakeModal(this); };
 document.getElementById("saveCrewNamesBtn").onclick = saveCrewNames;
 document.getElementById("resetCrewNamesBtn").onclick = resetCrewNames;
 
-updateAdminUI();
+// ENTER-KEY SMART NAVIGATION (stops unintended closes / reloads)
+function setupEnterKeyFlow(){
+  function bindEnter(inpId, nextTarget){
+    var el = document.getElementById(inpId);
+    if(!el) return;
+    el.addEventListener("keydown", function(e){
+      if(e.key === "Enter"){
+        e.preventDefault();
+        e.stopPropagation();
+        if(typeof nextTarget === "function"){
+          nextTarget();
+        } else if(typeof nextTarget === "string"){
+          var nextEl = document.getElementById(nextTarget);
+          if(nextEl && typeof nextEl.focus === "function") nextEl.focus();
+        }
+      }
+    });
+  }
+
+  bindEnter("adminEmailInput", function(){
+    var pwd = document.getElementById("adminPasswordInput");
+    if(pwd && !pwd.value) pwd.focus();
+    else handleAdminLogin();
+  });
+
+  bindEnter("singleEditNameInput", "singleEditTagInput");
+  bindEnter("singleEditTagInput", "singleEditPinInput");
+  bindEnter("singleEditPinInput", function(){
+    saveSingleMemberProfile();
+  });
+
+  bindEnter("newCrewNameInput", "newCrewTagInput");
+  bindEnter("newCrewTagInput", "newCrewPinInput");
+  bindEnter("newCrewPinInput", function(){
+    handleAddNewCrew();
+  });
+
+  bindEnter("tripInput", function(){
+    var fi = document.getElementById("fileInput");
+    if(fi) fi.click();
+  });
+}
+setupEnterKeyFlow();
+
+// ══════════════════════════════════════════════════════════════════════════════
+// ── COUSINS CONNECT HUB (CHAT, VOICE LOUNGE & VIDEO ROOM) ───────────────────
+// ══════════════════════════════════════════════════════════════════════════════
+var currentConnectTab = 'chat';
+var connectMessages = [];
+var voiceStream = null;
+var videoStream = null;
+var audioContext = null;
+var audioAnalyser = null;
+var voiceAnimFrame = null;
+var voiceCallTimerInterval = null;
+var voiceCallSeconds = 0;
+var videoCallTimerInterval = null;
+var videoCallSeconds = 0;
+var isVoiceMuted = false;
+var isVideoMicMuted = false;
+var isVideoCamOff = false;
+
+// 1. TAB SWITCHER
+function switchConnectTab(tab){
+  currentConnectTab = tab;
+  var bChat = document.getElementById("tabBtnChat");
+  var bVoice = document.getElementById("tabBtnVoice");
+  var bVideo = document.getElementById("tabBtnVideo");
+  if(bChat) bChat.classList.toggle("active", tab === 'chat');
+  if(bVoice) bVoice.classList.toggle("active", tab === 'voice');
+  if(bVideo) bVideo.classList.toggle("active", tab === 'video');
+
+  var vChat = document.getElementById("connectChatView");
+  var vVoice = document.getElementById("connectVoiceView");
+  var vVideo = document.getElementById("connectVideoView");
+  if(vChat) vChat.style.display = (tab === 'chat') ? 'block' : 'none';
+  if(vVoice) vVoice.style.display = (tab === 'voice') ? 'block' : 'none';
+  if(vVideo) vVideo.style.display = (tab === 'video') ? 'block' : 'none';
+
+  if(tab === 'chat'){
+    scrollChatToBottom();
+  } else if(tab === 'voice'){
+    renderVoiceParticipants();
+  } else if(tab === 'video'){
+    renderVideoCrewTiles();
+  }
+}
+
+// Active user identity for Connect Hub
+function getActiveConnectSender(){
+  if(isSuperAdmin()){
+    var achu = COUSINS.find(function(c){ return c.id === 'achu'; }) || { name: 'Achu', emoji: '👑', dp: null, color: '#c8a96e' };
+    return { id: 'achu', name: achu.name, emoji: '👑', dp: achu.dp, role: 'Super Admin', color: achu.color || '#c8a96e' };
+  }
+  if(isCrewMember() && currentMemberId){
+    var m = COUSINS.find(function(c){ return c.id === currentMemberId; });
+    if(m){
+      return { id: m.id, name: m.name, emoji: m.emoji || '👤', dp: m.dp, role: 'Crew Member', color: m.color || '#c8a96e' };
+    }
+  }
+  return { id: 'achu', name: 'Achu', emoji: '👑', dp: null, role: 'Super Admin', color: '#c8a96e' };
+}
+
+function updateConnectUserBadge(){
+  var badge = document.getElementById("currentUserChatBadge");
+  var sender = getActiveConnectSender();
+  if(badge){
+    badge.innerHTML = 'Connecting as: <span style="color:#fff">' + escapeHtml(sender.emoji + ' ' + sender.name) + '</span>';
+  }
+  var localName = document.getElementById("localVideoName");
+  if(localName) localName.textContent = sender.name + " (You)";
+}
+
+// 2. CHAT SYSTEM
+var DEFAULT_CONNECT_MESSAGES = [
+  { id: 'm1', senderId: 'achu', senderName: 'Achu', senderEmoji: '👑', senderRole: 'Super Admin', text: 'Welcome to Cousins Gallery! All our trip photos are stored here 📸🏝️', timestamp: Date.now() - 3600000 * 24 },
+  { id: 'm2', senderId: 'swarnu', senderName: 'Swarnu', senderEmoji: '🌸', senderRole: 'Crew Member', text: 'Loved the memories! Where are we heading next vacation? ✨', timestamp: Date.now() - 3600000 * 5 },
+  { id: 'm3', senderId: 'achu', senderName: 'Achu', senderEmoji: '👑', senderRole: 'Super Admin', text: 'Hop on Voice Lounge or Video Room whenever everyone is free! 🙌', timestamp: Date.now() - 1800000 }
+];
+
+function initConnectChat(){
+  try {
+    var raw = localStorage.getItem("cousins_connect_messages");
+    if(raw){
+      connectMessages = JSON.parse(raw);
+    } else {
+      connectMessages = DEFAULT_CONNECT_MESSAGES.slice();
+    }
+  } catch(e){
+    connectMessages = DEFAULT_CONNECT_MESSAGES.slice();
+  }
+  renderChatMessages();
+
+  if(db){
+    db.collection("connect_messages").orderBy("timestamp", "asc").limitToLast(80).onSnapshot(function(snapshot){
+      if(!snapshot.empty){
+        var list = [];
+        snapshot.forEach(function(doc){
+          var d = doc.data();
+          d.id = doc.id;
+          list.push(d);
+        });
+        if(list.length > 0){
+          connectMessages = list;
+          try { localStorage.setItem("cousins_connect_messages", JSON.stringify(connectMessages)); } catch(e){}
+          renderChatMessages();
+        }
+      }
+    }, function(err){
+      console.warn("Firestore connect_messages listener err:", err.message);
+    });
+
+    db.collection("settings").doc("callState").onSnapshot(function(doc){
+      if(doc.exists){
+        updateCallStateUI(doc.data());
+      }
+    }, function(err){});
+  }
+}
+
+function updateCallStateUI(callData){
+  var dot = document.getElementById("connectLiveDot");
+  var statusText = document.getElementById("connectStatusText");
+  if(!dot || !statusText) return;
+
+  if(callData && callData.active){
+    dot.className = "live-dot calling";
+    var typeLbl = callData.type === 'video' ? 'Video Call' : 'Voice Lounge';
+    statusText.innerHTML = '<span style="color:#ef4444;font-weight:700">🔴 LIVE ' + typeLbl + '</span> by ' + escapeHtml(callData.initiator || 'Crew');
+  } else {
+    dot.className = "live-dot";
+    statusText.textContent = "Crew Ready";
+  }
+}
+
+function renderChatMessages(){
+  var container = document.getElementById("chatMessagesList");
+  if(!container) return;
+
+  var currentSender = getActiveConnectSender();
+
+  container.innerHTML = connectMessages.map(function(msg){
+    var isMine = (msg.senderId === currentSender.id) || (currentSender.id === 'achu' && msg.senderId === 'achu');
+    var avatarEl = msg.senderDp ? '<img src="'+msg.senderDp+'" alt="'+escapeHtml(msg.senderName)+'">' : (msg.senderEmoji || '👤');
+    var timeStr = formatChatTime(msg.timestamp);
+
+    return '<div class="chat-item' + (isMine ? ' mine' : '') + '">'
+      + '<div class="chat-avatar-thumb">' + avatarEl + '</div>'
+      + '<div class="chat-bubble-wrap">'
+      + '  <div class="chat-author">' + escapeHtml(msg.senderName) + ' <span style="font-size:9px;color:var(--muted);font-weight:400">(' + escapeHtml(msg.senderRole || 'Crew') + ')</span></div>'
+      + '  <div class="chat-bubble">' + escapeHtml(msg.text) + '</div>'
+      + '  <div class="chat-timestamp">' + timeStr + '</div>'
+      + '</div>'
+      + '</div>';
+  }).join("");
+
+  scrollChatToBottom();
+}
+
+function formatChatTime(ts){
+  if(!ts) return "";
+  var d = new Date(ts);
+  var hrs = d.getHours();
+  var mins = d.getMinutes();
+  var ampm = hrs >= 12 ? 'PM' : 'AM';
+  hrs = hrs % 12;
+  if(hrs === 0) hrs = 12;
+  var minStr = mins < 10 ? '0' + mins : mins;
+  return hrs + ':' + minStr + ' ' + ampm;
+}
+
+function scrollChatToBottom(){
+  var el = document.getElementById("chatMessagesList");
+  if(el){
+    el.scrollTop = el.scrollHeight;
+  }
+}
+
+function handleSendChat(){
+  var inp = document.getElementById("chatMessageInput");
+  if(!inp) return;
+  var text = inp.value.trim();
+  if(!text) return;
+  inp.value = "";
+  sendChatMessage(text);
+}
+
+function sendQuickEmoji(em){
+  sendChatMessage(em);
+}
+
+function sendChatMessage(text){
+  var sender = getActiveConnectSender();
+  var newMsg = {
+    id: 'msg_' + Date.now() + '_' + Math.random().toString(36).substr(2, 5),
+    senderId: sender.id,
+    senderName: sender.name,
+    senderEmoji: sender.emoji,
+    senderDp: sender.dp || null,
+    senderRole: sender.role,
+    text: text,
+    timestamp: Date.now()
+  };
+
+  connectMessages.push(newMsg);
+  try { localStorage.setItem("cousins_connect_messages", JSON.stringify(connectMessages)); } catch(e){}
+  renderChatMessages();
+
+  if(db){
+    db.collection("connect_messages").doc(newMsg.id).set(newMsg).catch(function(err){
+      console.warn("Cloud chat send error:", err.message);
+    });
+  }
+}
+
+// 3. VOICE LOUNGE SYSTEM
+function renderVoiceParticipants(){
+  var row = document.getElementById("voiceParticipantsRow");
+  if(!row) return;
+
+  var currentSender = getActiveConnectSender();
+
+  row.innerHTML = COUSINS.map(function(c){
+    var avatar = c.dp ? '<img src="'+c.dp+'" alt="'+escapeHtml(c.name)+'">' : c.emoji;
+    var isSpeakingClass = (voiceStream && (c.id === currentSender.id)) ? ' speaking' : '';
+    return '<div class="voice-avatar-item">'
+      + '<div class="voice-avatar-bubble' + isSpeakingClass + '" id="voiceAvatar-' + c.id + '" style="border-color:' + c.color + '">'
+      +   avatar
+      + '</div>'
+      + '<div style="font-size:12px;font-weight:600;color:var(--text)">' + escapeHtml(c.name) + '</div>'
+      + '<div style="font-size:10px;color:var(--muted)">' + (isSpeakingClass ? '🟢 In Room' : 'Listening') + '</div>'
+      + '</div>';
+  }).join("");
+}
+
+function startVoiceCall(){
+  var sender = getActiveConnectSender();
+  toast("Connecting to Crew Audio Lounge... 🎙️", "info");
+
+  function onStreamReady(stream){
+    voiceStream = stream;
+    isVoiceMuted = false;
+    document.getElementById("voiceIdleState").style.display = "none";
+    document.getElementById("voiceActiveControls").style.display = "flex";
+    document.getElementById("voiceTimerDisplay").style.display = "block";
+    document.getElementById("voiceWaveVisualizer").style.display = "flex";
+    document.getElementById("voiceLoungeSubtitle").textContent = "Connected live with audio lounge — Speak to chat!";
+
+    setupVoiceAudioVisualizer(stream);
+
+    voiceCallSeconds = 0;
+    updateVoiceTimerDisplay();
+    clearInterval(voiceCallTimerInterval);
+    voiceCallTimerInterval = setInterval(function(){
+      voiceCallSeconds++;
+      updateVoiceTimerDisplay();
+    }, 1000);
+
+    renderVoiceParticipants();
+
+    if(db){
+      db.collection("settings").doc("callState").set({
+        active: true,
+        type: 'voice',
+        initiator: sender.name,
+        timestamp: Date.now()
+      }).catch(function(e){});
+    }
+
+    toast("Connected to Audio Lounge! 🎙️", "success");
+  }
+
+  if(navigator.mediaDevices && navigator.mediaDevices.getUserMedia){
+    navigator.mediaDevices.getUserMedia({ audio: true }).then(onStreamReady).catch(function(err){
+      console.warn("Microphone permission or hardware note:", err.message);
+      onStreamReady(null);
+    });
+  } else {
+    onStreamReady(null);
+  }
+}
+
+function setupVoiceAudioVisualizer(stream){
+  try {
+    window.AudioContext = window.AudioContext || window.webkitAudioContext;
+    if(!window.AudioContext) return;
+    audioContext = new AudioContext();
+    if(stream){
+      var source = audioContext.createMediaStreamSource(stream);
+      audioAnalyser = audioContext.createAnalyser();
+      audioAnalyser.fftSize = 64;
+      source.connect(audioAnalyser);
+
+      var dataArray = new Uint8Array(audioAnalyser.frequencyBinCount);
+      var eqBars = document.querySelectorAll(".eq-bar");
+
+      function updateEq(){
+        if(!voiceStream) return;
+        audioAnalyser.getByteFrequencyData(dataArray);
+        var sum = 0;
+        for(var i = 0; i < 5; i++){
+          var val = dataArray[i * 2] || 0;
+          sum += val;
+          if(eqBars[i]){
+            var h = Math.max(6, Math.min(38, Math.round(val / 6)));
+            eqBars[i].style.height = h + "px";
+          }
+        }
+        var activeBubble = document.querySelector(".voice-avatar-bubble.speaking");
+        if(activeBubble){
+          if(sum > 40 && !isVoiceMuted){
+            activeBubble.style.transform = "scale(1.08)";
+            activeBubble.style.boxShadow = "0 0 0 6px #22c55e40, 0 0 25px #22c55e80";
+          } else {
+            activeBubble.style.transform = "scale(1)";
+            activeBubble.style.boxShadow = "none";
+          }
+        }
+        voiceAnimFrame = requestAnimationFrame(updateEq);
+      }
+      updateEq();
+    }
+  } catch(e){
+    console.warn("AudioContext setup note:", e.message);
+  }
+}
+
+function updateVoiceTimerDisplay(){
+  var m = Math.floor(voiceCallSeconds / 60);
+  var s = voiceCallSeconds % 60;
+  var txt = (m < 10 ? '0' + m : m) + ':' + (s < 10 ? '0' + s : s);
+  var el = document.getElementById("voiceTimerDisplay");
+  if(el) el.textContent = txt;
+}
+
+function toggleVoiceMute(){
+  isVoiceMuted = !isVoiceMuted;
+  if(voiceStream){
+    voiceStream.getAudioTracks().forEach(function(t){
+      t.enabled = !isVoiceMuted;
+    });
+  }
+  var btn = document.getElementById("btnVoiceMute");
+  if(btn){
+    btn.classList.toggle("active-mute", isVoiceMuted);
+    btn.innerHTML = isVoiceMuted ? '🔇' : '🎙️';
+    btn.title = isVoiceMuted ? 'Unmute Mic' : 'Mute Mic';
+  }
+  toast(isVoiceMuted ? "Microphone muted 🔇" : "Microphone active 🎙️", "info");
+}
+
+function endVoiceCall(){
+  if(voiceStream){
+    voiceStream.getTracks().forEach(function(t){ t.stop(); });
+    voiceStream = null;
+  }
+  if(audioContext){
+    try { audioContext.close(); } catch(e){}
+    audioContext = null;
+  }
+  if(voiceAnimFrame){
+    cancelAnimationFrame(voiceAnimFrame);
+    voiceAnimFrame = null;
+  }
+  clearInterval(voiceCallTimerInterval);
+  voiceCallSeconds = 0;
+
+  document.getElementById("voiceIdleState").style.display = "block";
+  document.getElementById("voiceActiveControls").style.display = "none";
+  document.getElementById("voiceTimerDisplay").style.display = "none";
+  document.getElementById("voiceWaveVisualizer").style.display = "none";
+  document.getElementById("voiceLoungeSubtitle").textContent = "Hop on a live audio call with high-fidelity microphone sound";
+
+  renderVoiceParticipants();
+
+  if(db){
+    db.collection("settings").doc("callState").set({ active: false, timestamp: Date.now() }).catch(function(e){});
+  }
+  toast("Voice call ended", "info");
+}
+
+// 4. GROUP VIDEO ROOM SYSTEM
+function renderVideoCrewTiles(){
+  var wrap = document.getElementById("crewRemoteTiles");
+  if(!wrap) return;
+
+  var currentSender = getActiveConnectSender();
+  var remCousins = COUSINS.filter(function(c){ return c.id !== currentSender.id; });
+
+  wrap.innerHTML = remCousins.map(function(c){
+    var avatar = c.dp ? '<img src="'+c.dp+'" alt="'+escapeHtml(c.name)+'" style="width:72px;height:72px;border-radius:50%;object-fit:cover">' : '<div class="cousin-avatar" style="width:72px;height:72px;font-size:32px;margin:0;border-color:'+c.color+'">'+c.emoji+'</div>';
+    return '<div class="video-tile" id="remoteTile-' + c.id + '">'
+      + '<div class="video-tile-avatar">'
+      +   avatar
+      + '  <div style="font-size:11px;color:var(--muted);margin-top:6px">In Room</div>'
+      + '</div>'
+      + '<div class="video-tile-name">'
+      +   '<span>' + escapeHtml(c.name) + '</span>'
+      + '  <span style="font-size:10px;color:#22c55e">● Online</span>'
+      + '</div>'
+      + '</div>';
+  }).join("");
+}
+
+function startVideoCall(){
+  var sender = getActiveConnectSender();
+  toast("Opening Camera & Starting Video Call... 🎥", "info");
+
+  function onVideoStreamReady(stream){
+    videoStream = stream;
+    isVideoMicMuted = false;
+    isVideoCamOff = false;
+
+    var videoEl = document.getElementById("localVideoFeed");
+    var fallback = document.getElementById("localVideoFallback");
+
+    if(stream && videoEl){
+      videoEl.srcObject = stream;
+      videoEl.style.display = "block";
+      if(fallback) fallback.style.display = "none";
+    } else {
+      if(videoEl) videoEl.style.display = "none";
+      if(fallback) fallback.style.display = "flex";
+    }
+
+    document.getElementById("videoIdleControls").style.display = "none";
+    document.getElementById("videoActiveControls").style.display = "flex";
+    document.getElementById("videoRoomNotice").style.display = "flex";
+
+    videoCallSeconds = 0;
+    updateVideoTimerDisplay();
+    clearInterval(videoCallTimerInterval);
+    videoCallTimerInterval = setInterval(function(){
+      videoCallSeconds++;
+      updateVideoTimerDisplay();
+    }, 1000);
+
+    renderVideoCrewTiles();
+
+    if(db){
+      db.collection("settings").doc("callState").set({
+        active: true,
+        type: 'video',
+        initiator: sender.name,
+        timestamp: Date.now()
+      }).catch(function(e){});
+    }
+
+    toast("Video Call is LIVE! 🎥 Camera streaming.", "success");
+  }
+
+  if(navigator.mediaDevices && navigator.mediaDevices.getUserMedia){
+    navigator.mediaDevices.getUserMedia({
+      video: { facingMode: "user" },
+      audio: true
+    }).then(onVideoStreamReady).catch(function(err){
+      console.warn("Camera permission or hardware note:", err.message);
+      onVideoStreamReady(null);
+    });
+  } else {
+    onVideoStreamReady(null);
+  }
+}
+
+function updateVideoTimerDisplay(){
+  var m = Math.floor(videoCallSeconds / 60);
+  var s = videoCallSeconds % 60;
+  var txt = (m < 10 ? '0' + m : m) + ':' + (s < 10 ? '0' + s : s);
+  var el = document.getElementById("videoTimerDisplay");
+  if(el) el.textContent = txt;
+}
+
+function toggleVideoCam(){
+  isVideoCamOff = !isVideoCamOff;
+  var videoEl = document.getElementById("localVideoFeed");
+  var fallback = document.getElementById("localVideoFallback");
+
+  if(videoStream){
+    videoStream.getVideoTracks().forEach(function(t){
+      t.enabled = !isVideoCamOff;
+    });
+  }
+
+  if(videoEl) videoEl.style.display = isVideoCamOff ? "none" : "block";
+  if(fallback) fallback.style.display = isVideoCamOff ? "flex" : "none";
+
+  var btn = document.getElementById("btnVideoCam");
+  if(btn){
+    btn.classList.toggle("active-mute", isVideoCamOff);
+    btn.innerHTML = isVideoCamOff ? '🚫' : '📹';
+    btn.title = isVideoCamOff ? 'Turn Camera On' : 'Turn Camera Off';
+  }
+  toast(isVideoCamOff ? "Camera turned off 🚫" : "Camera turned on 📹", "info");
+}
+
+function toggleVideoMic(){
+  isVideoMicMuted = !isVideoMicMuted;
+  if(videoStream){
+    videoStream.getAudioTracks().forEach(function(t){
+      t.enabled = !isVideoMicMuted;
+    });
+  }
+  var btn = document.getElementById("btnVideoMic");
+  if(btn){
+    btn.classList.toggle("active-mute", isVideoMicMuted);
+    btn.innerHTML = isVideoMicMuted ? '🔇' : '🎙️';
+    btn.title = isVideoMicMuted ? 'Unmute Mic' : 'Mute Mic';
+  }
+  toast(isVideoMicMuted ? "Microphone muted 🔇" : "Microphone active 🎙️", "info");
+}
+
+function toggleScreenShare(){
+  if(navigator.mediaDevices && navigator.mediaDevices.getDisplayMedia){
+    navigator.mediaDevices.getDisplayMedia({ video: true }).then(function(screenStream){
+      var screenTrack = screenStream.getVideoTracks()[0];
+      var videoEl = document.getElementById("localVideoFeed");
+      if(videoEl){
+        videoEl.srcObject = screenStream;
+      }
+      toast("Screen sharing active! 🖥️", "success");
+      screenTrack.onended = function(){
+        if(videoStream && videoEl){
+          videoEl.srcObject = videoStream;
+        }
+        toast("Screen sharing ended", "info");
+      };
+    }).catch(function(err){
+      toast("Screen sharing cancelled", "info");
+    });
+  } else {
+    toast("Screen share not supported on this browser", "info");
+  }
+}
+
+function toggleVideoFullscreen(){
+  var wrap = document.getElementById("videoGridWrap");
+  if(!wrap) return;
+  if(!document.fullscreenElement){
+    if(wrap.requestFullscreen) wrap.requestFullscreen();
+    else if(wrap.webkitRequestFullscreen) wrap.webkitRequestFullscreen();
+  } else {
+    if(document.exitFullscreen) document.exitFullscreen();
+    else if(document.webkitExitFullscreen) document.webkitExitFullscreen();
+  }
+}
+
+function endVideoCall(){
+  if(videoStream){
+    videoStream.getTracks().forEach(function(t){ t.stop(); });
+    videoStream = null;
+  }
+  clearInterval(videoCallTimerInterval);
+  videoCallSeconds = 0;
+
+  var videoEl = document.getElementById("localVideoFeed");
+  if(videoEl) videoEl.srcObject = null;
+
+  document.getElementById("videoIdleControls").style.display = "block";
+  document.getElementById("videoActiveControls").style.display = "none";
+  document.getElementById("videoRoomNotice").style.display = "none";
+
+  if(db){
+    db.collection("settings").doc("callState").set({ active: false, timestamp: Date.now() }).catch(function(e){});
+  }
+  toast("Video call ended", "info");
+}
+
+function initConnectHub(){
+  updateConnectUserBadge();
+  initConnectChat();
+  renderVoiceParticipants();
+  renderVideoCrewTiles();
+}
+
 buildChips(); renderCousins(); buildFilters(); renderGallery();
 initCloudSync();
+initAuth();
+initConnectHub();
 
 </script>
 </body>
