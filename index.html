@@ -151,17 +151,89 @@ h1.hero-title{display:flex;flex-direction:column;align-items:center;margin-botto
 /* LIGHTBOX */
 .lightbox{position:fixed;inset:0;background:#000f;z-index:300;display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity 0.25s}
 .lightbox.open{opacity:1;pointer-events:all}
-.lb-img-wrap{position:relative;max-width:90vw;max-height:85vh}
+.lb-img-wrap{position:relative;max-width:90vw;max-height:85vh;display:flex;align-items:center;justify-content:center}
 .lb-img-wrap img{max-width:90vw;max-height:85vh;object-fit:contain;border-radius:8px;display:block}
+.lb-video{max-width:90vw;max-height:85vh;border-radius:8px;display:block;background:#000;box-shadow:0 12px 50px #000c;outline:none}
 .lb-close{position:fixed;top:20px;right:24px;width:44px;height:44px;border-radius:50%;background:#ffffff12;border:1px solid #ffffff20;color:#fff;font-size:22px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all 0.2s;backdrop-filter:blur(8px)}
 .lb-close:hover{background:var(--accent);color:#000}
 .lb-prev,.lb-next{position:fixed;top:50%;transform:translateY(-50%);width:48px;height:48px;border-radius:50%;background:#ffffff12;border:1px solid #ffffff20;color:#fff;font-size:22px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all 0.2s;backdrop-filter:blur(8px)}
 .lb-prev{left:16px}.lb-next{right:16px}
 .lb-prev:hover,.lb-next:hover{background:var(--accent);color:#000;border-color:var(--accent)}
-.lb-info{position:fixed;bottom:0;left:0;right:0;padding:16px 24px;background:linear-gradient(to top,#000e,transparent);display:flex;align-items:center;justify-content:space-between}
+.lb-info,.lb-bottom-bar{position:fixed;bottom:0;left:0;right:0;padding:16px 24px;background:linear-gradient(to top,#000f 65%,transparent);display:flex;flex-direction:column;gap:10px;z-index:320}
+.lb-actions-row{display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap}
 .lb-name{font-weight:600;font-size:14px}.lb-trip-name{font-size:13px;color:var(--muted)}
-.btn-download{background:transparent;border:1px solid #ffffff30;color:#fff;padding:8px 18px;border-radius:50px;font-size:12px;cursor:pointer;font-family:"Inter",sans-serif;transition:all 0.2s}
+.btn-download{background:transparent;border:1px solid #ffffff30;color:#fff;padding:8px 18px;border-radius:50px;font-size:12px;cursor:pointer;font-family:"Inter",sans-serif;transition:all 0.2s;white-space:nowrap}
 .btn-download:hover{background:var(--accent);border-color:var(--accent);color:#000}
+
+/* COMMENTS STYLES */
+
+.btn-comments-toggle{background:#ffffff12;border:1px solid #ffffff25;color:#fff;padding:8px 18px;border-radius:50px;font-size:12px;font-weight:600;font-family:"Inter",sans-serif;cursor:pointer;display:inline-flex;align-items:center;gap:8px;transition:all var(--transition);white-space:nowrap}
+.btn-comments-toggle:hover,.btn-comments-toggle.active{background:var(--accent);border-color:var(--accent);color:#000}
+.comment-count-badge{background:var(--accent);color:#000;font-size:10px;font-weight:800;padding:1px 6px;border-radius:50px}
+.btn-comments-toggle.active .comment-count-badge{background:#000;color:var(--accent)}
+
+/* COMMENTS DRAWER */
+.lb-comments-drawer{position:fixed;top:80px;right:24px;bottom:96px;width:380px;max-width:calc(100vw - 32px);background:#141414fa;backdrop-filter:blur(24px);border:1px solid var(--border2);border-radius:20px;box-shadow:0 16px 50px #000c;display:flex;flex-direction:column;z-index:340;transform:translateX(120%);transition:transform 0.3s cubic-bezier(0.4,0,0.2,1);overflow:hidden}
+.lb-comments-drawer.open{transform:translateX(0)}
+.comments-header{padding:16px 20px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;background:#181818}
+.comments-title{font-size:15px;font-weight:700;display:flex;align-items:center;gap:8px}
+.comments-close-btn{background:transparent;border:none;color:var(--muted);font-size:18px;cursor:pointer;padding:4px 8px;border-radius:8px;transition:all 0.2s}
+.comments-close-btn:hover{color:#fff;background:#ffffff10}
+
+.comments-list{flex:1;overflow-y:auto;padding:16px;display:flex;flex-direction:column;gap:12px}
+.comment-item{background:#1e1e1e;border:1px solid var(--border);border-radius:12px;padding:10px 14px;position:relative;animation:slideToast 0.2s ease}
+.comment-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:4px}
+.comment-author{font-size:12px;font-weight:700;color:var(--accent);display:flex;align-items:center;gap:6px}
+.comment-time{font-size:10px;color:var(--subtle)}
+.comment-text{font-size:13px;color:var(--text);word-break:break-word;line-height:1.4}
+.comment-del-btn{background:transparent;border:none;color:#e87e7e80;font-size:11px;cursor:pointer;padding:2px 4px;margin-left:6px;transition:color 0.2s}
+.comment-del-btn:hover{color:#e87e7e}
+.empty-comments{text-align:center;padding:40px 16px;color:var(--muted);font-size:13px;line-height:1.6}
+
+.comment-input-wrap{padding:14px 16px;border-top:1px solid var(--border);background:#181818}
+.comment-form-row{display:flex;gap:8px}
+.comment-input{flex:1;background:var(--bg3);border:1px solid var(--border2);color:var(--text);padding:9px 14px;border-radius:50px;font-size:13px;font-family:"Inter",sans-serif;outline:none;transition:border-color 0.2s}
+.comment-input:focus{border-color:var(--accent)}
+.btn-comment-send{background:var(--accent);color:#000;border:none;padding:9px 18px;border-radius:50px;font-size:13px;font-weight:700;font-family:"Inter",sans-serif;cursor:pointer;transition:all var(--transition);display:inline-flex;align-items:center;gap:4px}
+.btn-comment-send:hover{background:var(--accent2);transform:scale(1.05)}
+
+.social-stats-badge{display:inline-flex;align-items:center;gap:8px;background:#0d0d0dc0;backdrop-filter:blur(6px);border:1px solid #ffffff18;padding:2px 8px;border-radius:50px;font-size:10px;color:#fff;margin-top:4px}
+.social-stat-item{display:inline-flex;align-items:center;gap:3px}
+
+@media(max-width:768px){
+  .lb-comments-drawer{top:auto;left:0;right:0;bottom:0;width:100%;max-width:100%;max-height:65vh;border-radius:20px 20px 0 0;transform:translateY(115%)}
+  .lb-comments-drawer.open{transform:translateY(0)}
+  .lb-actions-row{flex-direction:column;align-items:flex-start;gap:10px}
+}
+
+/* VIDEO & MEDIA STYLES */
+.gallery-toolbar{display:flex;justify-content:center;align-items:center;gap:14px;flex-wrap:wrap;margin-bottom:20px}
+.media-type-pills{display:inline-flex;gap:6px;background:var(--bg2);border:1px solid var(--border2);padding:4px;border-radius:50px}
+.media-pill{background:transparent;border:none;color:var(--muted);padding:8px 18px;border-radius:50px;font-size:13px;font-weight:600;font-family:"Inter",sans-serif;cursor:pointer;transition:all var(--transition)}
+.media-pill:hover{color:var(--text)}
+.media-pill.active{background:var(--accent);color:#000;box-shadow:0 2px 12px #c8a96e40}
+.btn-nav-upload{background:var(--accent);border-color:var(--accent);color:#000;font-weight:700;display:inline-flex;align-items:center;gap:6px;box-shadow:0 2px 14px #c8a96e40}
+.btn-nav-upload:hover{background:var(--accent2);border-color:var(--accent2);transform:scale(1.05);color:#000}
+.nav-actions{display:flex;align-items:center;gap:10px}
+.nav-cousin-select{background:var(--bg3);border:1px solid var(--border2);color:var(--text);font-size:12px;padding:6px 12px;border-radius:50px;font-family:"Inter",sans-serif;outline:none;cursor:pointer;transition:border-color 0.2s}
+.nav-cousin-select:hover,.nav-cousin-select:focus{border-color:var(--accent)}
+.social-stats-badge{cursor:pointer;transition:transform 0.15s}
+.social-stats-badge:hover{transform:scale(1.08);background:#0d0d0df0;border-color:var(--accent)}
+
+.video-item{position:relative}
+.video-card-badge{position:absolute;top:10px;left:10px;z-index:3;background:#0d0d0de0;backdrop-filter:blur(8px);border:1px solid #c8a96e60;color:var(--accent);font-size:10px;font-weight:700;letter-spacing:0.06em;padding:3px 8px;border-radius:50px;display:inline-flex;align-items:center;gap:4px;pointer-events:none}
+.video-play-center-btn{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:46px;height:46px;border-radius:50%;background:#00000099;backdrop-filter:blur(8px);border:1.5px solid #ffffff40;display:flex;align-items:center;justify-content:center;color:#fff;font-size:16px;z-index:2;pointer-events:none;transition:all var(--transition)}
+.video-play-center-btn .play-triangle{margin-left:3px}
+.photo-item:hover .video-play-center-btn{background:var(--accent);border-color:var(--accent);color:#000;transform:translate(-50%,-50%) scale(1.15);box-shadow:0 0 25px #c8a96e88}
+
+.meta-size-badge{font-size:10px;color:var(--accent);background:#c8a96e18;border:1px solid #c8a96e40;padding:1px 6px;border-radius:4px;font-weight:600;letter-spacing:0.02em}
+
+.thumb-item{position:relative;display:inline-flex;flex-direction:column;align-items:center}
+.thumb-video .thumb{background:#000}
+.thumb-vid-tag{position:absolute;top:4px;left:4px;background:#000c;color:var(--accent);font-size:9px;font-weight:700;padding:2px 5px;border-radius:4px;pointer-events:none}
+.thumb-remove-btn{position:absolute;top:-6px;right:-6px;width:20px;height:20px;border-radius:50%;background:#e87e7e;border:1px solid #fff;color:#fff;font-size:10px;font-weight:700;display:flex;align-items:center;justify-content:center;cursor:pointer;line-height:1;transition:all var(--transition);z-index:3}
+.thumb-remove-btn:hover{background:#ff4d4d;transform:scale(1.15)}
+.thumb-size-info{font-size:10px;color:var(--muted);text-align:center;margin-top:4px;max-width:64px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 
 /* TOAST */
 .toast-area{position:fixed;bottom:28px;right:28px;z-index:999;display:flex;flex-direction:column;gap:10px}
@@ -362,7 +434,7 @@ nav{padding:16px 20px}
     <h1 class="hero-title">
       <span class="hero-brand-headline">COUSINS <span class="gold-gradient-text">GALLERY</span></span>
     </h1>
-    <p class="hero-tagline">Every road trip, late-night laugh, and unforgettable story we share — captured forever in one place.</p>
+    <p class="hero-tagline" style="margin-bottom:0">Every road trip, late-night laugh, and unforgettable story we share — captured forever in one place.</p>
   </div>
 </section>
 
@@ -372,12 +444,9 @@ nav{padding:16px 20px}
 <section class="section" id="cousins">
   <div class="section-header">
     <h2 class="section-title">The Crew</h2>
-    <div style="margin-top:20px;display:flex;justify-content:center;align-items:center;gap:12px;flex-wrap:wrap">
-      <button class="btn-primary" id="crewUploadBtn" style="padding:10px 26px;font-size:13px">↑ Upload Photos</button>
-      <div id="crewAdminBar" style="display:none;align-items:center;gap:10px;flex-wrap:wrap">
-        <button class="btn-admin-action" id="crewSectionEditBtn">✎ Edit Crew</button>
-        <button class="btn-admin-action" id="openAddCrewBtn">＋ Add Crew Member</button>
-      </div>
+    <div id="crewAdminBar" style="display:none;margin-top:20px;justify-content:center;align-items:center;gap:10px;flex-wrap:wrap">
+      <button class="btn-admin-action" id="crewSectionEditBtn">✎ Edit Crew</button>
+      <button class="btn-admin-action" id="openAddCrewBtn">＋ Add Crew Member</button>
     </div>
   </div>
   <div class="cousins-grid" id="cousinsGrid"></div>
@@ -388,16 +457,26 @@ nav{padding:16px 20px}
 <!-- GALLERY SECTION -->
 <section class="gallery-section" id="gallery">
   <div class="section-header">
-    <h2 class="section-title">All Photos</h2>
+    <span class="section-label">ORIGINAL QUALITY VAULT</span>
+    <h2 class="section-title">Photos &amp; Videos</h2>
+    <p class="section-desc">Cherished moments preserved at 100% original quality, resolution, and file size.</p>
+  </div>
+  <div class="gallery-toolbar">
+    <div class="media-type-pills" id="mediaTypePills">
+      <button type="button" class="media-pill active" data-type="all" onclick="setMediaTypeFilter('all')">✨ All Memories</button>
+      <button type="button" class="media-pill" data-type="image" onclick="setMediaTypeFilter('image')">📸 Photos</button>
+      <button type="button" class="media-pill" data-type="video" onclick="setMediaTypeFilter('video')">🎥 Videos</button>
+    </div>
+    <button type="button" class="btn-primary" id="galleryUploadBtn" onclick="openUpload()" style="padding:9px 24px;font-size:13px;border-radius:50px;box-shadow:0 4px 20px #c8a96e30">↑ Upload Photos &amp; Videos</button>
   </div>
   <div class="filters" id="filtersBar">
-    <button class="filter-btn active" data-filter="all">All Photos</button>
+    <button class="filter-btn active" data-filter="all">All Members</button>
   </div>
   <div class="photo-grid" id="photoGrid"></div>
   <div class="empty-state" id="emptyState">
-    <div class="empty-icon">📷</div>
-    <h3>No photos yet</h3>
-    <p>Memories will appear here once added!</p>
+    <div class="empty-icon">🎬</div>
+    <h3>No memories found</h3>
+    <p>Upload photos &amp; videos to populate our family vault!</p>
   </div>
 </section>
 
@@ -443,16 +522,6 @@ nav{padding:16px 20px}
         </div>
 
         <div class="chat-input-area">
-          <div class="chat-quick-emojis">
-            <span style="font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:0.06em;margin-right:4px">React:</span>
-            <button type="button" class="emoji-chip-btn" onclick="sendQuickEmoji('❤️')">❤️</button>
-            <button type="button" class="emoji-chip-btn" onclick="sendQuickEmoji('🔥')">🔥</button>
-            <button type="button" class="emoji-chip-btn" onclick="sendQuickEmoji('😂')">😂</button>
-            <button type="button" class="emoji-chip-btn" onclick="sendQuickEmoji('🏖️')">🏖️</button>
-            <button type="button" class="emoji-chip-btn" onclick="sendQuickEmoji('📸')">📸</button>
-            <button type="button" class="emoji-chip-btn" onclick="sendQuickEmoji('🎉')">🎉</button>
-            <button type="button" class="emoji-chip-btn" onclick="sendQuickEmoji('🙌')">🙌</button>
-          </div>
           <form id="connectChatForm" action="javascript:void(0);" onsubmit="event.preventDefault();handleSendChat();return false;" class="chat-input-row">
             <input type="text" class="chat-input" id="chatMessageInput" placeholder="Write a message to the crew... (Press Enter to send)" maxlength="500" autocomplete="off">
             <button type="submit" class="btn-chat-send" id="chatSendBtn"><span>📤</span> Send</button>
@@ -557,10 +626,13 @@ nav{padding:16px 20px}
         <h2 id="profileName"></h2>
         <p id="profileTag"></p>
         <div class="profile-stats">
-          <div class="pstat"><div class="pstat-val" id="profileCount">0</div><div class="pstat-lbl">Photos</div></div>
+          <div class="pstat"><div class="pstat-val" id="profileCount">0</div><div class="pstat-lbl">Memories</div></div>
         </div>
-        <div id="profileEditBtnWrap" style="margin-top:14px;display:none">
-          <button type="button" class="btn-admin-action" id="profileEditActionBtn" style="padding:6px 18px;font-size:12px">✎ Edit Profile</button>
+        <div style="margin-top:14px;display:flex;align-items:center;gap:10px;flex-wrap:wrap">
+          <button type="button" class="btn-primary" id="profileUploadForMemberBtn" style="padding:7px 20px;font-size:12px;border-radius:50px">↑ Upload for this Cousin</button>
+          <div id="profileEditBtnWrap" style="display:none">
+            <button type="button" class="btn-admin-action" id="profileEditActionBtn" style="padding:6px 18px;font-size:12px">✎ Edit Profile</button>
+          </div>
         </div>
       </div>
     </div>
@@ -568,8 +640,9 @@ nav{padding:16px 20px}
       <div class="profile-grid" id="profileGrid"></div>
       <div class="empty-state" id="profileEmpty" style="display:none">
         <div class="empty-icon">🤳</div>
-        <h3>No photos yet</h3>
-        <p>Click Upload Photos to add your first memory!</p>
+        <h3>No memories yet</h3>
+        <p>Click Upload Memories to add your first photo or video!</p>
+        <button type="button" class="btn-primary" id="profileEmptyUploadBtn" style="margin-top:12px;padding:8px 24px;font-size:12px;border-radius:50px">↑ Upload Memories Now</button>
       </div>
     </div>
   </div>
@@ -579,31 +652,47 @@ nav{padding:16px 20px}
 <div class="overlay" id="uploadOverlay">
   <div class="upload-modal-inner">
     <button type="button" class="modal-close" id="closeUpload">✕</button>
-    <h2 class="modal-title">Upload Photos</h2>
-    <p class="modal-sub">Share your memories with the crew 🎉</p>
+    <h2 class="modal-title">Upload Photos &amp; Videos</h2>
+    <p class="modal-sub">Share memories with the crew — 100% original quality &amp; size preserved 🎬</p>
+
+    <div class="upload-crew-notice" style="background:#c8a96e18;border:1px solid #c8a96e44;border-radius:12px;padding:10px 16px;margin-bottom:18px;font-size:12px;color:var(--text);display:flex;align-items:center;gap:10px">
+      <span style="font-size:22px">🎉</span>
+      <div><strong>Open to Every Crew Member:</strong> Achu, Swarnu, Sreekuttan, Vichu, Thakkudu &amp; friends. Tap your name chip below to upload — no password or admin required!</div>
+    </div>
 
     <div class="form-group">
-      <label class="form-label">Who are you?</label>
+      <label class="form-label">Who are you? (Tap your name)</label>
       <div class="member-chips" id="memberChips"></div>
     </div>
 
     <div class="form-group">
-      <label class="form-label">Trip Name</label>
+      <label class="form-label">Trip / Event Name</label>
       <input class="form-input" id="tripInput" type="text" placeholder="e.g. Goa 2025 🏖️" maxlength="50">
     </div>
 
     <div class="form-group">
-      <label class="form-label">Drop your photos here</label>
+      <label class="form-label">Drop your photos &amp; videos here</label>
       <div class="dropzone" id="dropzone">
-        <div class="dropzone-icon">🖼️</div>
+        <div class="dropzone-icon">📸 🎥</div>
         <p><strong>Click to browse</strong> or drag &amp; drop</p>
-        <p style="margin-top:6px;font-size:12px">JPG, PNG, HEIC, WebP supported</p>
-        <input type="file" id="fileInput" accept="image/*" multiple style="display:none">
+        <p style="margin-top:6px;font-size:12px;color:var(--accent)">MP4, MOV, WebM, MKV, JPG, PNG, HEIC — Original files preserved byte-for-byte</p>
+        <input type="file" id="fileInput" accept="image/*,video/*,.mov,.mp4,.webm,.mkv,.heic" multiple style="display:none">
         <div class="preview-thumbs" id="previewThumbs"></div>
       </div>
     </div>
 
-    <button type="button" class="btn-primary btn-full" id="confirmUpload" disabled>📤 Upload Photos</button>
+    <div class="upload-progress-box" id="uploadProgressBox" style="display:none;margin-bottom:16px">
+      <div class="progress-info-row" style="display:flex;justify-content:space-between;font-size:12px;color:var(--text);margin-bottom:6px">
+        <span id="uploadProgressFileName">Uploading original files...</span>
+        <span id="uploadProgressPercent" style="color:var(--accent);font-weight:600">0%</span>
+      </div>
+      <div class="progress-bar-track" style="height:6px;background:var(--bg3);border:1px solid var(--border2);border-radius:10px;overflow:hidden">
+        <div id="uploadProgressBarFill" style="height:100%;width:0%;background:linear-gradient(90deg,var(--accent),#fff2d1);transition:width 0.2s ease"></div>
+      </div>
+      <div id="uploadProgressDetail" style="font-size:11px;color:var(--muted);margin-top:6px;text-align:right">Preserving original quality and size (100%)</div>
+    </div>
+
+    <button type="button" class="btn-primary btn-full" id="confirmUpload" disabled>📤 Upload Original Files</button>
   </div>
 </div>
 
@@ -791,10 +880,39 @@ nav{padding:16px 20px}
   <button class="lb-close" id="lbClose">✕</button>
   <button class="lb-prev" id="lbPrev">‹</button>
   <button class="lb-next" id="lbNext">›</button>
-  <div class="lb-img-wrap"><img id="lbImg" src="" alt=""></div>
-  <div class="lb-info">
-    <div><div class="lb-name" id="lbName"></div><div class="lb-trip-name" id="lbTrip"></div></div>
-    <button class="btn-download" id="lbDownload">⬇ Download</button>
+  <div class="lb-img-wrap">
+    <img id="lbImg" src="" alt="" style="display:none">
+    <video id="lbVideo" class="lb-video" controls playsinline style="display:none"></video>
+  </div>
+  <div class="lb-bottom-bar" onclick="event.stopPropagation()">
+    <div class="lb-actions-row">
+      <div>
+        <div class="lb-name" id="lbName"></div>
+        <div class="lb-trip-name" id="lbTrip"></div>
+        <div class="lb-meta-badge" id="lbMetaBadge" style="font-size:11px;color:var(--accent);margin-top:3px;display:flex;align-items:center;gap:6px"></div>
+      </div>
+      <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap">
+        <button type="button" class="btn-comments-toggle" id="btnCommentsToggle" onclick="toggleCommentsDrawer()">
+          💬 Comments <span id="lbCommentsCountBadge" class="comment-count-badge">0</span>
+        </button>
+        <button type="button" class="btn-download" id="lbDownload">⬇ Download Original</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- COMMENTS DRAWER -->
+  <div class="lb-comments-drawer" id="lbCommentsDrawer" onclick="event.stopPropagation()">
+    <div class="comments-header">
+      <div class="comments-title">💬 Crew Thoughts (<span id="drawerCommentsCount">0</span>)</div>
+      <button type="button" class="comments-close-btn" onclick="toggleCommentsDrawer(false)">✕</button>
+    </div>
+    <div class="comments-list" id="drawerCommentsList"></div>
+    <form class="comment-input-wrap" id="commentForm" action="javascript:void(0);" onsubmit="event.preventDefault();submitComment();return false;">
+      <div class="comment-form-row">
+        <input type="text" class="comment-input" id="commentTextInput" placeholder="Drop a thought to the crew..." maxlength="200" autocomplete="off">
+        <button type="submit" class="btn-comment-send" id="commentSubmitBtn">Post ➤</button>
+      </div>
+    </form>
   </div>
 </div>
 
@@ -805,6 +923,7 @@ nav{padding:16px 20px}
 <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-auth-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-storage-compat.js"></script>
 
 <script>
 // ── FIREBASE BACKEND ──────────────────────────────────────────────────────
@@ -820,6 +939,7 @@ const firebaseConfig = {
 
 let db = null;
 let auth = null;
+let storage = null;
 try {
   if(window.firebase){
     if(!firebase.apps.length){
@@ -828,6 +948,13 @@ try {
     db = firebase.firestore();
     if(firebase.auth){
       auth = firebase.auth();
+    }
+    if(firebase.storage){
+      try {
+        storage = firebase.storage();
+      } catch(sErr){
+        console.warn("Storage init warning:", sErr);
+      }
     }
   }
 } catch(err){
@@ -881,6 +1008,410 @@ function addDeletedId(id){
   if(id && deletedIds.indexOf(id) === -1){
     deletedIds.push(id);
     try { localStorage.setItem("cg_deleted", JSON.stringify(deletedIds)); } catch(e){}
+  }
+}
+
+// ── INDEXEDDB & ORIGINAL MEDIA VAULT ─────────────────────────────────────
+const IDB_NAME = "CousinsGalleryOriginalsDB";
+const IDB_STORE = "originalFiles";
+let idbInstance = null;
+
+function getIDB(){
+  if(idbInstance) return Promise.resolve(idbInstance);
+  return new Promise(function(resolve){
+    if(!window.indexedDB){
+      resolve(null);
+      return;
+    }
+    try {
+      var req = indexedDB.open(IDB_NAME, 1);
+      req.onupgradeneeded = function(e){
+        var idb = e.target.result;
+        if(!idb.objectStoreNames.contains(IDB_STORE)){
+          idb.createObjectStore(IDB_STORE, { keyPath: "id" });
+        }
+      };
+      req.onsuccess = function(e){
+        idbInstance = e.target.result;
+        resolve(idbInstance);
+      };
+      req.onerror = function(){
+        resolve(null);
+      };
+    } catch(err){
+      resolve(null);
+    }
+  });
+}
+
+async function saveOriginalToIDB(id, fileOrBlob, name, type, size){
+  try {
+    var idb = await getIDB();
+    if(!idb) return false;
+    return new Promise(function(resolve){
+      try {
+        var tx = idb.transaction([IDB_STORE], "readwrite");
+        var store = tx.objectStore(IDB_STORE);
+        store.put({
+          id: id,
+          blob: fileOrBlob,
+          name: name,
+          type: type,
+          size: size || (fileOrBlob.size || 0),
+          timestamp: Date.now()
+        });
+        tx.oncomplete = function(){ resolve(true); };
+        tx.onerror = function(){ resolve(false); };
+      } catch(e){
+        resolve(false);
+      }
+    });
+  } catch(e){
+    return false;
+  }
+}
+
+async function getOriginalFromIDB(id){
+  try {
+    var idb = await getIDB();
+    if(!idb) return null;
+    return new Promise(function(resolve){
+      try {
+        var tx = idb.transaction([IDB_STORE], "readonly");
+        var store = tx.objectStore(IDB_STORE);
+        var req = store.get(id);
+        req.onsuccess = function(){ resolve(req.result || null); };
+        req.onerror = function(){ resolve(null); };
+      } catch(e){
+        resolve(null);
+      }
+    });
+  } catch(e){
+    return null;
+  }
+}
+
+async function deleteOriginalFromIDB(id){
+  try {
+    var idb = await getIDB();
+    if(!idb) return;
+    var tx = idb.transaction([IDB_STORE], "readwrite");
+    tx.objectStore(IDB_STORE).delete(id);
+  } catch(e){}
+}
+
+function isVideoFile(file){
+  if(!file) return false;
+  if(file.type && file.type.startsWith("video/")) return true;
+  var name = (file.name || "").toLowerCase();
+  return /\.(mp4|webm|mov|m4v|ogv|avi|mkv|3gp)($|\?)/i.test(name);
+}
+
+function isVideoItem(p){
+  if(!p) return false;
+  if(p.mediaType === "video") return true;
+  if(p.mimeType && p.mimeType.startsWith("video/")) return true;
+  var str = (p.name || p.src || p.originalUrl || "").toLowerCase();
+  return /\.(mp4|webm|mov|m4v|ogv|avi|mkv|3gp)($|\?)/i.test(str);
+}
+
+function formatFileSize(bytes){
+  if(!bytes || isNaN(bytes)) return "";
+  if(bytes < 1024) return bytes + " B";
+  if(bytes < 1024 * 1024) return (bytes / 1024).toFixed(1) + " KB";
+  if(bytes < 1024 * 1024 * 1024) return (bytes / (1024 * 1024)).toFixed(1) + " MB";
+  return (bytes / (1024 * 1024 * 1024)).toFixed(2) + " GB";
+}
+
+function dataUrlToBlob(dataUrl){
+  var arr = dataUrl.split(',');
+  var mime = (arr[0].match(/:(.*?);/) || [])[1] || 'image/jpeg';
+  var bstr = atob(arr[1]);
+  var n = bstr.length;
+  var u8arr = new Uint8Array(n);
+  while(n--){
+    u8arr[n] = bstr.charCodeAt(n);
+  }
+  return new Blob([u8arr], { type: mime });
+}
+
+function generateVideoThumbnail(file){
+  return new Promise(function(resolve){
+    try {
+      var video = document.createElement("video");
+      var url = URL.createObjectURL(file);
+      video.src = url;
+      video.muted = true;
+      video.playsInline = true;
+      video.preload = "metadata";
+
+      var finished = false;
+      var cleanUp = function(){
+        if(finished) return;
+        finished = true;
+        try { URL.revokeObjectURL(url); } catch(e){}
+      };
+
+      video.onloadeddata = function(){
+        try {
+          video.currentTime = Math.min(0.5, (video.duration || 1) / 2);
+        } catch(e){
+          cleanUp();
+          resolve(null);
+        }
+      };
+
+      video.onseeked = function(){
+        try {
+          var canvas = document.createElement("canvas");
+          var w = video.videoWidth || 640;
+          var h = video.videoHeight || 360;
+          var maxDim = 640;
+          if(w > maxDim || h > maxDim){
+            if(w > h){
+              h = Math.round((h * maxDim) / w);
+              w = maxDim;
+            } else {
+              w = Math.round((w * maxDim) / h);
+              h = maxDim;
+            }
+          }
+          canvas.width = Math.max(w, 1);
+          canvas.height = Math.max(h, 1);
+          var ctx = canvas.getContext("2d");
+          ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+          var dataUrl = canvas.toDataURL("image/jpeg", 0.78);
+          cleanUp();
+          resolve(dataUrl);
+        } catch(e){
+          cleanUp();
+          resolve(null);
+        }
+      };
+
+      video.onerror = function(){
+        cleanUp();
+        resolve(null);
+      };
+
+      setTimeout(function(){
+        cleanUp();
+        resolve(null);
+      }, 4000);
+    } catch(err){
+      resolve(null);
+    }
+  });
+}
+
+function generateImageThumbnail(file, maxDimension, quality){
+  return new Promise(function(resolve){
+    try {
+      resizeImageToDataUrl(file, maxDimension || 800, quality || 0.78, function(url){
+        resolve(url);
+      });
+    } catch(e){
+      resolve(null);
+    }
+  });
+}
+
+function triggerBlobDownload(blob, filename){
+  var blobUrl = URL.createObjectURL(blob);
+  var a = document.createElement("a");
+  a.style.display = "none";
+  a.href = blobUrl;
+  a.download = filename || "original_file";
+  document.body.appendChild(a);
+  a.click();
+  setTimeout(function(){
+    a.remove();
+    try { URL.revokeObjectURL(blobUrl); } catch(e){}
+  }, 1000);
+}
+
+async function downloadOriginalFile(p){
+  if(!p) return;
+  var isVid = isVideoItem(p);
+  var defaultExt = isVid ? ".mp4" : ".jpg";
+  var filename = p.name || ("cousins_memory_" + p.id + defaultExt);
+  var sizeText = p.size ? (" (" + formatFileSize(p.size) + ")") : "";
+
+  toast("⬇️ Downloading original " + filename + sizeText + " at full quality...", "info");
+
+  // 1. Check local IndexedDB first for exact byte-for-byte File/Blob
+  try {
+    var idbRecord = await getOriginalFromIDB(p.id);
+    if(idbRecord && idbRecord.blob){
+      triggerBlobDownload(idbRecord.blob, filename);
+      toast("✅ Download complete! " + formatFileSize(idbRecord.blob.size) + " file saved at 100% original quality & size.", "success");
+      return;
+    }
+  } catch(e){
+    console.warn("IndexedDB read note:", e);
+  }
+
+  // 2. Fetch original from originalUrl or src
+  var targetUrl = p.originalUrl || p.src;
+  if(targetUrl){
+    if(targetUrl.startsWith("data:")){
+      try {
+        var blob = dataUrlToBlob(targetUrl);
+        triggerBlobDownload(blob, filename);
+        toast("✅ Original file downloaded at exact size!", "success");
+        return;
+      } catch(e){}
+    }
+
+    if(targetUrl.startsWith("blob:")){
+      var a = document.createElement("a");
+      a.href = targetUrl;
+      a.download = filename;
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      toast("✅ Original file downloaded!", "success");
+      return;
+    }
+
+    // Remote URL (Firebase Storage download URL)
+    try {
+      var response = await fetch(targetUrl);
+      if(!response.ok) throw new Error("HTTP " + response.status);
+      var blob = await response.blob();
+      triggerBlobDownload(blob, filename);
+      toast("✅ Download complete! Original " + formatFileSize(blob.size) + " file saved at exact quality & size.", "success");
+      return;
+    } catch(err){
+      console.warn("Direct fetch download note, fallback to browser link:", err.message);
+      var a = document.createElement("a");
+      a.href = targetUrl;
+      a.download = filename;
+      a.target = "_blank";
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      toast("⬇️ Downloading original file in browser...", "info");
+      return;
+    }
+  }
+
+  toast("Original file not available", "error");
+}
+
+async function uploadMediaFile(file, memberId, tripName, onProgress){
+  var isVid = isVideoFile(file);
+  var id = uid();
+  var fileName = file.name || (isVid ? "video.mp4" : "photo.jpg");
+  var fileSize = file.size;
+  var mimeType = file.type || (isVid ? "video/mp4" : "image/jpeg");
+
+  // 1. Generate fast thumbnail for responsive masonry grid
+  var thumbUrl = null;
+  if(isVid){
+    thumbUrl = await generateVideoThumbnail(file);
+  } else {
+    thumbUrl = await generateImageThumbnail(file, 800, 0.78);
+  }
+
+  // 2. Save byte-for-byte original to local IndexedDB (100% exact quality, size, zero compression)
+  await saveOriginalToIDB(id, file, fileName, mimeType, fileSize);
+  var localBlobUrl = URL.createObjectURL(file);
+
+  var downloadUrl = null;
+
+  // 3. Upload uncompressed original to Firebase Storage if available
+  if(storage){
+    try {
+      var storagePath = "gallery/" + id + "_" + encodeURIComponent(fileName);
+      var storageRef = storage.ref().child(storagePath);
+
+      var uploadTask = storageRef.put(file, {
+        contentType: mimeType,
+        customMetadata: {
+          originalName: fileName,
+          originalSize: String(fileSize),
+          member: memberId,
+          trip: tripName
+        }
+      });
+
+      uploadTask.on("state_changed", function(snap){
+        if(onProgress && snap.totalBytes > 0){
+          var percent = Math.round((snap.bytesTransferred / snap.totalBytes) * 100);
+          onProgress(percent, snap.bytesTransferred, snap.totalBytes);
+        }
+      });
+
+      var snap = await uploadTask;
+      downloadUrl = await snap.ref.getDownloadURL();
+    } catch(err){
+      console.warn("Firebase Storage upload note:", err.message);
+    }
+  }
+
+  var itemSrc = downloadUrl || localBlobUrl;
+  var originalUrl = downloadUrl || localBlobUrl;
+
+  var mediaItem = {
+    id: id,
+    member: memberId,
+    name: fileName,
+    size: fileSize,
+    mimeType: mimeType,
+    mediaType: isVid ? "video" : "image",
+    src: itemSrc,
+    originalUrl: originalUrl,
+    thumb: thumbUrl || itemSrc,
+    trip: tripName,
+    date: Date.now()
+  };
+
+  // 4. Save metadata to Firestore (lightweight doc < 50KB)
+  if(db){
+    try {
+      await db.collection("photos").doc(id).set({
+        id: mediaItem.id,
+        member: mediaItem.member,
+        name: mediaItem.name,
+        size: mediaItem.size,
+        mimeType: mediaItem.mimeType,
+        mediaType: mediaItem.mediaType,
+        src: mediaItem.src,
+        originalUrl: mediaItem.originalUrl,
+        thumb: mediaItem.thumb || "",
+        trip: mediaItem.trip,
+        date: mediaItem.date
+      });
+    } catch(fsErr){
+      console.warn("Firestore save note:", fsErr.message);
+    }
+  }
+
+  return mediaItem;
+}
+
+async function hydrateMediaUrls(){
+  try {
+    var updated = false;
+    for(var i = 0; i < photos.length; i++){
+      var p = photos[i];
+      var record = await getOriginalFromIDB(p.id);
+      if(record && record.blob){
+        if(!p.src || p.src.startsWith("blob:") || !p.originalUrl || p.originalUrl.startsWith("blob:")){
+          var blobUrl = URL.createObjectURL(record.blob);
+          if(!p.src || p.src.startsWith("blob:")) p.src = blobUrl;
+          if(!p.originalUrl || p.originalUrl.startsWith("blob:")) p.originalUrl = blobUrl;
+          if(!p.size && record.blob.size) p.size = record.blob.size;
+          updated = true;
+        }
+      }
+    }
+    if(updated){
+      renderGallery();
+    }
+  } catch(e){
+    console.warn("hydrateMediaUrls note:", e);
   }
 }
 
@@ -1089,28 +1620,49 @@ function initCloudSync(){
       console.warn("Firestore crew listener:", err.message);
     });
 
-    // 2. Sync photos across all devices in real-time
+    // 2. Sync photos & videos across all devices in real-time
     db.collection("photos").orderBy("date", "desc").onSnapshot(function(snapshot){
       try {
         var cloudPhotos = [];
         snapshot.forEach(function(doc){
           if(deletedIds.indexOf(doc.id) !== -1) return; // Skip deleted photos
           var d = doc.data();
+          var isVid = d.mediaType === "video" || isVideoItem(d);
           cloudPhotos.push({
             id: doc.id,
             member: d.member,
             src: d.src,
+            originalUrl: d.originalUrl || d.src,
+            thumb: d.thumb || d.src,
+            mediaType: isVid ? "video" : "image",
+            name: d.name || (isVid ? "video.mp4" : "photo.jpg"),
+            size: d.size || null,
+            mimeType: d.mimeType || (isVid ? "video/mp4" : "image/jpeg"),
+            reactions: d.reactions || {},
+            comments: Array.isArray(d.comments) ? d.comments : [],
             trip: d.trip || "Trip",
-            name: d.name || "Photo",
             date: d.date || Date.now()
           });
         });
         // Filter out any locally deleted photos
         photos = cloudPhotos.filter(function(p){ return deletedIds.indexOf(p.id) === -1; });
-        localStorage.setItem("cg_photos", JSON.stringify(photos));
+        save();
+        hydrateMediaUrls();
         buildFilters();
         renderGallery();
         renderCousins();
+
+        var lb = document.getElementById("lightbox");
+        if(lb && lb.classList.contains("open")){
+          var currentLbPhoto = lightboxPhotos[lightboxIdx];
+          if(currentLbPhoto){
+            var updatedCurrent = photos.find(function(x){ return x.id === currentLbPhoto.id; });
+            if(updatedCurrent){
+              lightboxPhotos[lightboxIdx] = updatedCurrent;
+              renderCommentsList(updatedCurrent);
+            }
+          }
+        }
       } catch(e){ console.warn("Photos sync handle err:", e); }
     }, function(err){
       console.warn("Firestore photos listener:", err.message);
@@ -1164,12 +1716,38 @@ function escapeHtml(str){
 }
 
 let currentFilter = "all";
+let currentMediaType = "all";
 let lightboxPhotos = [];
 let lightboxIdx = 0;
 let selectedMember = null;
 let selectedFiles = [];
 
-function save(){ localStorage.setItem("cg_photos", JSON.stringify(photos)); }
+function save(){
+  try {
+    var lightweight = photos.map(function(p){
+      var isVid = isVideoItem(p);
+      return {
+        id: p.id,
+        member: p.member,
+        mediaType: isVid ? 'video' : 'image',
+        name: p.name || (isVid ? 'video.mp4' : 'photo.jpg'),
+        size: p.size || null,
+        mimeType: p.mimeType || (isVid ? 'video/mp4' : 'image/jpeg'),
+        src: (p.src && p.src.length > 250000 && !p.src.startsWith("http")) ? (p.thumb || "") : p.src,
+        originalUrl: (p.originalUrl && p.originalUrl.length < 250000) ? p.originalUrl : "",
+        thumb: (p.thumb && p.thumb.length < 250000) ? p.thumb : (p.src && p.src.length < 250000 ? p.src : ""),
+        reactions: p.reactions || {},
+        comments: Array.isArray(p.comments) ? p.comments : [],
+        trip: p.trip || "Trip",
+        date: p.date || Date.now()
+      };
+    });
+    localStorage.setItem("cg_photos", JSON.stringify(lightweight));
+  } catch(e){
+    console.warn("localStorage save note:", e.message);
+  }
+}
+
 function uid(){ return Date.now().toString(36)+Math.random().toString(36).slice(2,7); }
 function toast(msg, type){
   type = type || "success";
@@ -1243,6 +1821,25 @@ function openProfile(id){
     }
   }
 
+  var uploadForBtn = document.getElementById("profileUploadForMemberBtn");
+  if(uploadForBtn && c){
+    uploadForBtn.textContent = "↑ Upload for " + c.name;
+    uploadForBtn.onclick = function(){
+      document.getElementById("profileOverlay").classList.remove("open");
+      document.body.style.overflow = "";
+      openUpload(c.id);
+    };
+  }
+  var emptyUploadBtn = document.getElementById("profileEmptyUploadBtn");
+  if(emptyUploadBtn && c){
+    emptyUploadBtn.textContent = "↑ Upload Memories for " + c.name;
+    emptyUploadBtn.onclick = function(){
+      document.getElementById("profileOverlay").classList.remove("open");
+      document.body.style.overflow = "";
+      openUpload(c.id);
+    };
+  }
+
   var grid = document.getElementById("profileGrid");
   var empty = document.getElementById("profileEmpty");
   if(myPhotos.length===0){
@@ -1251,10 +1848,23 @@ function openProfile(id){
   } else {
     empty.style.display="none";
     grid.innerHTML = myPhotos.map(function(p,i){
-      return '<div class="photo-item" onclick="openLightboxProfile(\''+id+'\','+i+')">'
-        +'<img src="'+p.src+'" alt="'+p.trip+'" loading="lazy">'
-        +'<div class="photo-overlay"><div class="photo-meta-name">'+(p.trip||"Trip")+'</div></div>'
-        +'</div>';
+      var isVid = isVideoItem(p);
+      var displaySrc = p.thumb || p.src || p.originalUrl;
+      var videoBadge = isVid ? '<span class="video-card-badge">▶ VIDEO</span>' : '';
+      var playOverlay = isVid ? '<div class="video-play-center-btn"><span class="play-triangle">▶</span></div>' : '';
+      var sizeBadge = p.size ? '<span class="meta-size-badge">'+formatFileSize(p.size)+'</span>' : '';
+
+      return '<div class="photo-item '+(isVid ? 'video-item' : '')+'" onclick="openLightboxProfile(\''+id+'\','+i+')">'
+        + videoBadge
+        + '<img src="'+displaySrc+'" alt="'+escapeHtml(p.trip||"")+'" loading="lazy">'
+        + playOverlay
+        + '<div class="photo-overlay">'
+        + '<div class="photo-meta-top" style="display:flex;align-items:center;justify-content:space-between;width:100%">'
+        + '<div class="photo-meta-name">'+escapeHtml(p.trip||"Trip")+'</div>'
+        + sizeBadge
+        + '</div>'
+        + '</div>'
+        + '</div>';
     }).join("");
   }
   document.getElementById("profileOverlay").classList.add("open");
@@ -1274,9 +1884,17 @@ document.getElementById("profileOverlay").onclick = function(e){
   if(e.target===this){ this.classList.remove("open"); document.body.style.overflow=""; }
 };
 
+function setMediaTypeFilter(type){
+  currentMediaType = type;
+  document.querySelectorAll(".media-pill").forEach(function(pill){
+    pill.classList.toggle("active", pill.dataset.type === type);
+  });
+  renderGallery();
+}
+
 function buildFilters(){
   var bar = document.getElementById("filtersBar");
-  bar.innerHTML = '<button class="filter-btn active" data-filter="all" onclick="setFilter(\'all\')">All Photos</button>';
+  bar.innerHTML = '<button class="filter-btn active" data-filter="all" onclick="setFilter(\'all\')">All Members</button>';
   var usedIds = [];
   photos.forEach(function(p){ if(usedIds.indexOf(p.member)===-1) usedIds.push(p.member); });
   usedIds.forEach(function(id){
@@ -1301,8 +1919,19 @@ function setFilter(f){
   renderGallery();
 }
 
+function getFilteredPhotos(){
+  return photos.filter(function(p){
+    var memberMatch = currentFilter === "all" || p.member === currentFilter;
+    var isVid = isVideoItem(p);
+    var mediaMatch = currentMediaType === "all"
+      || (currentMediaType === "video" && isVid)
+      || (currentMediaType === "image" && !isVid);
+    return memberMatch && mediaMatch;
+  });
+}
+
 function renderGallery(){
-  var filtered = currentFilter==="all" ? photos : photos.filter(function(p){ return p.member===currentFilter; });
+  var filtered = getFilteredPhotos();
   var grid = document.getElementById("photoGrid");
   var empty = document.getElementById("emptyState");
   if(filtered.length===0){
@@ -1316,32 +1945,65 @@ function renderGallery(){
       if(c){
         metaName = c.dp ? '<img src="'+c.dp+'" class="chip-img" style="width:16px;height:16px;margin-right:4px">'+escapeHtml(c.name) : c.emoji+" "+escapeHtml(c.name);
       }
-      var delBtn = canDeletePhoto() ? '<button class="btn-icon" title="Delete Photo (Super Admin)" onclick="event.stopPropagation();delPhoto(\''+p.id+'\')">🗑</button>' : '';
-      return '<div class="photo-item" onclick="openLightbox(getFilteredPhotos(),'+i+')">'
-        +'<img src="'+p.src+'" alt="'+p.trip+'" loading="lazy">'
-        +'<div class="photo-overlay">'
-        +'<div class="photo-meta-name" style="display:flex;align-items:center">'+metaName+'</div>'
-        +'<div class="photo-meta-trip">'+(p.trip||"")+'</div>'
-        +'</div>'
-        +'<div class="photo-actions">'
-        +'<button class="btn-icon" title="Download" onclick="event.stopPropagation();dlPhoto(\''+p.id+'\')">⬇</button>'
+      var delBtn = canDeletePhoto() ? '<button class="btn-icon" title="Delete Memory (Super Admin)" onclick="event.stopPropagation();delPhoto(\''+p.id+'\')">🗑</button>' : '';
+      var isVid = isVideoItem(p);
+      var displaySrc = p.thumb || p.src || p.originalUrl;
+      var videoBadge = isVid ? '<span class="video-card-badge">▶ VIDEO</span>' : '';
+      var playOverlay = isVid ? '<div class="video-play-center-btn"><span class="play-triangle">▶</span></div>' : '';
+      var sizeBadge = p.size ? '<span class="meta-size-badge">'+formatFileSize(p.size)+'</span>' : '';
+
+      var totalComments = Array.isArray(p.comments) ? p.comments.length : 0;
+      var socialBadge = "";
+      if(totalComments > 0){
+        socialBadge = '<div class="social-stats-badge" title="View comments" onclick="event.stopPropagation();openLightboxWithComments(\''+p.id+'\')">'
+          + '<span class="social-stat-item">💬 ' + totalComments + '</span>'
+          + '</div>';
+      }
+
+      return '<div class="photo-item '+(isVid ? 'video-item' : '')+'" onclick="openLightbox(getFilteredPhotos(),'+i+')">'
+        + videoBadge
+        + '<img src="'+displaySrc+'" alt="'+escapeHtml(p.trip||"")+'" loading="lazy">'
+        + playOverlay
+        + '<div class="photo-overlay">'
+        + '<div class="photo-meta-top" style="display:flex;align-items:center;justify-content:space-between;width:100%">'
+        + '<div class="photo-meta-name" style="display:flex;align-items:center">'+metaName+'</div>'
+        + sizeBadge
+        + '</div>'
+        + '<div style="display:flex;align-items:center;justify-content:space-between;width:100%">'
+        + '<div class="photo-meta-trip">'+escapeHtml(p.trip||"")+'</div>'
+        + socialBadge
+        + '</div>'
+        + '</div>'
+        + '<div class="photo-actions">'
+        + '<button class="btn-icon" title="View &amp; Comment" onclick="event.stopPropagation();openLightboxWithComments(\''+p.id+'\')">💬</button>'
+        + '<button class="btn-icon" title="Download Original ('+formatFileSize(p.size)+')" onclick="event.stopPropagation();dlPhoto(\''+p.id+'\')">⬇</button>'
         + delBtn
-        +'</div></div>';
+        + '</div></div>';
     }).join("");
   }
 }
 
-function getFilteredPhotos(){ return currentFilter==="all" ? photos : photos.filter(function(p){ return p.member===currentFilter; }); }
+function openLightboxWithComments(photoId){
+  var filtered = getFilteredPhotos();
+  var idx = filtered.findIndex(function(p){ return p.id === photoId; });
+  if(idx !== -1){
+    openLightbox(filtered, idx);
+    setTimeout(function(){
+      toggleCommentsDrawer(true);
+    }, 120);
+  }
+}
 
 function delPhoto(id){
   if(!canDeletePhoto()){
-    toast("Only Super Admin (Achu) can delete photos 👑", "info");
+    toast("Only Super Admin (Achu) can delete memories 👑", "info");
     openAuthModal('admin');
     return;
   }
-  if(!confirm("Are you sure you want to delete this photo?")) return;
+  if(!confirm("Are you sure you want to delete this memory?")) return;
   addDeletedId(id);
   photos = photos.filter(function(p){ return p.id!==id; });
+  deleteOriginalFromIDB(id);
   save(); buildFilters(); renderGallery(); renderCousins();
   if(db){
     db.collection("photos").doc(id).delete().catch(function(e){ console.warn("Cloud delete err:", e); });
@@ -1349,35 +2011,279 @@ function delPhoto(id){
       ids: deletedIds
     }).catch(function(e){ console.warn("Cloud deleted ids sync err:", e); });
   }
-  toast("Photo deleted everywhere", "info");
+  toast("Memory deleted everywhere", "info");
 }
 
 function dlPhoto(id){
-  var p = photos.find(function(x){ return x.id===id; }); if(!p) return;
-  var a = document.createElement("a"); a.href=p.src; a.download=p.name||"photo.jpg"; a.click();
+  var p = photos.find(function(x){ return x.id===id; });
+  if(!p) return;
+  downloadOriginalFile(p);
 }
 
 function openLightbox(arr,idx){
   lightboxPhotos=arr; lightboxIdx=idx;
   document.getElementById("lightbox").classList.add("open");
   document.body.style.overflow="hidden";
+  populateCommentAuthorSelect();
   showLbPhoto();
+}
+
+function closeLightbox(){
+  var lb = document.getElementById("lightbox");
+  if(lb) lb.classList.remove("open");
+  document.body.style.overflow="";
+  var vid = document.getElementById("lbVideo");
+  if(vid){
+    vid.pause();
+    vid.src = "";
+  }
+  toggleCommentsDrawer(false);
 }
 
 function showLbPhoto(){
   var p = lightboxPhotos[lightboxIdx];
+  if(!p) return;
   var c = COUSINS.find(function(x){ return x.id===p.member; });
-  document.getElementById("lbImg").src=p.src;
-  document.getElementById("lbName").textContent=c?c.emoji+" "+c.name:"";
-  document.getElementById("lbTrip").textContent=p.trip||"";
-  document.getElementById("lbDownload").onclick=function(){
-    var a=document.createElement("a"); a.href=p.src; a.download=p.name||"photo.jpg"; a.click();
-  };
+  var isVid = isVideoItem(p);
+  var imgEl = document.getElementById("lbImg");
+  var vidEl = document.getElementById("lbVideo");
+  var metaEl = document.getElementById("lbMetaBadge");
+
+  if(isVid){
+    if(imgEl) imgEl.style.display = "none";
+    if(vidEl){
+      vidEl.style.display = "block";
+      vidEl.src = p.src || p.originalUrl;
+      vidEl.load();
+      vidEl.play().catch(function(){});
+    }
+    if(metaEl) metaEl.innerHTML = '<span style="background:#c8a96e25;border:1px solid #c8a96e55;padding:2px 8px;border-radius:4px;font-weight:600">🎥 Original Video</span>' + (p.size ? ' <span>• ' + formatFileSize(p.size) + '</span>' : '') + (p.name ? ' <span style="opacity:0.8">(' + escapeHtml(p.name) + ')</span>' : '');
+  } else {
+    if(vidEl){
+      vidEl.pause();
+      vidEl.src = "";
+      vidEl.style.display = "none";
+    }
+    if(imgEl){
+      imgEl.style.display = "block";
+      imgEl.src = p.src || p.originalUrl || p.thumb;
+    }
+    if(metaEl) metaEl.innerHTML = '<span style="background:#c8a96e25;border:1px solid #c8a96e55;padding:2px 8px;border-radius:4px;font-weight:600">📸 Original Photo</span>' + (p.size ? ' <span>• ' + formatFileSize(p.size) + '</span>' : '') + (p.name ? ' <span style="opacity:0.8">(' + escapeHtml(p.name) + ')</span>' : '');
+  }
+
+  document.getElementById("lbName").textContent = c ? c.emoji+" "+c.name : "";
+  document.getElementById("lbTrip").textContent = p.trip || "";
+
+  renderCommentsList(p);
+
+  var dlBtn = document.getElementById("lbDownload");
+  if(dlBtn){
+    var sizeTxt = p.size ? (" (" + formatFileSize(p.size) + ")") : "";
+    dlBtn.textContent = "⬇ Download Original" + sizeTxt;
+    dlBtn.onclick = function(){
+      dlPhoto(p.id);
+    };
+  }
 }
 
-document.getElementById("lbClose").onclick=function(){ document.getElementById("lightbox").classList.remove("open"); document.body.style.overflow=""; };
-document.getElementById("lbPrev").onclick=function(){ lightboxIdx=(lightboxIdx-1+lightboxPhotos.length)%lightboxPhotos.length; showLbPhoto(); };
-document.getElementById("lbNext").onclick=function(){ lightboxIdx=(lightboxIdx+1)%lightboxPhotos.length; showLbPhoto(); };
+function getActiveCommenter(){
+  if(currentUserRole === 'crew_member' && currentMemberId){
+    var c = COUSINS.find(function(x){ return x.id === currentMemberId; });
+    if(c) return c;
+  }
+  if(isSuperAdmin()){
+    var c = COUSINS.find(function(x){ return x.id === "achu"; });
+    if(c) return c;
+  }
+  var savedId = localStorage.getItem("cg_active_viewer");
+  if(savedId){
+    var c = COUSINS.find(function(x){ return x.id === savedId; });
+    if(c) return c;
+  }
+  var sel = document.getElementById("navActiveCousinSelect");
+  if(sel && sel.value){
+    var c = COUSINS.find(function(x){ return x.id === sel.value; });
+    if(c) return c;
+  }
+  return COUSINS[0];
+}
+
+function changeActiveViewer(newId){
+  if(!newId) return;
+  localStorage.setItem("cg_active_viewer", newId);
+  var member = COUSINS.find(function(x){ return x.id === newId; });
+  syncAllViewerSelects(newId);
+  if(typeof updateConnectUserBadge === "function") updateConnectUserBadge();
+  toast("Active as " + (member ? member.name : newId) + " ✨", "info");
+}
+
+function syncAllViewerSelects(activeId){
+  var s = document.getElementById("navActiveCousinSelect");
+  if(s && s.value !== activeId) s.value = activeId;
+}
+
+function populateCommentAuthorSelect(){
+  var active = getActiveCommenter();
+  var currentSel = active ? active.id : (localStorage.getItem("cg_active_viewer") || (currentMemberId || (COUSINS[0] ? COUSINS[0].id : "achu")));
+
+  var optionsHtml = COUSINS.map(function(c){
+    var isSel = c.id === currentSel ? " selected" : "";
+    return '<option value="'+c.id+'"'+isSel+'>'+c.emoji+' '+escapeHtml(c.name)+'</option>';
+  }).join("");
+
+  var s = document.getElementById("navActiveCousinSelect");
+  if(s){
+    s.innerHTML = optionsHtml;
+    s.value = currentSel;
+  }
+}
+
+function updateLightboxReactions(p){
+  // Reactions feature removed
+}
+
+function toggleReaction(emoji){
+  // Reactions feature removed
+}
+
+function toggleCommentsDrawer(forceState){
+  var drawer = document.getElementById("lbCommentsDrawer");
+  var toggleBtn = document.getElementById("btnCommentsToggle");
+  if(!drawer) return;
+  var isOpen = drawer.classList.contains("open");
+  var nextState = forceState !== undefined ? forceState : !isOpen;
+
+  drawer.classList.toggle("open", nextState);
+  if(toggleBtn) toggleBtn.classList.toggle("active", nextState);
+
+  if(nextState){
+    populateCommentAuthorSelect();
+    var inp = document.getElementById("commentTextInput");
+    if(inp) setTimeout(function(){ inp.focus(); }, 150);
+  }
+}
+
+function formatCommentTime(ts){
+  if(!ts) return "";
+  var diff = Date.now() - ts;
+  var sec = Math.floor(diff / 1000);
+  if(sec < 60) return "Just now";
+  var min = Math.floor(sec / 60);
+  if(min < 60) return min + "m ago";
+  var hr = Math.floor(min / 60);
+  if(hr < 24) return hr + "h ago";
+  var days = Math.floor(hr / 24);
+  if(days < 7) return days + "d ago";
+  var d = new Date(ts);
+  return d.toLocaleDateString(undefined, { month: "short", day: "numeric" });
+}
+
+function renderCommentsList(p){
+  var list = document.getElementById("drawerCommentsList");
+  var countBadge = document.getElementById("lbCommentsCountBadge");
+  var drawerCount = document.getElementById("drawerCommentsCount");
+  if(!p || !list) return;
+
+  var comments = Array.isArray(p.comments) ? p.comments : [];
+  if(countBadge) countBadge.textContent = comments.length;
+  if(drawerCount) drawerCount.textContent = comments.length;
+
+  if(comments.length === 0){
+    list.innerHTML = '<div class="empty-comments">No comments yet.<br>Be the first cousin to drop a thought! 💭</div>';
+    return;
+  }
+
+  list.innerHTML = comments.map(function(com){
+    var c = COUSINS.find(function(x){ return x.id === com.memberId; });
+    var authorName = c ? c.name : (com.authorName || "Cousin");
+    var authorEmoji = c ? c.emoji : (com.authorEmoji || "🧑");
+    var canDelete = isSuperAdmin() || (currentMemberId && currentMemberId === com.memberId);
+    var delBtn = canDelete ? '<button type="button" class="comment-del-btn" title="Delete comment" onclick="deleteComment(\''+com.id+'\')">✕</button>' : '';
+
+    return '<div class="comment-item">'
+      + '<div class="comment-top">'
+      + '<span class="comment-author">' + authorEmoji + ' ' + escapeHtml(authorName) + '</span>'
+      + '<div><span class="comment-time">' + formatCommentTime(com.timestamp) + '</span>' + delBtn + '</div>'
+      + '</div>'
+      + '<div class="comment-text">' + escapeHtml(com.text) + '</div>'
+      + '</div>';
+  }).join("");
+
+  list.scrollTop = list.scrollHeight;
+}
+
+function submitComment(){
+  var p = lightboxPhotos[lightboxIdx];
+  if(!p) return;
+  var input = document.getElementById("commentTextInput");
+  if(!input) return;
+  var text = input.value.trim();
+  if(!text) return;
+
+  var author = getActiveCommenter();
+  var newComment = {
+    id: uid(),
+    memberId: author.id,
+    authorName: author.name,
+    authorEmoji: author.emoji || "🧑",
+    text: text,
+    timestamp: Date.now()
+  };
+
+  p.comments = Array.isArray(p.comments) ? p.comments : [];
+  p.comments.push(newComment);
+  input.value = "";
+
+  renderCommentsList(p);
+  save();
+  renderGallery();
+  toast("Comment posted! 💬", "success");
+
+  if(db){
+    db.collection("photos").doc(p.id).set({
+      comments: p.comments
+    }, { merge: true }).catch(function(err){
+      console.warn("Comments cloud sync err:", err.message);
+    });
+  }
+}
+
+function deleteComment(commentId){
+  var p = lightboxPhotos[lightboxIdx];
+  if(!p || !Array.isArray(p.comments)) return;
+  if(!confirm("Delete this comment?")) return;
+
+  p.comments = p.comments.filter(function(c){ return c.id !== commentId; });
+  renderCommentsList(p);
+  save();
+  renderGallery();
+  toast("Comment removed", "info");
+
+  if(db){
+    db.collection("photos").doc(p.id).set({
+      comments: p.comments
+    }, { merge: true }).catch(function(err){
+      console.warn("Comments delete sync err:", err.message);
+    });
+  }
+}
+
+document.getElementById("lbClose").onclick = closeLightbox;
+document.getElementById("lbPrev").onclick = function(){
+  var vid = document.getElementById("lbVideo");
+  if(vid){ vid.pause(); vid.src = ""; }
+  lightboxIdx = (lightboxIdx - 1 + lightboxPhotos.length) % lightboxPhotos.length;
+  showLbPhoto();
+};
+document.getElementById("lbNext").onclick = function(){
+  var vid = document.getElementById("lbVideo");
+  if(vid){ vid.pause(); vid.src = ""; }
+  lightboxIdx = (lightboxIdx + 1) % lightboxPhotos.length;
+  showLbPhoto();
+};
+document.getElementById("lightbox").onclick = function(e){
+  if(e.target === this) closeLightbox();
+};
 
 function shakeModal(overlayEl){
   if(!overlayEl) return;
@@ -1405,7 +2311,7 @@ document.addEventListener("keydown",function(e){
   if(lb && lb.classList.contains("open")){
     if(e.key==="ArrowLeft") document.getElementById("lbPrev").click();
     if(e.key==="ArrowRight") document.getElementById("lbNext").click();
-    if(e.key==="Escape") document.getElementById("lbClose").click();
+    if(e.key==="Escape") closeLightbox();
     return;
   }
 
@@ -1419,23 +2325,23 @@ document.addEventListener("keydown",function(e){
   }
 });
 
-function openUpload(){
-  if(!currentUserRole){
-    toast("Please sign in as Super Admin or Crew Member to upload photos 📸", "info");
-    openAuthModal('member');
-    return;
-  }
+// EVERY CREW MEMBER CAN UPLOAD PHOTOS & VIDEOS FREELY!
+function openUpload(preselectedMemberId){
   document.getElementById("uploadOverlay").classList.add("open");
   document.body.style.overflow="hidden";
-  if(isCrewMember() && currentMemberId){
-    selectChip(currentMemberId);
+  var toSelect = preselectedMemberId || currentMemberId || localStorage.getItem("cg_active_viewer") || (COUSINS[0] ? COUSINS[0].id : null);
+  if(toSelect){
+    selectChip(toSelect);
   }
 }
-function closeUpload(){ document.getElementById("uploadOverlay").classList.remove("open"); document.body.style.overflow=""; }
-var openUp=document.getElementById("openUpload");if(openUp)openUp.onclick=openUpload;
-var emptyBtn=document.getElementById("emptyUploadBtn");if(emptyBtn)emptyBtn.onclick=openUpload;
-var heroUp=document.getElementById("heroUpload");if(heroUp)heroUp.onclick=openUpload;
-var crewUp=document.getElementById("crewUploadBtn");if(crewUp)crewUp.onclick=openUpload;
+function closeUpload(){
+  document.getElementById("uploadOverlay").classList.remove("open");
+  document.body.style.overflow="";
+  var progressBox = document.getElementById("uploadProgressBox");
+  if(progressBox) progressBox.style.display = "none";
+}
+var gallUp=document.getElementById("galleryUploadBtn");if(gallUp)gallUp.onclick=function(){ openUpload(); };
+var emptyBtn=document.getElementById("emptyUploadBtn");if(emptyBtn)emptyBtn.onclick=function(){ openUpload(); };
 document.getElementById("closeUpload").onclick=closeUpload;
 document.getElementById("uploadOverlay").onclick=function(e){ if(e.target===this) shakeModal(this); };
 
@@ -1461,84 +2367,171 @@ dz.ondragleave=function(){ dz.classList.remove("drag-over"); };
 dz.ondrop=function(e){ e.preventDefault(); dz.classList.remove("drag-over"); handleFiles(e.dataTransfer.files); };
 
 function handleFiles(files){
-  selectedFiles = Array.from(files).filter(function(f){ return f.type.startsWith("image/"); });
-  var prev = document.getElementById("previewThumbs");
-  prev.innerHTML="";
-  selectedFiles.forEach(function(f){
-    var img=document.createElement("img"); img.className="thumb";
-    var r=new FileReader();
-    r.onload=function(e){ img.src=e.target.result; };
-    r.readAsDataURL(f);
-    prev.appendChild(img);
+  var validFiles = Array.from(files).filter(function(f){
+    return f.type.startsWith("image/") || f.type.startsWith("video/") || /\.(jpg|jpeg|png|gif|webp|heic|heif|mp4|webm|mov|m4v|mkv|avi)($|\?)/i.test(f.name);
   });
+
+  if(validFiles.length === 0){
+    toast("Please select image or video files (MP4, MOV, JPG, PNG, etc.)", "info");
+    return;
+  }
+
+  selectedFiles = validFiles;
+  renderPreviewThumbs();
   checkUploadReady();
 }
 
-function checkUploadReady(){
-  document.getElementById("confirmUpload").disabled=!(selectedMember && selectedFiles.length>0);
+function renderPreviewThumbs(){
+  var prev = document.getElementById("previewThumbs");
+  prev.innerHTML = "";
+  selectedFiles.forEach(function(f, idx){
+    var isVid = isVideoFile(f);
+    var itemWrap = document.createElement("div");
+    itemWrap.className = "thumb-item" + (isVid ? " thumb-video" : "");
+
+    if(isVid){
+      var vid = document.createElement("video");
+      vid.className = "thumb";
+      vid.muted = true;
+      vid.playsInline = true;
+      vid.preload = "metadata";
+      var url = URL.createObjectURL(f);
+      vid.src = url;
+      itemWrap.appendChild(vid);
+
+      var badge = document.createElement("span");
+      badge.className = "thumb-vid-tag";
+      badge.textContent = "▶ VIDEO";
+      itemWrap.appendChild(badge);
+    } else {
+      var img = document.createElement("img");
+      img.className = "thumb";
+      var r = new FileReader();
+      r.onload = function(e){ img.src = e.target.result; };
+      r.readAsDataURL(f);
+      itemWrap.appendChild(img);
+    }
+
+    var removeBtn = document.createElement("button");
+    removeBtn.className = "thumb-remove-btn";
+    removeBtn.innerHTML = "✕";
+    removeBtn.type = "button";
+    removeBtn.title = "Remove";
+    removeBtn.onclick = function(e){
+      e.stopPropagation();
+      selectedFiles.splice(idx, 1);
+      renderPreviewThumbs();
+      checkUploadReady();
+    };
+    itemWrap.appendChild(removeBtn);
+
+    var label = document.createElement("div");
+    label.className = "thumb-size-info";
+    label.textContent = formatFileSize(f.size);
+    itemWrap.appendChild(label);
+
+    prev.appendChild(itemWrap);
+  });
 }
 
-document.getElementById("confirmUpload").onclick=function(){
-  if(!isAdmin){
-    toast("Super Admin login required to upload photos 🔐", "info");
-    openAdminLogin();
-    return;
+function checkUploadReady(){
+  var btn = document.getElementById("confirmUpload");
+  if(btn){
+    if(selectedFiles.length > 0){
+      btn.disabled = false;
+      btn.style.opacity = "1";
+    } else {
+      btn.disabled = false;
+      btn.style.opacity = "0.85";
+    }
   }
-  var trip=document.getElementById("tripInput").value.trim()||"Trip";
-  var btn=document.getElementById("confirmUpload");
-  btn.disabled=true; btn.textContent="Uploading...";
-  var count=0;
-  var hadCloudSuccess=false;
-  function next(){
-    if(count>=selectedFiles.length){
-      save(); buildFilters(); renderGallery(); renderCousins();
-      var msg = selectedFiles.length+" photo"+(selectedFiles.length>1?"s":"")+" uploaded!";
-      if(hadCloudSuccess){
-        toast(msg + " ☁️ Synced to cloud!");
-      } else {
-        toast(msg + " (Saved locally)");
-      }
-      selectedFiles=[]; selectedMember=null;
-      document.getElementById("previewThumbs").innerHTML="";
-      document.getElementById("tripInput").value="";
-      document.querySelectorAll(".chip").forEach(function(c){ c.classList.remove("selected"); });
-      btn.textContent="Upload Photos"; btn.disabled=true;
-      closeUpload();
+}
+
+document.getElementById("confirmUpload").onclick = async function(){
+  if(!selectedMember){
+    var active = getActiveCommenter();
+    if(active){
+      selectChip(active.id);
+    } else {
+      toast("Please select who you are from the crew chips above! 👤", "info");
       return;
     }
-    var f=selectedFiles[count]; count++;
-    resizeImageToDataUrl(f, 1280, 0.82, function(dataUrl){
-      var item = { id: uid(), member: selectedMember, src: dataUrl, trip: trip, name: f.name, date: Date.now() };
-      // Always store locally immediately so photo persists permanently on refresh
+  }
+  if(selectedFiles.length === 0){
+    toast("Please select at least one photo or video! 📸 🎥", "info");
+    var dropEl = document.getElementById("dropzone");
+    if(dropEl){
+      dropEl.classList.add("drag-over");
+      setTimeout(function(){ dropEl.classList.remove("drag-over"); }, 600);
+    }
+    return;
+  }
+
+  var trip = document.getElementById("tripInput").value.trim() || "Trip";
+  var btn = document.getElementById("confirmUpload");
+  var progressBox = document.getElementById("uploadProgressBox");
+  var progressFill = document.getElementById("uploadProgressBarFill");
+  var progressFileName = document.getElementById("uploadProgressFileName");
+  var progressPercent = document.getElementById("uploadProgressPercent");
+  var progressDetail = document.getElementById("uploadProgressDetail");
+
+  btn.disabled = true;
+  btn.textContent = "Uploading Originals...";
+  if(progressBox) progressBox.style.display = "block";
+
+  var total = selectedFiles.length;
+  var uploadedCount = 0;
+  var hadCloudSuccess = false;
+
+  for(var i = 0; i < selectedFiles.length; i++){
+    var file = selectedFiles[i];
+    if(progressFileName) progressFileName.textContent = "Uploading " + (i + 1) + " of " + total + ": " + file.name;
+    if(progressPercent) progressPercent.textContent = "0%";
+    if(progressFill) progressFill.style.width = "0%";
+    if(progressDetail) progressDetail.textContent = "Preserving original quality and size (" + formatFileSize(file.size) + ")...";
+
+    try {
+      var item = await uploadMediaFile(file, selectedMember, trip, function(percent, transferred, totalBytes){
+        if(progressPercent) progressPercent.textContent = percent + "%";
+        if(progressFill) progressFill.style.width = percent + "%";
+        if(progressDetail) progressDetail.textContent = formatFileSize(transferred) + " / " + formatFileSize(totalBytes) + " uploaded";
+      });
+
+      if(item.src && item.src.startsWith("http")){
+        hadCloudSuccess = true;
+      }
+
       photos.unshift(item);
       save();
-
-      if(db){
-        var timeoutPromise = new Promise(function(_, reject){
-          setTimeout(function(){ reject(new Error("Cloud response timeout")); }, 4000);
-        });
-        Promise.race([
-          db.collection("photos").doc(item.id).set({
-            member: item.member,
-            src: item.src,
-            trip: item.trip,
-            name: item.name,
-            date: item.date
-          }),
-          timeoutPromise
-        ]).then(function(){
-          hadCloudSuccess = true;
-          next();
-        }).catch(function(err){
-          console.warn("Cloud save delayed/failed (saved locally):", err.message);
-          next();
-        });
-      } else {
-        next();
-      }
-    });
+      uploadedCount++;
+    } catch(err){
+      console.error("Upload error for file", file.name, err);
+      toast("Error uploading " + file.name + ": " + err.message, "error");
+    }
   }
-  next();
+
+  save();
+  buildFilters();
+  renderGallery();
+  renderCousins();
+
+  if(progressBox) progressBox.style.display = "none";
+  btn.textContent = "Upload Original Files";
+  btn.disabled = true;
+
+  var successMsg = uploadedCount + " original file" + (uploadedCount > 1 ? "s" : "") + " uploaded!";
+  if(hadCloudSuccess){
+    toast(successMsg + " ☁️ Synced to cloud in full quality!", "success");
+  } else {
+    toast(successMsg + " (Saved in original quality locally)", "success");
+  }
+
+  selectedFiles = [];
+  selectedMember = null;
+  document.getElementById("previewThumbs").innerHTML = "";
+  document.getElementById("tripInput").value = "";
+  document.querySelectorAll(".chip").forEach(function(c){ c.classList.remove("selected"); });
+  closeUpload();
 };
 
 // ── ROLE-BASED ACCESS CONTROL & AUTHENTICATION ───────────────────────────
@@ -1546,29 +2539,37 @@ function updateAuthUI(){
   var navActions = document.getElementById("navAuthActions");
   var crewBar = document.getElementById("crewAdminBar");
 
+  var activeId = getActiveCommenter() ? getActiveCommenter().id : (currentMemberId || (COUSINS[0] ? COUSINS[0].id : "achu"));
+
+  var userHtml = '';
   if(isSuperAdmin()){
     var displayId = "Achu";
     if(currentAdminUser && currentAdminUser.email){
       displayId = currentAdminUser.email.split("@")[0];
     }
-    if(navActions){
-      navActions.innerHTML = '<span class="admin-pill" id="adminUserPill"><span class="admin-badge-indicator"></span> 👑 Super Admin (' + escapeHtml(displayId) + ')</span>'
-        + '<button class="btn-nav btn-logout" id="logoutBtn" title="Log Out Super Admin">Logout</button>';
-    }
+    userHtml = '<span class="admin-pill" id="adminUserPill"><span class="admin-badge-indicator"></span> 👑 Super Admin (' + escapeHtml(displayId) + ')</span>'
+      + '<button class="btn-nav btn-logout" id="logoutBtn" title="Log Out Super Admin">Logout</button>';
     if(crewBar) crewBar.style.display = "flex";
   } else if(isCrewMember()){
     var member = COUSINS.find(function(x){ return x.id === currentMemberId; });
     var memberName = member ? member.name : "Member";
-    if(navActions){
-      navActions.innerHTML = '<span class="member-pill"><span class="member-badge-indicator"></span> 👤 ' + escapeHtml(memberName) + '</span>'
-        + '<button class="btn-nav btn-logout" id="logoutBtn" title="Log Out">Logout</button>';
-    }
+    userHtml = '<span class="member-pill"><span class="member-badge-indicator"></span> ' + (member ? member.emoji + ' ' : '👤 ') + escapeHtml(memberName) + '</span>'
+      + '<button class="btn-nav btn-logout" id="logoutBtn" title="Log Out">Logout</button>';
     if(crewBar) crewBar.style.display = "none";
   } else {
-    if(navActions){
-      navActions.innerHTML = '<button class="btn-nav btn-admin" id="openAuthModalBtn">🔐 Sign In</button>';
-    }
+    var optionsHtml = COUSINS.map(function(c){
+      return '<option value="'+c.id+'"'+(c.id===activeId?' selected':'')+'>'+c.emoji+' '+escapeHtml(c.name)+'</option>';
+    }).join("");
+    userHtml = '<div class="active-cousin-selector-wrap" title="Select your crew identity">'
+      + '<select class="nav-cousin-select" id="navActiveCousinSelect" onchange="changeActiveViewer(this.value)">'
+      + optionsHtml
+      + '</select></div>'
+      + '<button class="btn-nav btn-admin" id="openAuthModalBtn" title="Admin or PIN login">🔐 Sign In</button>';
     if(crewBar) crewBar.style.display = "none";
+  }
+
+  if(navActions){
+    navActions.innerHTML = userHtml;
   }
 
   var openBtn = document.getElementById("openAuthModalBtn");
@@ -1577,6 +2578,7 @@ function updateAuthUI(){
   if(logBtn) logBtn.onclick = logout;
   if(typeof updateConnectUserBadge === "function") updateConnectUserBadge();
   if(typeof renderVoiceParticipants === "function") renderVoiceParticipants();
+  syncAllViewerSelects(activeId);
 }
 
 function openAuthModal(defaultTab, preselectedMemberId){
@@ -1781,8 +2783,17 @@ function initAuth(){
     return;
   }
 
+  // If not signed in as Super Admin, sign in anonymously if available to grant storage write access for all crew members
+  if(!auth.currentUser){
+    try {
+      auth.signInAnonymously().catch(function(e){
+        console.log("Firebase anon auth notice:", e.message);
+      });
+    } catch(e){}
+  }
+
   auth.onAuthStateChanged(function(user){
-    if(user){
+    if(user && !user.isAnonymous){
       if(SUPER_ADMIN_EMAILS.length > 0){
         var isAllowed = SUPER_ADMIN_EMAILS.some(function(em){
           return em.toLowerCase() === (user.email || "").toLowerCase();
@@ -2948,9 +3959,12 @@ function initConnectHub(){
   initConnectChat();
   renderVoiceParticipants();
   renderVideoCrewTiles();
+  populateCommentAuthorSelect();
 }
 
 buildChips(); renderCousins(); buildFilters(); renderGallery();
+populateCommentAuthorSelect();
+hydrateMediaUrls();
 initCloudSync();
 initAuth();
 initConnectHub();
