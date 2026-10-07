@@ -2611,14 +2611,7 @@ function updateAuthUI(){
       + '<button class="btn-nav btn-logout" id="logoutBtn" title="Log Out">Logout</button>';
     if(crewBar) crewBar.style.display = "none";
   } else {
-    var optionsHtml = COUSINS.map(function(c){
-      return '<option value="'+c.id+'"'+(c.id===activeId?' selected':'')+'>'+c.emoji+' '+escapeHtml(c.name)+'</option>';
-    }).join("");
-    userHtml = '<div class="active-cousin-selector-wrap" title="Select your crew identity">'
-      + '<select class="nav-cousin-select" id="navActiveCousinSelect" onchange="changeActiveViewer(this.value)">'
-      + optionsHtml
-      + '</select></div>'
-      + '<button class="btn-nav btn-admin" id="openAuthModalBtn" title="Admin or PIN login">🔐 Sign In</button>';
+    userHtml = '<button class="btn-nav btn-admin" id="openAuthModalBtn" title="Admin or PIN login">🔐 Sign In</button>';
     if(crewBar) crewBar.style.display = "none";
   }
 
