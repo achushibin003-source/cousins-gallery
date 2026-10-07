@@ -952,6 +952,8 @@ try {
     if(firebase.storage){
       try {
         storage = firebase.storage();
+        if(storage.setMaxUploadRetryTime) storage.setMaxUploadRetryTime(3000);
+        if(storage.setMaxOperationRetryTime) storage.setMaxOperationRetryTime(3000);
       } catch(sErr){
         console.warn("Storage init warning:", sErr);
       }
@@ -1143,7 +1145,7 @@ function generateVideoThumbnail(file){
       video.src = url;
       video.muted = true;
       video.playsInline = true;
-      video.preload = "metadata";
+      video.preload = "auto";
 
       var finished = false;
       var cleanUp = function(){
@@ -1152,16 +1154,8 @@ function generateVideoThumbnail(file){
         try { URL.revokeObjectURL(url); } catch(e){}
       };
 
-      video.onloadeddata = function(){
-        try {
-          video.currentTime = Math.min(0.5, (video.duration || 1) / 2);
-        } catch(e){
-          cleanUp();
-          resolve(null);
-        }
-      };
-
-      video.onseeked = function(){
+      var captureFrame = function(){
+        if(finished) return;
         try {
           var canvas = document.createElement("canvas");
           var w = video.videoWidth || 640;
@@ -1189,15 +1183,35 @@ function generateVideoThumbnail(file){
         }
       };
 
+      video.onloadeddata = function(){
+        try {
+          var dur = video.duration;
+          var seekTime = 0.5;
+          if(isFinite(dur) && dur > 0){
+            seekTime = Math.min(0.5, dur / 2);
+          }
+          video.currentTime = seekTime;
+        } catch(e){
+          captureFrame();
+        }
+      };
+
+      video.onseeked = function(){
+        captureFrame();
+      };
+
       video.onerror = function(){
         cleanUp();
         resolve(null);
       };
 
       setTimeout(function(){
-        cleanUp();
-        resolve(null);
-      }, 4000);
+        if(!finished){
+          captureFrame();
+        }
+      }, 2500);
+
+      video.load();
     } catch(err){
       resolve(null);
     }
@@ -1320,7 +1334,7 @@ async function uploadMediaFile(file, memberId, tripName, onProgress){
 
   var downloadUrl = null;
 
-  // 3. Upload uncompressed original to Firebase Storage if available
+  // 3. Upload uncompressed original to Firebase Storage if available and responsive
   if(storage){
     try {
       var storagePath = "gallery/" + id + "_" + encodeURIComponent(fileName);
@@ -1336,21 +1350,45 @@ async function uploadMediaFile(file, memberId, tripName, onProgress){
         }
       });
 
-      uploadTask.on("state_changed", function(snap){
-        if(onProgress && snap.totalBytes > 0){
-          var percent = Math.round((snap.bytesTransferred / snap.totalBytes) * 100);
-          onProgress(percent, snap.bytesTransferred, snap.totalBytes);
-        }
-      });
+      downloadUrl = await new Promise(function(resolve, reject){
+        var bytesSeen = 0;
+        var stallTimer = setTimeout(function(){
+          if(bytesSeen === 0){
+            try { uploadTask.cancel(); } catch(e){}
+            reject(new Error("Cloud storage unresponsive"));
+          }
+        }, 5000);
 
-      var snap = await uploadTask;
-      downloadUrl = await snap.ref.getDownloadURL();
+        uploadTask.on("state_changed",
+          function(snap){
+            bytesSeen = snap.bytesTransferred;
+            if(onProgress && snap.totalBytes > 0){
+              var percent = Math.round((snap.bytesTransferred / snap.totalBytes) * 100);
+              onProgress(percent, snap.bytesTransferred, snap.totalBytes);
+            }
+          },
+          function(err){
+            clearTimeout(stallTimer);
+            reject(err);
+          },
+          async function(){
+            clearTimeout(stallTimer);
+            try {
+              var url = await uploadTask.snapshot.ref.getDownloadURL();
+              resolve(url);
+            } catch(e){
+              reject(e);
+            }
+          }
+        );
+      });
     } catch(err){
       console.warn("Firebase Storage upload note:", err.message);
     }
   }
 
-  var itemSrc = downloadUrl || localBlobUrl;
+  // If cloud URL is available, use it; otherwise fallback to local blob / thumbnail dataUrl
+  var itemSrc = downloadUrl || (isVid ? localBlobUrl : (thumbUrl || localBlobUrl));
   var originalUrl = downloadUrl || localBlobUrl;
 
   var mediaItem = {
@@ -1362,7 +1400,7 @@ async function uploadMediaFile(file, memberId, tripName, onProgress){
     mediaType: isVid ? "video" : "image",
     src: itemSrc,
     originalUrl: originalUrl,
-    thumb: thumbUrl || itemSrc,
+    thumb: thumbUrl || (isVid ? "" : itemSrc),
     trip: tripName,
     date: Date.now()
   };
@@ -1960,9 +1998,20 @@ function renderGallery(){
           + '</div>';
       }
 
+      var mediaDisplayHtml = '';
+      if(isVid){
+        if(p.thumb){
+          mediaDisplayHtml = '<img src="'+escapeHtml(p.thumb)+'" alt="'+escapeHtml(p.trip||"")+'" loading="lazy">';
+        } else {
+          mediaDisplayHtml = '<video src="'+escapeHtml(p.src || p.originalUrl)+'" preload="metadata" muted playsinline style="width:100%;height:100%;object-fit:cover;pointer-events:none"></video>';
+        }
+      } else {
+        mediaDisplayHtml = '<img src="'+displaySrc+'" alt="'+escapeHtml(p.trip||"")+'" loading="lazy">';
+      }
+
       return '<div class="photo-item '+(isVid ? 'video-item' : '')+'" onclick="openLightbox(getFilteredPhotos(),'+i+')">'
         + videoBadge
-        + '<img src="'+displaySrc+'" alt="'+escapeHtml(p.trip||"")+'" loading="lazy">'
+        + mediaDisplayHtml
         + playOverlay
         + '<div class="photo-overlay">'
         + '<div class="photo-meta-top" style="display:flex;align-items:center;justify-content:space-between;width:100%">'
@@ -2476,54 +2525,59 @@ document.getElementById("confirmUpload").onclick = async function(){
   var progressDetail = document.getElementById("uploadProgressDetail");
 
   btn.disabled = true;
-  btn.textContent = "Uploading Originals...";
+  btn.textContent = "Processing & Saving...";
   if(progressBox) progressBox.style.display = "block";
 
   var total = selectedFiles.length;
   var uploadedCount = 0;
   var hadCloudSuccess = false;
 
-  for(var i = 0; i < selectedFiles.length; i++){
-    var file = selectedFiles[i];
-    if(progressFileName) progressFileName.textContent = "Uploading " + (i + 1) + " of " + total + ": " + file.name;
-    if(progressPercent) progressPercent.textContent = "0%";
-    if(progressFill) progressFill.style.width = "0%";
-    if(progressDetail) progressDetail.textContent = "Preserving original quality and size (" + formatFileSize(file.size) + ")...";
+  try {
+    for(var i = 0; i < selectedFiles.length; i++){
+      var file = selectedFiles[i];
+      var isThisVid = isVideoFile(file);
+      if(progressFileName) progressFileName.textContent = "Saving " + (i + 1) + " of " + total + ": " + file.name;
+      if(progressPercent) progressPercent.textContent = "0%";
+      if(progressFill) progressFill.style.width = "0%";
+      if(progressDetail) progressDetail.textContent = "Preserving original quality and size (" + formatFileSize(file.size) + ")...";
 
-    try {
-      var item = await uploadMediaFile(file, selectedMember, trip, function(percent, transferred, totalBytes){
-        if(progressPercent) progressPercent.textContent = percent + "%";
-        if(progressFill) progressFill.style.width = percent + "%";
-        if(progressDetail) progressDetail.textContent = formatFileSize(transferred) + " / " + formatFileSize(totalBytes) + " uploaded";
-      });
+      try {
+        var item = await uploadMediaFile(file, selectedMember, trip, function(percent, transferred, totalBytes){
+          if(progressPercent) progressPercent.textContent = percent + "%";
+          if(progressFill) progressFill.style.width = percent + "%";
+          if(progressDetail) progressDetail.textContent = formatFileSize(transferred) + " / " + formatFileSize(totalBytes) + " uploaded";
+        });
 
-      if(item.src && item.src.startsWith("http")){
-        hadCloudSuccess = true;
+        if(item.src && item.src.startsWith("http")){
+          hadCloudSuccess = true;
+        }
+
+        photos.unshift(item);
+        save();
+        uploadedCount++;
+      } catch(err){
+        console.error("Upload error for file", file.name, err);
+        toast("Note for " + file.name + ": " + err.message, "info");
       }
-
-      photos.unshift(item);
-      save();
-      uploadedCount++;
-    } catch(err){
-      console.error("Upload error for file", file.name, err);
-      toast("Error uploading " + file.name + ": " + err.message, "error");
     }
+  } finally {
+    save();
+    buildFilters();
+    renderGallery();
+    renderCousins();
+
+    if(progressBox) progressBox.style.display = "none";
+    btn.textContent = "↑ Upload Photos & Videos";
+    btn.disabled = false;
   }
 
-  save();
-  buildFilters();
-  renderGallery();
-  renderCousins();
-
-  if(progressBox) progressBox.style.display = "none";
-  btn.textContent = "Upload Original Files";
-  btn.disabled = true;
-
-  var successMsg = uploadedCount + " original file" + (uploadedCount > 1 ? "s" : "") + " uploaded!";
-  if(hadCloudSuccess){
-    toast(successMsg + " ☁️ Synced to cloud in full quality!", "success");
-  } else {
-    toast(successMsg + " (Saved in original quality locally)", "success");
+  if(uploadedCount > 0){
+    var successMsg = uploadedCount + " memory" + (uploadedCount > 1 ? "ies" : "") + " added!";
+    if(hadCloudSuccess){
+      toast(successMsg + " ☁️ Synced to cloud in full quality!", "success");
+    } else {
+      toast(successMsg + " 🎬 Saved in original quality!", "success");
+    }
   }
 
   selectedFiles = [];
