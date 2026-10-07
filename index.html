@@ -633,12 +633,6 @@ nav{padding:16px 20px}
         <div class="profile-stats">
           <div class="pstat"><div class="pstat-val" id="profileCount">0</div><div class="pstat-lbl">Memories</div></div>
         </div>
-        <div style="margin-top:14px;display:flex;align-items:center;gap:10px;flex-wrap:wrap">
-          <button type="button" class="btn-primary" id="profileUploadForMemberBtn" style="padding:7px 20px;font-size:12px;border-radius:50px">↑ Upload for this Cousin</button>
-          <div id="profileEditBtnWrap" style="display:none">
-            <button type="button" class="btn-admin-action" id="profileEditActionBtn" style="padding:6px 18px;font-size:12px">✎ Edit Profile</button>
-          </div>
-        </div>
       </div>
     </div>
     <div class="profile-body">
@@ -646,8 +640,6 @@ nav{padding:16px 20px}
       <div class="empty-state" id="profileEmpty" style="display:none">
         <div class="empty-icon">🤳</div>
         <h3>No memories yet</h3>
-        <p>Click Upload Memories to add your first photo or video!</p>
-        <button type="button" class="btn-primary" id="profileEmptyUploadBtn" style="margin-top:12px;padding:8px 24px;font-size:12px;border-radius:50px">↑ Upload Memories Now</button>
       </div>
     </div>
   </div>
@@ -1833,48 +1825,7 @@ function openProfile(id){
   document.getElementById("profileTag").textContent = c.tag;
   document.getElementById("profileCount").textContent = myPhotos.length;
 
-  var editBtnWrap = document.getElementById("profileEditBtnWrap");
-  var editActionBtn = document.getElementById("profileEditActionBtn");
-  if(editBtnWrap && editActionBtn){
-    if(canEditMember(id)){
-      editBtnWrap.style.display = "block";
-      editActionBtn.textContent = isSuperAdmin() && id !== "achu" ? "✎ Edit Member Profile" : "✎ Edit My Profile";
-      editActionBtn.onclick = function(){
-        document.getElementById("profileOverlay").classList.remove("open");
-        document.body.style.overflow = "";
-        openMemberEditModal(id);
-      };
-    } else if(!currentUserRole){
-      editBtnWrap.style.display = "block";
-      editActionBtn.textContent = "🔑 Member Login to Edit";
-      editActionBtn.onclick = function(){
-        document.getElementById("profileOverlay").classList.remove("open");
-        document.body.style.overflow = "";
-        openAuthModal('member', id);
-      };
-    } else {
-      editBtnWrap.style.display = "none";
-    }
-  }
 
-  var uploadForBtn = document.getElementById("profileUploadForMemberBtn");
-  if(uploadForBtn && c){
-    uploadForBtn.textContent = "↑ Upload for " + c.name;
-    uploadForBtn.onclick = function(){
-      document.getElementById("profileOverlay").classList.remove("open");
-      document.body.style.overflow = "";
-      openUpload(c.id);
-    };
-  }
-  var emptyUploadBtn = document.getElementById("profileEmptyUploadBtn");
-  if(emptyUploadBtn && c){
-    emptyUploadBtn.textContent = "↑ Upload Memories for " + c.name;
-    emptyUploadBtn.onclick = function(){
-      document.getElementById("profileOverlay").classList.remove("open");
-      document.body.style.overflow = "";
-      openUpload(c.id);
-    };
-  }
 
   var grid = document.getElementById("profileGrid");
   var empty = document.getElementById("profileEmpty");
